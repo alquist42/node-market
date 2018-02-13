@@ -59,6 +59,19 @@ function getFruits(params, callback) {
     });
 }
 
+function addToCart(params, callback) {
+
+    dal.executeQuery('INSERT INTO `carts` (id, customer, creation_date) VALUES (?,?,?)',
+        [params.id, params.customer, params.creation_date],
+        function(err, rows) {
+        if (err) {
+            console.log('error sql', err);
+            return callback('Add To Cart Error');
+        }
+        let addToCartModel = new models.Cart(params);
+        callback(null, addToCartModel);
+    });
+}
 
 
 
@@ -73,4 +86,8 @@ module.exports.auth = {
 
 module.exports.reg = {
     register: register
+};
+
+module.exports.carts = {
+    addToCart: addToCart
 };

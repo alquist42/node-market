@@ -37,8 +37,15 @@ function User(user) {
  //   this.password= user['password'];
 }
 
+function Cart(cart) {
+    this.id = cart['id'];
+    this.customer= cart['customer'];
+    this.creation_date = cart['creation_date'];
+}
+
 module.exports.Egg = Egg;
 module.exports.Fruit = Fruit;
 module.exports.Fish = Fish;
 module.exports.Drink = Drink;
 module.exports.User = User;
+module.exports.Cart = Cart;
