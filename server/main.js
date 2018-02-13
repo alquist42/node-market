@@ -109,6 +109,13 @@ app.post('/logout', function (req, res) {
 
 });
 // TODO
+app.post('/fruit/edit', function (req, res) {
+       console.log(req.query);
+    //   res.end(JSON.stringify(req.query));
+});
+
+
+// TODO
 app.post('/cart/add', function (req, res) {
 
     cartCtrl.AddToCart(req.query, req.session, function(err, result) {

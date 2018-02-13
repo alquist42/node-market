@@ -7,6 +7,18 @@ coolApp.service('fruitService', function($http) {
             params: {category: categoryId}
         }).then(onSuccess, onError);
     }
+
+    this.saveFruit = function(fruit, onSuccess, onError ) {
+        $http({
+            url: 'http://localhost:8081/fruit/edit',
+            method: 'POST',
+            params: {
+                id: fruit.id,
+                name: fruit.name,
+                price: fruit.price
+            }
+        }).then(onSuccess, onError);
+    }
 });
 
 

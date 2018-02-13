@@ -1,5 +1,5 @@
 
-coolApp.controller('fruitCtrl', function($scope, $location, $routeParams, fruitService,cartService, myModal) {
+coolApp.controller('fruitCtrl', function($scope, $location, $routeParams,$templateRequest,$compile, fruitService,cartService, myModal) {
 
 
     $scope.showFruit = false;
@@ -52,6 +52,20 @@ coolApp.controller('fruitCtrl', function($scope, $location, $routeParams, fruitS
        console.log('fr',id, count);
     };
 
+    $scope.editFruit = function(){
+        $scope.fruitEdited = angular.copy($scope.fruit);
+        $templateRequest("fruits/admin.fruits.form.html").then(function(html){
+            var template = angular.element(html);
+            angular.element(document.querySelector('.container')).empty().append(template);
+            $compile(template)($scope);
+        });
+    };
+// TODO
+    $scope.saveFruit = function(){
+        fruitService.saveFruit($scope.fruitEdited, function(res) {
+            console.log(res);
+        }, function(res) {});
+    }
     var showModal = myModal.activate;
 
 });
