@@ -66,6 +66,14 @@ coolApp.controller('fruitCtrl', function($scope, $location, $routeParams,$templa
             console.log(res);
         }, function(res) {});
     }
+
+    $scope.closeForm = function(){
+        $templateRequest("fruits/admin.fruits.preview.html").then(function(html){
+            var template = angular.element(html);
+            angular.element(document.querySelector('.container')).empty().append(template);
+            $compile(template)($scope);
+        });
+    }
     var showModal = myModal.activate;
 
 });
