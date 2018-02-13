@@ -1,0 +1,7 @@
+<div  class="btf-modal demo-modal">
+    <p>
+    <h2>Adding to cart {{modal.fruitName}}</h2> <a class="demo-modal-close" href ng-click="modal.closeMe()">x</a>
+
+    <input type="text" value="1" ng-model="modal.count">
+    <button ng-controller="fruitCtrl" ng-click="addToCart(modal.fruitId, modal.count); modal.closeMe()">Add to cart </button>
+</div>

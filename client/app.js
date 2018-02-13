@@ -1,0 +1,1 @@
+var coolApp = angular.module('cool', ['ngRoute','elif','btford.modal']);

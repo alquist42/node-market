@@ -1,0 +1,107 @@
+
+<div id="registrForm" class="col-md-offset-4 col-md-5">
+
+    <form id="frmLogin" name="frmLogin" oninput="result.value=!!userPasswordConfirm.value&&(userPassword.value==userPasswordConfirm.value)?'':'Fields must match'">
+    <fieldset>
+            <legend><h1 class="text-center">Registration</h1></legend>
+    <div id="step1">
+        <h3 class="text-center">This is Step 1</h3>
+
+        <div class="form-group row">
+            <label for="userTeudatZehut" class="col-sm-2 control-label required-field">ID</label>
+            <div class="col-sm-9">
+                <input ng-model="user.teudat_zehut" type="text" id="userTeudatZehut" name="userTeudatZehut" class="form-control input-sm chat-input margin_bottom"
+                       placeholder="Teudat Zehut" required>
+                <span class="text-danger" ng-show="frmLogin.userTeudatZehut.$touched && frmLogin.userTeudatZehut.$invalid">Invalid Teudat Zehut</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="userEmail" class="col-sm-2 control-label required-field">Email</label>
+            <div class="col-sm-9">
+                <input ng-model="user.email" type="email" id="userEmail" name="userEmail" class="form-control input-sm chat-input margin_bottom"
+                       ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" placeholder="Email" required>
+                <span class="text-danger" ng-show="frmLogin.userEmail.$touched && frmLogin.userEmail.$invalid">Invalid email address</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="userPassword" class="col-sm-2 control-label required-field">Password</label>
+            <div class="col-sm-9">
+                <input ng-model="user.password" type="password" id="userPassword" name= "userPassword" class="form-control input-sm chat-input margin_bottom"
+                       pattern="^\S{5,}$" value = "" placeholder="Password" title="Five or more characters" required>
+                <span class="text-danger" ng-show="frmLogin.userPassword.$touched && frmLogin.userPassword.$invalid">Must contain 5 or more characters</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="userPasswordConfirm" class="col-sm-2 control-label required-field">Password Confirm</label>
+            <div class="col-sm-9">
+                <input ng-model="user.passwordConfirm" type="password" id="userPasswordConfirm" name= "userPasswordConfirm" class="form-control input-sm chat-input margin_bottom"
+                       pattern="^\S{5,}$" value = "" placeholder="Password Confirm" title="Five or more characters" required>
+                <span class="text-danger" ng-show="frmLogin.userPasswordConfirm.$touched && frmLogin.userPasswordConfirm.$invalid">Must contain 5 or more characters</span>
+            </div>
+        </div>
+        <output class="text-danger" name="result"></output><br>
+        <input  type="hidden"  name="ctrl" value="login" >
+        <div class="wrapper">
+            <span class="group-btn">
+                <button class="btn btn-primary btn-md" ng-click="showRegisterFormStep2()" type="button"
+                        ng-disabled="frmLogin.userTeudatZehut.$invalid || frmLogin.userEmail.$invalid || frmLogin.userPassword.$invalid || frmLogin.userPasswordConfirm.$invalid">next<i class="fa fa-sign-in"></i></button>
+            </span>
+        </div>
+    </div>
+
+        <div id="step2" class="hidden">
+            <h3 class="text-center">This is Step 2</h3>
+            <div class="form-group row">
+                <label for="userCity" class="col-sm-2 control-label required-field">City</label>
+                <div class="col-sm-10">
+                    <select ng-model="user.city" class="form-control input-sm chat-input margin_bottom" id="userCity" name="userCity" required>
+                        <option>Jerusalem</option>
+                        <option>Tel Aviv</option>
+                        <option>Haifa</option>
+                        <option>Ashdod</option>
+                        <option>Rishon LeZiyyon</option>
+                        <option>Petah Tikva</option>
+                        <option>Beersheba</option>
+                        <option>Netanya</option>
+                        <option>Holon</option>
+                        <option>Bnei Brak</option>
+                    </select>
+                    <span class="pull-right text-danger" ng-show="frmLogin.userCity.$touched && frmLogin.userCity.$invalid">City is required</span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="userStreet" class="col-sm-2 control-label required-field">Street</label>
+                <div class="col-sm-10">
+                    <input ng-model="user.street" type="text" id="userStreet" name="userStreet" class="form-control input-sm chat-input margin_bottom"
+                       placeholder="Street" required>
+                    <span class="pull-right text-danger" ng-show="frmLogin.userStreet.$touched && frmLogin.userStreet.$invalid">Street is required</span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="userName" class="col-sm-2 control-label required-field">Name</label>
+                <div class="col-sm-10">
+                    <input ng-model="user.name" type="text" id="userName" name= "userName" class="form-control input-sm chat-input margin_bottom"
+                       placeholder="Name" required>
+                    <span class="pull-right text-danger" ng-show="frmLogin.userName.$touched && frmLogin.userName.$invalid">Name is required</span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="userLastName" class="col-sm-2 control-label required-field">Last Name</label>
+                <div class="col-sm-10">
+                    <input ng-model="user.last_name" type="text" id="userLastName" name= "userLastName" class="form-control input-sm chat-input margin_bottom"
+                       placeholder="Last Name" required>
+                    <span class="pull-right text-danger" ng-show="frmLogin.userLastName.$touched && frmLogin.userLastName.$invalid">Last Name is required</span>
+                </div>
+            </div>
+            <input  type="hidden"  name="ctrl" value="login" >
+            <div class="wrapper">
+            <span class="group-btn">
+                <button class="btn btn-primary btn-md" ng-click="register(user)" type="button"
+                        ng-disabled="frmLogin.userCity.$invalid || frmLogin.userStreet.$invalid || frmLogin.userName.$invalid || frmLogin.userLastName.$invalid">save<i class="fa fa-sign-in"></i></button>
+            </span>
+            <span class="pull-right text-danger">{{serverError}}</span>
+            </div>
+        </div>
+    </fieldset>
+</form>
+</div>

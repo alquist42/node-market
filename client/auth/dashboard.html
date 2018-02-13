@@ -1,0 +1,12 @@
+<div id="start-link" ng-model="user">
+    <div ng-if="isAdmin(user.role)">
+        Hi, admin! <a href="#!/admin/category/fruits">Start managing </a>
+    </div>
+    <div ng-else>
+        <a href="#!/category/fruits">Start shopping </a>
+        <div id="cart-link">
+            Your cart
+        </div>
+    </div>
+
+</div>

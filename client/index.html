@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" ng-app="cool">
+
+    <head>
+        <meta charset="utf-8">
+        <title>super</title>
+        <link rel="stylesheet" href='../bootstrap/dist/css/bootstrap.min.css'>
+        <link rel="stylesheet" type="text/css" href="styles/style.css">
+        <link rel="stylesheet" href="../angular-modal/modal.css">
+        <script src="../angular/angular.min.js"></script>
+        <script src="../angular-route/angular-route.min.js"></script>
+        <script src="../angular-modal/modal.js"></script>
+
+        <script src="js/elif.js"></script>
+        <script src="app.js"></script>
+        <script src="service.js"></script>
+
+        <script src="auth/auth.controller.js"></script>
+        <script src="fruits/fruits.controller.js"></script>
+
+        <script src='filter.js'></script>
+        <script src="config.js"></script>
+
+    </head>
+
+    <body ng-controller="authCtrl">
+        <nav  class="navbar navbar-default navbar-fixed-top">
+            <div class="menu">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <img src="images/SuperMarket.png" class="img-fluid img-thumbnail"  width="170" height="170" alt="Responsive image">
+                    </div>
+                    <div>
+                        <ul class="nav navbar-nav navbar-right">
+                            <h4><span id ="user" class="largenav">Name: {{ user.name }} Role: {{user.role}} Contact Email: {{user.email}}</span></h4>
+                            <li><a href="#" ng-click="logout(user)"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div ng-view></div>
+
+    </body>
+
+</html>
