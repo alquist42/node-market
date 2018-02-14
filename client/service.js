@@ -78,6 +78,14 @@ coolApp.service('cartService', function($http) {
             }
         }).then(onSuccess, onError);
     }
+
+    this.getCart = function(onSuccess, onError ) {
+        $http({
+            url: 'http://localhost:8081/cart/get',
+            method: 'GET',
+            params: {}
+        }).then(onSuccess, onError);
+    }
 });
 
 coolApp.factory('myModal', function (btfModal) {

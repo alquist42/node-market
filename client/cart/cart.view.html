@@ -1,1 +1,10 @@
-<div id="cart">cart</div>
+<div id="cart" ng-controller="cartCtrl">cart:
+
+    <div class="info fruit-item" ng-repeat="fruit in cartFruits">
+        <td>
+            Q: {{fruit.quantity}} Price: {{fruit.price | currency}}
+        </td>
+    </div>
+
+
+</div>

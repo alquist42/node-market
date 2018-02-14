@@ -15,4 +15,19 @@ function addToCart(params, session, callback) {
     })
 }
 
+function getCart(session, callback) {
+    let authData = session.auth;
+    if(!authData){
+        return callback('SESSION missed');
+    }
+    let tz = authData['user']['teudat_zehut'];
+    bl.cart.getCart(tz, function(err, result) {
+        if (err) {
+            return callback(err);
+        }
+        callback(null, result);
+    })
+}
+
 module.exports.AddToCart = addToCart;
+module.exports.GetCart = getCart;

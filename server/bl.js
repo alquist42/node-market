@@ -104,6 +104,30 @@ function addCartItem(cartId, params, callback){
     console.log('fruits:::', cartId, params);
 }
 
+function getCartData(tz, callback){
+    var p1 = new Promise(function(resolve, reject){
+        getUserCart(tz, function(err,data){
+            if (err) {
+                reject(err);
+            } else {
+                resolve(data);
+            }
+        });
+    });
+
+    p1.then(function(cartId) {
+        if(!cartId){
+            callback(null, 0);
+        } else {
+            getCartItems(cartId, callback);
+        }
+    }, function(err){callback(err);});
+}
+
+function getCartItems(cartId, callback){
+    callback(null, [{product:5, quantity:1, price: 10}, {product:7, quantity:2, price: 25}]);
+
+}
 module.exports.fruits = {
     getFruits: getFruits
 };
@@ -116,5 +140,6 @@ module.exports.auth = {
 
 
 module.exports.cart = {
-    addToCart: addToCart
+    addToCart: addToCart,
+    getCart: getCartData
 };

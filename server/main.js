@@ -128,6 +128,18 @@ app.post('/cart/add', function (req, res) {
     });
 });
 
+app.get('/cart/get', function (req, res) {
+
+    cartCtrl.GetCart(req.session, function(err, result) {
+        if (err) {
+            console.log('error', err);
+            res.end(JSON.stringify({error:'server adding to cart error'}));
+        } else {
+            res.end(JSON.stringify(result));
+        }
+    });
+});
+
 // Start the server
 var server = app.listen(8081, function () {
     console.log('listening to 8081')
