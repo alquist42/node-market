@@ -43,9 +43,18 @@ function Cart(cart) {
     this.creation_date = cart['creation_date'];
 }
 
+function CartItem(cartItem) {
+    this.id = cartItem['id'];
+    this.product= cartItem['product'];
+    this.quantity = cartItem['quantity'];
+    this.price = cartItem['price'];
+    this.cart = cartItem['cart'];
+}
+
 module.exports.Egg = Egg;
 module.exports.Fruit = Fruit;
 module.exports.Fish = Fish;
 module.exports.Drink = Drink;
 module.exports.User = User;
 module.exports.Cart = Cart;
+module.exports.CartItem = CartItem;
