@@ -74,10 +74,7 @@ coolApp.service('cartService', function($http) {
             method: 'POST',
             params: {
                 fruit: fruitId,
-                count: fruitCount,
-                // id: id,
-                customer: customer,
-                creation_date: creation_date
+                count: fruitCount
             }
         }).then(onSuccess, onError);
     }
