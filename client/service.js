@@ -58,7 +58,7 @@ coolApp.service('AuthService',  function($http) {
                     password: user.password,
                     city: user.city,
                     street: user.street,
-                    role: user.role,
+                    role: user.role
             }
         }).then(onSuccess, onError);
     };
@@ -72,7 +72,13 @@ coolApp.service('cartService', function($http) {
         $http({
             url: 'http://localhost:8081/cart/add',
             method: 'POST',
-            params: {fruit:fruitId, count: fruitCount}
+            params: {
+                fruit: fruitId,
+                count: fruitCount,
+                // id: id,
+                customer: customer,
+                creation_date: creation_date
+            }
         }).then(onSuccess, onError);
     }
 });

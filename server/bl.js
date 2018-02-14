@@ -61,6 +61,15 @@ function getFruits(params, callback) {
 
 function addToCart(params, callback) {
     console.log(params);
+    dal.executeQuery('INSERT INTO `carts` (id, customer, creation_date) VALUES ("'+ params.id +'", '+ params.customer +', NOW())' , function(err, rows) {
+        if (err) {
+            callback(err);
+        }
+
+        const cartsObjectsArray = [];
+
+        callback(null, cartsObjectsArray);
+    });
     // dal.executeQuery('INSERT INTO `carts` (id, customer, creation_date) VALUES (?,?,?)',
     //     [params.id, params.customer, params.creation_date],
     //     function(err, rows) {
