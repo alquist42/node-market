@@ -53,8 +53,14 @@ coolApp.controller('authCtrl', function($scope, $templateRequest, $location, $ro
 
             };
 
-            $scope.showRegisterFormStep1 = function() {
-                $location.path('register', false);
+            $scope.showRegisterFormStep1 = function(force) {
+                if(force){
+                    document.querySelector('#step2').classList.add("hidden");
+                    document.querySelector('#step1').classList.remove("hidden");
+                } else {
+                    $location.path('register', false);
+                }
+
             };
 
             $scope.showRegisterFormStep2 = function() {
