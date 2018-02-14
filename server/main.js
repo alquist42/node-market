@@ -134,6 +134,7 @@ app.post('/cart/add', function (req, res) {
         // } else {
         //     res.end(JSON.stringify({error:'Adding to cart error!'}));
         // }
+        res.end(JSON.stringify(result));
     });
  //   console.log(req.session, req.sessionID);
  //   res.end(JSON.stringify(req.query));
