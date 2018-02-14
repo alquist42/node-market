@@ -98,14 +98,11 @@ function addToCart(params, callback) {
             addCartItem(cartId, params, callback);
         }
     }, function(err){callback(err);});
-
-
-    function addCartItem(cartId, params, callback){
-        console.log(cartId, params);
-    }
 }
 
-
+function addCartItem(cartId, params, callback){
+    console.log('fruits:::', cartId, params);
+}
 
 module.exports.fruits = {
     getFruits: getFruits
