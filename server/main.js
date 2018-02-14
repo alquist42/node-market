@@ -122,18 +122,18 @@ app.post('/cart/add', function (req, res) {
         if (err) {
             res.end(JSON.stringify({error:'server adding to cart error'}));
         }
-        if(user && Object.keys(user).length){
-            req.session.auth = {
-                user:user
-            }
-            let authData = session.auth;
-            console.log(authData);
-            let tz = authData['user']['teudat_zehut'];
-            console.log(tz);
-        res.end(JSON.stringify(user));
-        } else {
-            res.end(JSON.stringify({error:'Adding to cart error!'}));
-        }
+        // if(user && Object.keys(user).length){
+        //     req.session.auth = {
+        //         user:user
+        //     }
+        //     let authData = session.auth;
+        //     console.log(authData);
+        //     let tz = authData['user']['teudat_zehut'];
+        //     console.log(tz);
+        // res.end(JSON.stringify(user));
+        // } else {
+        //     res.end(JSON.stringify({error:'Adding to cart error!'}));
+        // }
     });
  //   console.log(req.session, req.sessionID);
  //   res.end(JSON.stringify(req.query));

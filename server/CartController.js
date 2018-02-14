@@ -2,14 +2,16 @@ var bl = require('./bl');
 
 // CRUD
 function addToCart(params, session, callback) {
-    bl.carts.addToCart(params, function(err, addToCartResult) {
+    let authData = session.auth;
+    let tz = authData['user']['teudat_zehut'];
+    params.tz = tz;
+    // console.log(tz);
+
+    bl.cart.addToCart(params, function(err, addToCartResult) {
         if (err) {
-            callback(err);
+            return callback(err);
         }
-        let authData = session.auth;
-        console.log(authData);
-        let tz = authData['user']['teudat_zehut'];
-        console.log(tz);
+
         callback(null, addToCartResult);
     })
 }

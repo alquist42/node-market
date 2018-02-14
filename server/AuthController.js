@@ -14,7 +14,7 @@ function login(params, callback) {
 
 function register(params, callback) {
 
-    bl.reg.register(params, function(err, registerResult) {
+    bl.auth.register(params, function(err, registerResult) {
         if (err) {
             callback(err);
         }
