@@ -1,5 +1,11 @@
 
-coolApp.controller('fruitCtrl', function($scope, $location, $routeParams,$templateRequest,$compile, fruitService,cartService, myModal) {
+coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParams,$templateRequest,$compile, fruitService,cartService, AuthService, myModal) {
+
+    AuthService.checkLoggedIn (function(res) {
+        if(res.data.error){
+            $window.location.href = '/';
+        }
+    }, function(err) {});
 
 
     $scope.showFruit = false;
