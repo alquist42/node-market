@@ -39,7 +39,7 @@ function register(params, callback) {
             }
             else
             {
-                return callback('User already exists');
+                callback('User already exists');
              //   console.log("User already exists");
             }
         });
@@ -58,28 +58,51 @@ function getFruits(params, callback) {
         callback(null, fruitsObjectsArray);
     });
 }
-
-function addToCart(params, callback) {
-    console.log(params);
-    dal.executeQuery('INSERT INTO `carts` (id, customer, creation_date) VALUES ("'+ params.id +'", '+ params.tz +', NOW())' , function(err, rows) {
+function getUserCart(tz, callback){
+    dal.executeQuery('SELECT carts.id FROM carts LEFT JOIN orders ON carts.id = orders.cart WHERE carts.customer = ? AND orders.id IS NULL',
+        [tz], function(err, rows) {
         if (err) {
             callback(err);
+        } else{
+            let cartId = 0;
+            if(rows && rows.length){
+                let cartRow = rows[0];
+                cartId = cartRow.id;
+            }
+            callback(null,cartId);
         }
-
-        const cartsObjectsArray = [];
-
-        callback(null, cartsObjectsArray);
     });
-    // dal.executeQuery('INSERT INTO `carts` (id, customer, creation_date) VALUES (?,?,?)',
-    //     [params.id, params.customer, params.creation_date],
-    //     function(err, rows) {
-    //     if (err) {
-    //         console.log('error sql', err);
-    //         return callback('Add To Cart Error');
-    //     }
-    //     let addToCartModel = new models.Cart(params);
-    //     callback(null, addToCartModel);
-    // });
+
+}
+function addToCart(params, callback) {
+    var p1 = new Promise(function(resolve, reject){
+        getUserCart(params.tz, function(err,data){
+            if (err) {
+                reject(err);
+            } else {
+                resolve(data);
+            }
+        });
+    });
+
+    p1.then(function(cartId) {
+        if(!cartId){
+            dal.executeQuery('INSERT INTO `carts` (id, customer, creation_date) VALUES (NULL, ?, NOW())' ,[params.tz], function(err, res) {
+                if (err) {
+                    callback(err);
+                } else {
+                    addCartItem(res.insertId, params, callback);
+                }
+            });
+        } else {
+            addCartItem(cartId, params, callback);
+        }
+    }, function(err){callback(err);});
+
+
+    function addCartItem(cartId, params, callback){
+        console.log(cartId, params);
+    }
 }
 
 

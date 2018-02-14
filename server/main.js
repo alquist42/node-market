@@ -120,24 +120,12 @@ app.post('/cart/add', function (req, res) {
 
     cartCtrl.AddToCart(req.query, req.session, function(err, result) {
         if (err) {
+            console.log('error', err);
             res.end(JSON.stringify({error:'server adding to cart error'}));
+        } else {
+            res.end(JSON.stringify(result));
         }
-        // if(user && Object.keys(user).length){
-        //     req.session.auth = {
-        //         user:user
-        //     }
-        //     let authData = session.auth;
-        //     console.log(authData);
-        //     let tz = authData['user']['teudat_zehut'];
-        //     console.log(tz);
-        // res.end(JSON.stringify(user));
-        // } else {
-        //     res.end(JSON.stringify({error:'Adding to cart error!'}));
-        // }
-        res.end(JSON.stringify(result));
     });
- //   console.log(req.session, req.sessionID);
- //   res.end(JSON.stringify(req.query));
 });
 
 // Start the server
