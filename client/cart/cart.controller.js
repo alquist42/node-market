@@ -4,4 +4,8 @@ coolApp.controller('cartCtrl', function($scope, $location, $window, $routeParams
         $scope.cartFruits = (res.data);
     }, function(res) {
     });
+
+    $scope.goToOrderStep = function () {
+        $location.path('order', true);
+    };
 });

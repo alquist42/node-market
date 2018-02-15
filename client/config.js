@@ -22,6 +22,12 @@ coolApp.config(function($routeProvider) {
             templateUrl : "fruits/fruits.view.html",
             controller: 'fruitCtrl'
         })
+
+        .when("/order", {
+            templateUrl : "cart/order.view.html",
+            controller: 'orderCtrl'
+        })
+
         .when("/register", {
             templateUrl : "auth/registerForm.html",
             controller: 'authCtrl'
