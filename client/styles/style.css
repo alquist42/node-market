@@ -179,6 +179,7 @@ body
   margin-top:40px;
   border: solid 1px blue;
   background-color: #eeeeee;
+  padding-top: 10px;
 }
 
 #deleteCourse, #deleteStudent, #deleteFruit
@@ -226,16 +227,6 @@ table
 .part {
   width: 33%;
   float:left;
-}
-
-#editEgg, #editFruit, #editFish, #editDrink
-{
-    margin-bottom: -65px;
-}
-
-#addEgg, #addFruit, #addFish, #addDrink
-{
-  margin-top: -45px;
 }
 
 .btf-modal
