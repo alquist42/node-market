@@ -87,7 +87,7 @@ coolApp.service('cartService', function($http) {
             params: {
                 product: fruitId,
                 quantity: fruitCount,
-                // price: fruitPrice
+                price: fruitPrice
             }
         }).then(onSuccess, onError);
     }

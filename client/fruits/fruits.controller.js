@@ -53,8 +53,8 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
         }
     });
 
-    $scope.addToCart = function (id, count) {
-        cartService.addToCart(id, count,function(res) {
+    $scope.addToCart = function (id, count, price) {
+        cartService.addToCart(id, count, price, function(res) {
             mySharedService.addFruit(res.data);
         }, function(res) {});
     };
