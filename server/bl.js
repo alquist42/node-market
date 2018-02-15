@@ -102,17 +102,19 @@ function addToCart(params, callback) {
 }
 
 function addCartItem(cartId, params, callback){
-    dal.executeQuery('INSERT INTO `cart_items` (id, product, quantity, price, cart) VALUES (?,?,?,?,?)',
-        [params.id, params.product, params.quantity, params.price, params.id],
-        function(err, rows) {
+    dal.executeQuery('INSERT INTO `cart_items` (id, product, quantity, price, cart) VALUES (NULL,?,?,?,?)',
+        [params.product,params.quantity,0,cartId],
+        function(err, res) {
             if (err) {
                 console.log('error sql', err);
                 return callback('Adding cart item error');
             }
+            params.id = res.insertId;
+            params.cart = cartId;
             let cartItemModel = new models.CartItem(params);
             callback(null, cartItemModel);
         });
-    console.log('fruits:::', cartId, params);
+
 }
 
 function getCartData(tz, callback){
@@ -136,7 +138,10 @@ function getCartData(tz, callback){
 }
 
 function getCartItems(cartId, callback){
-    dal.executeQuery('SELECT * FROM `cart_items` WHERE id = ?', [cartId], function(err, rows) {
+    dal.executeQuery(`SELECT ci.*, p.name
+                        FROM cart_items ci
+                        INNER JOIN products p ON ci.product = p.id
+                        WHERE ci.cart = ?`, [cartId], function(err, rows) {
         if (err) {
             callback(err);
         }
@@ -147,7 +152,7 @@ function getCartItems(cartId, callback){
         });
         callback(null, cartItemsArray);
     });
-    // callback(null, [{product:5, quantity:1, price: 10}, {product:7, quantity:2, price: 25}]);
+  //   callback(null, [{product:5, quantity:1, price: 10}, {product:7, quantity:2, price: 25}]);
 
 }
 module.exports.fruits = {
@@ -164,6 +169,6 @@ module.exports.auth = {
 module.exports.cart = {
     addToCart: addToCart,
     getCart: getCartData,
-    getCartItems: getCartItems,
-    addCartItem: addCartItem
+ //   getCartItems: getCartItems,
+ //   addCartItem: addCartItem
 };

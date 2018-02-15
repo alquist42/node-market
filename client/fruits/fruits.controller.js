@@ -54,8 +54,10 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
     });
 
     $scope.addToCart = function (id, count) {
-        cartService.addToCart(id, count);
-       console.log('fr',id, count);
+        cartService.addToCart(id, count,function(res) {
+            console.log('FRR', res.data);
+        }, function(res) {});
+    //   console.log('fr',id, count);
     };
 
     $scope.editFruit = function(){
