@@ -103,7 +103,7 @@ function addToCart(params, callback) {
 
 function addCartItem(cartId, params, callback){
     dal.executeQuery('INSERT INTO `cart_items` (id, product, quantity, price, cart) VALUES (NULL,?,?,?,?)',
-        [params.product,params.quantity,0,cartId],
+        [params.product,params.quantity,params.price,cartId],
         function(err, res) {
             if (err) {
                 console.log('error sql', err);
@@ -111,10 +111,11 @@ function addCartItem(cartId, params, callback){
             }
             params.id = res.insertId;
             params.cart = cartId;
+            // params.price = fruitPrice;
             let cartItemModel = new models.CartItem(params);
             callback(null, cartItemModel);
         });
-
+            console.log(params);
 }
 
 function getCartData(tz, callback){

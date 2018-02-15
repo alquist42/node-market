@@ -80,13 +80,14 @@ coolApp.service('AuthService',  function($http) {
     });
 
 coolApp.service('cartService', function($http) {
-    this.addToCart = function(fruitId, fruitCount, onSuccess, onError ) {
+    this.addToCart = function(fruitId, fruitCount, fruitPrice, onSuccess, onError ) {
         $http({
             url: 'http://localhost:8081/cart/add',
             method: 'POST',
             params: {
                 product: fruitId,
-                quantity: fruitCount
+                quantity: fruitCount,
+                // price: fruitPrice
             }
         }).then(onSuccess, onError);
     }
