@@ -118,6 +118,10 @@ function addCartItem(cartId, params, callback){
             console.log(params);
 }
 
+function deleteCartItem(params, callback){
+    console.log('delete item: ',params)
+}
+
 function getCartData(tz, callback){
     var p1 = new Promise(function(resolve, reject){
         getUserCart(tz, function(err,data){
@@ -169,6 +173,7 @@ module.exports.auth = {
 
 module.exports.cart = {
     addToCart: addToCart,
+    deleteFromCart: deleteCartItem,
     getCart: getCartData,
  //   getCartItems: getCartItems,
  //   addCartItem: addCartItem

@@ -1,8 +1,9 @@
 <div id="cart" ng-controller="cartCtrl"><h3>Cart:</h3>
 
-    <div class="info fruit-item" ng-repeat="fruit in cartFruits">
+    <div class="info fruit-item" ng-repeat="cartFruit in cartFruits">
         <td>
-            Quantity: {{fruit.quantity}} Price: {{fruit.price | currency}} Name: {{fruit.name}} ID: {{fruit.product}}
+            Quantity: {{cartFruit.quantity}} Price: {{cartFruit.price | currency}} Name: {{cartFruit.name}} ID: {{cartFruit.product}}
+            <span ng-click="deleteFruit(cartFruit.id)">X</span>
         </td>
     </div>
     <br>

@@ -137,6 +137,21 @@ app.post('/cart/add', function (req, res) {
     // });
 });
 
+app.post('/cart/delete', function (req, res) {
+
+    cartCtrl.DeleteFromCart(req.query, req.session, function(err, result) {
+        if (err) {
+            console.log('error', err);
+            if(err == 'SESSION missed'){
+                res.end(JSON.stringify({error:'LOGOUT'}));
+            }
+            res.end(JSON.stringify({error:'server deleting to cart error'}));
+        } else {
+            res.end(JSON.stringify(result));
+        }
+    });
+});
+
 app.get('/cart/get', function (req, res) {
 
     cartCtrl.GetCart(req.session, function(err, result) {
