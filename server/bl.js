@@ -46,7 +46,7 @@ function register(params, callback) {
 }
 
 function getFruits(params, callback) {
-    dal.executeQuery('SELECT * FROM `products` WHERE category = ?',[params.category], function(err, rows) {
+    dal.executeQuery('SELECT * FROM `products` WHERE category = ?', [params.category], function(err, rows) {
         if (err) {
             callback(err);
         }
@@ -58,6 +58,7 @@ function getFruits(params, callback) {
         callback(null, fruitsObjectsArray);
     });
 }
+
 function getUserCart(tz, callback){
     dal.executeQuery('SELECT carts.id FROM carts LEFT JOIN orders ON carts.id = orders.cart WHERE carts.customer = ? AND orders.id IS NULL',
         [tz], function(err, rows) {
@@ -87,7 +88,7 @@ function addToCart(params, callback) {
 
     p1.then(function(cartId) {
         if(!cartId){
-            dal.executeQuery('INSERT INTO `carts` (id, customer, creation_date) VALUES (NULL, ?, NOW())' ,[params.tz], function(err, res) {
+            dal.executeQuery('INSERT INTO `carts` (id, customer, creation_date) VALUES (NULL, ?, NOW())', [params.tz], function(err, res) {
                 if (err) {
                     callback(err);
                 } else {
@@ -101,6 +102,16 @@ function addToCart(params, callback) {
 }
 
 function addCartItem(cartId, params, callback){
+    dal.executeQuery('INSERT INTO `cart_items` (id, product, quantity, price, cart) VALUES (?,?,?,?,?)',
+        [params.id, params.product, params.quantity, params.price, params.id],
+        function(err, rows) {
+            if (err) {
+                console.log('error sql', err);
+                return callback('Adding cart item error');
+            }
+            let cartItemModel = new models.CartItem(params);
+            callback(null, cartItemModel);
+        });
     console.log('fruits:::', cartId, params);
 }
 
@@ -125,7 +136,18 @@ function getCartData(tz, callback){
 }
 
 function getCartItems(cartId, callback){
-    callback(null, [{product:5, quantity:1, price: 10}, {product:7, quantity:2, price: 25}]);
+    dal.executeQuery('SELECT * FROM `cart_items` WHERE id = ?', [cartId], function(err, rows) {
+        if (err) {
+            callback(err);
+        }
+
+        const cartItemsArray = [];
+        rows.forEach(function (row) {
+            cartItemsArray.push(new models.CartItem(row));
+        });
+        callback(null, cartItemsArray);
+    });
+    // callback(null, [{product:5, quantity:1, price: 10}, {product:7, quantity:2, price: 25}]);
 
 }
 module.exports.fruits = {
@@ -141,5 +163,7 @@ module.exports.auth = {
 
 module.exports.cart = {
     addToCart: addToCart,
-    getCart: getCartData
+    getCart: getCartData,
+    getCartItems: getCartItems,
+    addCartItem: addCartItem
 };

@@ -86,6 +86,28 @@ coolApp.service('cartService', function($http) {
             params: {}
         }).then(onSuccess, onError);
     }
+
+    this.getCartItems = function(onSuccess, onError ) {
+        $http({
+            url: 'http://localhost:8081/cart/get',
+            method: 'GET',
+            params: {}
+        }).then(onSuccess, onError);
+    }
+
+    this.addCartItem = function(onSuccess, onError ) {
+        $http({
+            url: 'http://localhost:8081/cart/add',
+            method: 'POST',
+            params: {
+                id: id,
+                product: product,
+                quantity: quantity,
+                price: price,
+                cart: cart
+            }
+        }).then(onSuccess, onError);
+    }
 });
 
 coolApp.factory('myModal', function (btfModal) {

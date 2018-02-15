@@ -126,11 +126,29 @@ app.post('/cart/add', function (req, res) {
             res.end(JSON.stringify(result));
         }
     });
+
+    cartCtrl.AddCartItem(req.query, req.session, function(err, result) {
+        if (err) {
+            console.log('error', err);
+            res.end(JSON.stringify({error:'server adding cart item error'}));
+        } else {
+            res.end(JSON.stringify(result));
+        }
+    });
 });
 
 app.get('/cart/get', function (req, res) {
 
     cartCtrl.GetCart(req.session, function(err, result) {
+        if (err) {
+            console.log('error', err);
+            res.end(JSON.stringify({error:'server adding to cart error'}));
+        } else {
+            res.end(JSON.stringify(result));
+        }
+    });
+
+    cartCtrl.GetCartItems(req.session, function(err, result) {
         if (err) {
             console.log('error', err);
             res.end(JSON.stringify({error:'server adding to cart error'}));
