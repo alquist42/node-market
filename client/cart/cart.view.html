@@ -3,7 +3,7 @@
     <div class="info fruit-item" ng-repeat="cartFruit in cartFruits">
         <td>
             Quantity: {{cartFruit.quantity}} Price: {{cartFruit.price | currency}} Name: {{cartFruit.name}} ID: {{cartFruit.product}}
-            <span ng-click="deleteFruit(cartFruit.id)">X</span>
+            <span class="glyphicon glyphicon-remove-circle" ng-click="deleteFruit(cartFruit.id)"></span>
         </td>
     </div>
     <br>
