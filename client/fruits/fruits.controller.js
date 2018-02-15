@@ -1,5 +1,5 @@
 
-coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParams,$templateRequest,$compile, fruitService,cartService, AuthService, myModal) {
+coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParams,$templateRequest,$compile, fruitService,cartService, AuthService,mySharedService, myModal) {
 
     AuthService.checkLoggedIn (function(res) {
         if(res.data.error){
@@ -55,9 +55,8 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
 
     $scope.addToCart = function (id, count) {
         cartService.addToCart(id, count,function(res) {
-            console.log('FRR', res.data);
+            mySharedService.addFruit(res.data);
         }, function(res) {});
-    //   console.log('fr',id, count);
     };
 
     $scope.editFruit = function(){

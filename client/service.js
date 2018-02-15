@@ -20,6 +20,19 @@ coolApp.service('fruitService', function($http) {
         }).then(onSuccess, onError);
     }
 });
+/* SHARE DATA BETWEEN CONTROLLERS */
+coolApp.factory('mySharedService', function($rootScope) {
+    var sharedService = {};
+    sharedService.fruit = {};
+    sharedService.addFruit = function(fruit) {
+        this.fruit = fruit;
+        this.addingFruitItem();
+    };
+    sharedService.addingFruitItem = function() {
+        $rootScope.$broadcast('handleFruitAdding');
+    };
+    return sharedService;
+});
 
 
 
@@ -65,7 +78,6 @@ coolApp.service('AuthService',  function($http) {
 
 
     });
-
 
 coolApp.service('cartService', function($http) {
     this.addToCart = function(fruitId, fruitCount, onSuccess, onError ) {

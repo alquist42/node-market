@@ -1,8 +1,12 @@
 
-coolApp.controller('cartCtrl', function($scope, $location, $window, $routeParams,$templateRequest,$compile, fruitService, cartService, AuthService, myModal) {
+coolApp.controller('cartCtrl', function($scope, $location, $window, $routeParams,$templateRequest,$compile, fruitService, cartService, AuthService, mySharedService, myModal) {
     cartService.getCart(function(res) {
-        $scope.cartFruits = (res.data);
+        console.log('FRUITS', res.data);
+        $scope.cartFruits = res.data;
     }, function(res) {
+    });
+    $scope.$on('handleFruitAdding', function() {
+        $scope.cartFruits.push(mySharedService.fruit);
     });
 
     $scope.goToOrderStep = function () {

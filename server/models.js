@@ -49,6 +49,9 @@ function CartItem(cartItem) {
     this.quantity = cartItem['quantity'];
     this.price = cartItem['price'];
     this.cart = cartItem['cart'];
+    if(cartItem['name']){
+        this.name = cartItem['name'];
+    }
 }
 
 module.exports.Egg = Egg;
