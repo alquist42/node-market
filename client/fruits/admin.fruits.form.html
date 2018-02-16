@@ -7,6 +7,18 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="control-label col-sm-2" for="fruitCategory">Category:</label>
+            <div class="col-sm-10">
+                <select ng-model="fruitEdited.category" class="form-control" id="fruitCategory" name="fruitCategory" required>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                </select>
+                <!--<input type="text" class="form-control" id="fruitCategory" placeholder="Enter category" name="category" required ng-model="fruitEdited.category" >-->
+            </div>
+        </div>
+        <div class="form-group">
             <label class="control-label col-sm-2" for="fruitPrice">Price:</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="fruitPrice" placeholder="Enter price" name="phone" required ng-model="fruitEdited.price">

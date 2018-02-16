@@ -15,6 +15,7 @@ coolApp.service('fruitService', function($http) {
             params: {
                 id: fruit.id,
                 name: fruit.name,
+                category: fruit.category,
                 price: fruit.price
             }
         }).then(onSuccess, onError);
