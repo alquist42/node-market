@@ -110,7 +110,15 @@ app.post('/logout', function (req, res) {
 });
 // TODO
 app.post('/fruit/edit', function (req, res) {
-       console.log(req.query);
+    console.log(req.query);
+    fruitCtrl.EditFruit(req.query, req.session, function(err, result) {
+        if (err) {
+            console.log('error', err);
+            res.end(JSON.stringify({error:'server editing product error'}));
+        } else {
+            res.end(JSON.stringify(result));
+        }
+    });
     //   res.end(JSON.stringify(req.query));
 });
 

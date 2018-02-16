@@ -59,6 +59,16 @@ function getFruits(params, callback) {
     });
 }
 
+function editFruit(params, callback){
+    console.log('edit item: ',params);
+    dal.executeQuery('UPDATE `products` SET name = ? AND price = ? WHERE id = ?', [params.name, params.price, params.id], function(err, res, rows) {
+        if (err) {
+            return console.error(err.message);
+        }
+        console.log(res.affectedRows + " record(s) updated");
+    });
+}
+
 function getUserCart(tz, callback){
     dal.executeQuery('SELECT carts.id FROM carts LEFT JOIN orders ON carts.id = orders.cart WHERE carts.customer = ? AND orders.id IS NULL',
         [tz], function(err, rows) {
@@ -119,8 +129,8 @@ function addCartItem(cartId, params, callback){
 }
 
 function deleteCartItem(params, callback){
-    console.log('delete item: ',params)
-    dal.executeQuery('DELETE FROM `cart_items` WHERE id= ?', [params.id], function(err, res) {
+    console.log('delete item: ',params);
+    dal.executeQuery('DELETE FROM `cart_items` WHERE id = ?', [params.id], function(err, res) {
         if (err) {
             return console.error(err.message);
         }
@@ -167,7 +177,8 @@ function getCartItems(cartId, callback){
 
 }
 module.exports.fruits = {
-    getFruits: getFruits
+    getFruits: getFruits,
+    editFruit: editFruit
 };
 
 

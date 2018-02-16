@@ -12,5 +12,16 @@ function read(params, callback) {
     })
 }
 
+function editFruit(params, callback) {
+
+    bl.fruits.editFruit(params, function(err, fruitEditArray) {
+        if (err) {
+            callback(err);
+        }
+
+        callback(null, fruitEditArray);
+    })
+}
 
 module.exports.Read = read;
+module.exports.EditFruit = editFruit;
