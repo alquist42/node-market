@@ -61,7 +61,7 @@ function getFruits(params, callback) {
 
 function editFruit(params, callback){
     console.log('edit item: ',params);
-    dal.executeQuery('UPDATE `products` SET name = ? AND price = ? WHERE id = ?', [params.name, params.price, params.id], function(err, res, rows) {
+    dal.executeQuery('UPDATE `products` SET name = ? , price = ? WHERE id = ?', [params.name, params.price, params.id], function(err, res, rows) {
         if (err) {
             return console.error(err.message);
         }
@@ -121,7 +121,6 @@ function addCartItem(cartId, params, callback){
             }
             params.id = res.insertId;
             params.cart = cartId;
-            // params.price = fruitPrice;
             let cartItemModel = new models.CartItem(params);
             callback(null, cartItemModel);
         });
