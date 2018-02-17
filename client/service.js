@@ -20,6 +20,19 @@ coolApp.service('fruitService', function($http) {
             }
         }).then(onSuccess, onError);
     }
+
+    this.addFruit = function(fruit, onSuccess, onError ) {
+        $http({
+            url: 'http://localhost:8081/fruit/add',
+            method: 'POST',
+            params: {
+                id: fruit.id,
+                name: fruit.name,
+                category: fruit.category,
+                price: fruit.price
+            }
+        }).then(onSuccess, onError);
+    }
 });
 /* SHARE DATA BETWEEN CONTROLLERS */
 coolApp.factory('mySharedService', function($rootScope) {

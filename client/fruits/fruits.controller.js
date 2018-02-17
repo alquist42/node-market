@@ -1,5 +1,5 @@
 
-coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParams,$templateRequest,$compile, fruitService,cartService, AuthService,mySharedService, myModal) {
+coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParams, $templateRequest, $compile, fruitService, cartService, AuthService, mySharedService, myModal) {
 
     AuthService.checkLoggedIn (function(res) {
         if(res.data.error){
@@ -67,6 +67,15 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
             $compile(template)($scope);
         });
     };
+
+    $scope.addFruit = function(){
+        // $scope.fruitAdded = angular.copy($scope.fruit);
+        $templateRequest("fruits/admin.fruits.add.html").then(function(html){
+            var template = angular.element(html);
+            angular.element(document.querySelector('.container')).empty().append(template);
+            $compile(template)($scope);
+        });
+    };
 // TODO
     $scope.saveFruit = function(){
         fruitService.saveFruit($scope.fruitEdited, function(res) {
@@ -79,6 +88,26 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
             } else {
                 for(let i=0; i<$scope.fruits.length; i++){
                     if($scope.fruits[i]['id'] == $scope.fruitEdited.id){
+                        $scope.fruits[i] = $scope.fruit = $scope.fruitEdited;
+                        break;
+                    }
+                }
+                $scope.closeForm();
+            }
+        }, function(err) {alert('saving error')});
+    }
+
+    $scope.saveAddFruit = function(){
+        fruitService.addFruit($scope.fruitAdded, function(res) {
+            if(res.data.error ){
+                if(res.data.error == 'LOGOUT'){
+                    $window.location.href = '/';
+                } else {
+                    alert('SAVING ERROR');
+                }
+            } else {
+                for(let i=0; i<$scope.fruits.length; i++){
+                    if($scope.fruits[i]['id'] == $scope.fruitAdded.id){
                         $scope.fruits[i] = $scope.fruit = $scope.fruitEdited;
                         break;
                     }

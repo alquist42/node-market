@@ -27,7 +27,7 @@ function register(params, callback) {
             if (!rows.length)
             {
                 dal.executeQuery('INSERT INTO `users` (teudat_zehut, name, last_name, email, password, city, street, role) VALUES (?,?,?,?,?,?,?,?)',
-                    [params.teudat_zehut, params.name, params.last_name, params.email, md5(params.password), params.city, params.street, params.role ],
+                    [params.teudat_zehut, params.name, params.last_name, params.email, md5(params.password), params.city, params.street, params.role],
                     function(err, rows) {
                         if (err) {
                             console.log('error sql', err);
@@ -60,15 +60,29 @@ function getFruits(params, callback) {
 }
 
 function editFruit(params, callback){
-    console.log('edit item: ',params);
+    console.log('edit item: ', params);
     dal.executeQuery('UPDATE `products` SET name = ? , category = ?, price = ? WHERE id = ?', [params.name, params.category, params.price, params.id], function(err, res, rows) {
         if (err) {
             callback(err);
         } else {
             callback(null, res.affectedRows);
         }
-       // console.log(res.affectedRows + " record(s) updated");
+        // console.log(res.affectedRows + " record(s) updated");
     });
+}
+
+function addFruit(params, callback){
+    console.log('add item: ', params);
+    dal.executeQuery('INSERT INTO `products` (id, name, category, price) VALUES (NULL,?,?,?)',
+        [params.name, params.category, params.price],
+        function(err, rows) {
+            if (err) {
+                console.log('error sql', err);
+                return callback('Register error');
+            }
+            let addFruitModel = new models.Fruit(params);
+            callback(null, addFruitModel);
+        });
 }
 
 function getUserCart(tz, callback){
@@ -181,7 +195,8 @@ function getCartItems(cartId, callback){
 }
 module.exports.fruits = {
     getFruits: getFruits,
-    editFruit: editFruit
+    editFruit: editFruit,
+    addFruit: addFruit
 };
 
 

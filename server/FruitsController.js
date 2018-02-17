@@ -28,5 +28,20 @@ function editFruit(params,session, callback) {
     })
 }
 
+function addFruit(params, session, callback) {
+    if(!session.auth){
+        return callback('SESSION missed');
+    }
+
+    bl.fruits.addFruit(params, function(err, fruitAddArray) {
+        if (err) {
+            callback(err);
+        }else {
+            callback(null, fruitAddArray);
+        }
+    })
+}
+
 module.exports.Read = read;
 module.exports.EditFruit = editFruit;
+module.exports.AddFruit = addFruit;

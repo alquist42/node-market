@@ -125,7 +125,19 @@ app.post('/fruit/edit', function (req, res) {
     //   res.end(JSON.stringify(req.query));
 });
 
-
+app.post('/fruit/add', function (req, res) {
+    fruitCtrl.AddFruit(req.query, req.session, function(err, result) {
+        if (err) {
+            if(err == 'SESSION missed'){
+                res.end(JSON.stringify({error:'LOGOUT'}));
+            }
+            //   console.log('error', err);
+            res.end(JSON.stringify({error:'server adding product error'}));
+        } else {
+            res.end(JSON.stringify(result));
+        }
+    });
+});
 // TODO
 app.post('/cart/add', function (req, res) {
 
@@ -138,14 +150,6 @@ app.post('/cart/add', function (req, res) {
         }
     });
 
-    // cartCtrl.AddCartItem(req.query, req.session, function(err, result) {
-    //     if (err) {
-    //         console.log('error', err);
-    //         res.end(JSON.stringify({error:'server adding cart item error'}));
-    //     } else {
-    //         res.end(JSON.stringify(result));
-    //     }
-    // });
 });
 
 app.post('/cart/delete', function (req, res) {
@@ -174,14 +178,6 @@ app.get('/cart/get', function (req, res) {
         }
     });
 
-    // cartCtrl.GetCartItems(req.session, function(err, result) {
-    //     if (err) {
-    //         console.log('error', err);
-    //         res.end(JSON.stringify({error:'server adding to cart error'}));
-    //     } else {
-    //         res.end(JSON.stringify(result));
-    //     }
-    // });
 });
 
 // Start the server

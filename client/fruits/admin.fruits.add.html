@@ -1,0 +1,38 @@
+<h2>Add Product</h2>
+<form class="form-horizontal" name="addFruitForm" id="addFruitForm" method="{{method}}" enctype="multipart/form-data">
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="fruitName">Name:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="fruitName" placeholder="Enter name" name="name" ng-model="fruitAdded.name" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="fruitCategory">Category:</label>
+        <div class="col-sm-10">
+            <select class="form-control" id="fruitCategory" name="fruitCategory" ng-model="fruitAdded.category" required>
+                <option value="1">Milk & Eggs</option>
+                <option value="2">Vegetables & Fruits</option>
+                <option value="3">Meat & Fish</option>
+                <option value="4">Wine & Drinks</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="fruitPrice">Price:</label>
+        <div class="col-sm-10">
+            <input type="number" class="form-control" id="fruitPrice" placeholder="Enter price" name="price" ng-model="fruitAdded.price" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="fruitImage">Image:</label>
+        <div class="col-sm-10">
+            <input type="file" class="form-control" id="fruitImage" name="image" accept="image/jpg, image/jpeg, image/png, image/gif">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button ng-click="saveAddFruit()" class="btn btn-primary">Save</button>
+            <button ng-click="closeForm()" class="btn btn-primary pull-right">Cancel</button>
+        </div>
+    </div>
+</form>
