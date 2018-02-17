@@ -9,11 +9,21 @@ coolApp.controller('cartCtrl', function($scope, $location, $window, $routeParams
     });
     $scope.deleteFruit = function(id) {
         cartService.deleteFromCart(id,function(res) {
-           console.log('resdelete',res.data);
-            if(res.data.error && res.data.error == 'LOGOUT'){
-                $window.location.href = '/';
+            if(res.data.error ){
+                if(res.data.error == 'LOGOUT'){
+                    $window.location.href = '/';
+                } else {
+                    alert('DELETING ERROR');
+                }
+            } else {
+                for(let i=0; i<$scope.cartFruits.length; i++){
+                    if($scope.cartFruits[i]['id'] == id){
+                        $scope.cartFruits.splice(i, 1);
+                        break;
+                    }
+                }
             }
-        }, function(err) {});
+        }, function(err) {alert('DELETING ERROR')});
     }
     $scope.goToOrderStep = function () {
         $location.path('order', true);
