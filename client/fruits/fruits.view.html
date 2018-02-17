@@ -3,37 +3,14 @@
         <div id = "categories-menu" class="menu">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a id="eggs-link" href="#!/category/eggs">Milk & Eggs</a>
-                    <a id="fruits-link" href="#!/category/fruits">Vegetables & Fruits</a>
-                    <a id="fishes-link" href="#!/category/fishes">Meat & Fish</a>
-                    <a id="drinks-link" href="#!/category/drinks">Wine & Drinks</a>
+                    <a ng-class="categoryName == 'eggs' ? 'active' : ''" id="eggs-link" href="#!/category/eggs">Milk & Eggs</a>
+                    <a ng-class="categoryName == 'fruits' ? 'active' : ''" id="fruits-link" href="#!/category/fruits">Vegetables & Fruits</a>
+                    <a ng-class="categoryName == 'fishes' ? 'active' : ''" id="fishes-link" href="#!/category/fishes">Meat & Fish</a>
+                    <a ng-class="categoryName == 'drinks' ? 'active' : ''" id="drinks-link" href="#!/category/drinks">Wine & Drinks</a>
                 </div>
             </div>
         </div>
     </nav>
-    <!--<table class='table table-hover table-responsive table-bordered'>-->
-        <!--<tr>-->
-            <!--<th class="danger">image</th>-->
-            <!--<th class="danger">name</th>-->
-            <!--<th class="danger">price</th>-->
-        <!--</tr>-->
-        <!--<tr class="info fruit-item" data-name="{{fruit.name}}" data-price="{{fruit.price}}" data-fid="{{fruit.id}}" id="fruit-{{fruit.id}}" ng-repeat="fruit in fruits" ng-click="showFruitPopup(categoryName, fruit.id)">-->
-            <!--<td>-->
-                <!--<div ng-if="fruit.image">-->
-                    <!--<img src="../uploads/{{fruit.image}}" height="25">-->
-                <!--</div>-->
-                <!--<div  ng-else>-->
-                    <!--<img src="../uploads/no-image.png" height="25">-->
-                <!--</div>-->
-            <!--</td>-->
-            <!--<td>-->
-                <!--{{fruit.name}}-->
-            <!--</td>-->
-            <!--<td>-->
-                <!--{{fruit.price | currency}}-->
-            <!--</td>-->
-        <!--</tr>-->
-    <!--</table>-->
 
     <div class="row">
         <div class="col-xs-18 col-sm-6 col-md-3">
