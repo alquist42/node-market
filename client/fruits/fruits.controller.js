@@ -16,7 +16,7 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
 
     fruitService.getFruits(categoryId, function(res) {
         const arr = res.data;
-        $scope.keys = Object.keys(arr[0]);
+     //   $scope.keys = Object.keys(arr[0]);
         $scope.fruits = (res.data);
         $scope.categoryId = categoryId;
         $scope.categoryName = $routeParams.name;
