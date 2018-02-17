@@ -1,5 +1,5 @@
     <h2>Edit Product</h2>
-    <form class="form-horizontal" name="addFruitForm" id="addFruitForm" method="{{method}}" enctype="multipart/form-data">
+    <form class="form-horizontal" name="editFruitForm" id="editFruitForm" method="{{method}}" enctype="multipart/form-data">
         <div class="form-group">
             <label class="control-label col-sm-2" for="fruitName">Name:</label>
             <div class="col-sm-10">
@@ -10,18 +10,17 @@
             <label class="control-label col-sm-2" for="fruitCategory">Category:</label>
             <div class="col-sm-10">
                 <select ng-model="fruitEdited.category" class="form-control" id="fruitCategory" name="fruitCategory" required>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
+                    <option value="1">Milk & Eggs</option>
+                    <option value="2">Vegetables & Fruits</option>
+                    <option value="3">Meat & Fish</option>
+                    <option value="4">Wine & Drinks</option>
                 </select>
-                <!--<input type="text" class="form-control" id="fruitCategory" placeholder="Enter category" name="category" required ng-model="fruitEdited.category" >-->
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2" for="fruitPrice">Price:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="fruitPrice" placeholder="Enter price" name="phone" required ng-model="fruitEdited.price">
+                <input type="number" class="form-control" id="fruitPrice" placeholder="Enter price" name="price" required ng-model="fruitEdited.price">
             </div>
         </div>
         <div class="form-group">
@@ -32,8 +31,8 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button ng-click="saveFruit()" class="btnAdd btn btn-primary">Save</button>
-                <button ng-click="closeForm()" class="btnAdd btn btn-primary pull-right">Cancel</button>
+                <button ng-click="saveFruit()" class="btn btn-primary">Save</button>
+                <button ng-click="closeForm()" class="btn btn-primary pull-right">Cancel</button>
             </div>
         </div>
     </form>
