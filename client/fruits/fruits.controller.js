@@ -70,8 +70,22 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
 // TODO
     $scope.saveFruit = function(){
         fruitService.saveFruit($scope.fruitEdited, function(res) {
-            console.log(res);
-        }, function(res) {});
+            if(res.data.error ){
+                if(res.data.error == 'LOGOUT'){
+                    $window.location.href = '/';
+                } else {
+                    alert('SAVING ERROR');
+                }
+            } else {
+                for(let i=0; i<$scope.fruits.length; i++){
+                    if($scope.fruits[i]['id'] == $scope.fruitEdited.id){
+                        $scope.fruits[i] = $scope.fruit = $scope.fruitEdited;
+                        break;
+                    }
+                }
+                $scope.closeForm();
+            }
+        }, function(err) {alert('saving error')});
     }
 
     $scope.closeForm = function(){

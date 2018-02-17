@@ -63,9 +63,11 @@ function editFruit(params, callback){
     console.log('edit item: ',params);
     dal.executeQuery('UPDATE `products` SET name = ? , category = ?, price = ? WHERE id = ?', [params.name, params.category, params.price, params.id], function(err, res, rows) {
         if (err) {
-            return console.error(err.message);
+            callback(err);
+        } else {
+            callback(null, res.affectedRows);
         }
-        console.log(res.affectedRows + " record(s) updated");
+       // console.log(res.affectedRows + " record(s) updated");
     });
 }
 

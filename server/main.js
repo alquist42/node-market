@@ -39,7 +39,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/category', function (req, res) {
-    fruitCtrl.Read(req.query, function(err, fruits) {
+    fruitCtrl.Read(req.query, req.session, function(err, fruits) {
         if (err) {
             res.end('error!');
         }
@@ -110,10 +110,13 @@ app.post('/logout', function (req, res) {
 });
 // TODO
 app.post('/fruit/edit', function (req, res) {
-    console.log(req.query);
+  //  console.log(req.query);
     fruitCtrl.EditFruit(req.query, req.session, function(err, result) {
         if (err) {
-            console.log('error', err);
+            if(err == 'SESSION missed'){
+                res.end(JSON.stringify({error:'LOGOUT'}));
+            }
+         //   console.log('error', err);
             res.end(JSON.stringify({error:'server editing product error'}));
         } else {
             res.end(JSON.stringify(result));

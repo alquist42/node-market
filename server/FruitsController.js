@@ -1,8 +1,10 @@
 var bl = require('./bl');
 
 // CRUD
-function read(params, callback) {
-
+function read(params,session, callback) {
+    if(!session.auth){
+        return callback('SESSION missed');
+    }
     bl.fruits.getFruits(params, function(err, fruitArray) {
         if (err) {
             callback(err);
@@ -12,14 +14,17 @@ function read(params, callback) {
     })
 }
 
-function editFruit(params, callback) {
+function editFruit(params,session, callback) {
+    if(!session.auth){
+        return callback('SESSION missed');
+    }
 
     bl.fruits.editFruit(params, function(err, fruitEditArray) {
         if (err) {
             callback(err);
+        }else {
+            callback(null, fruitEditArray);
         }
-
-        callback(null, fruitEditArray);
     })
 }
 
