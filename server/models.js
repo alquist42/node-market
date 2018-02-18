@@ -34,7 +34,13 @@ function CartItem(cartItem) {
     }
 }
 
+function Category(category) {
+    this.id = category['id'];
+    this.name= category['name'];
+}
+
 module.exports.Fruit = Fruit;
 module.exports.User = User;
 module.exports.Cart = Cart;
 module.exports.CartItem = CartItem;
+module.exports.Category = Category;

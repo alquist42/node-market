@@ -1,6 +1,6 @@
 
 coolApp.service('fruitService', function($http) {
-    this.getFruits = function(categoryId, onSuccess, onError ) {
+    this.getFruits = function(categoryId, onSuccess, onError) {
         $http({
             url: 'http://localhost:8081/category',
             method: 'GET',
@@ -8,7 +8,7 @@ coolApp.service('fruitService', function($http) {
         }).then(onSuccess, onError);
     }
 
-    this.saveFruit = function(fruit, onSuccess, onError ) {
+    this.saveFruit = function(fruit, onSuccess, onError) {
         $http({
             url: 'http://localhost:8081/fruit/edit',
             method: 'POST',
@@ -21,7 +21,7 @@ coolApp.service('fruitService', function($http) {
         }).then(onSuccess, onError);
     }
 
-    this.addFruit = function(fruit, onSuccess, onError ) {
+    this.addFruit = function(fruit, onSuccess, onError) {
         $http({
             url: 'http://localhost:8081/fruit/add',
             method: 'POST',
@@ -30,6 +30,17 @@ coolApp.service('fruitService', function($http) {
                 name: fruit.name,
                 category: fruit.category,
                 price: fruit.price
+            }
+        }).then(onSuccess, onError);
+    }
+
+    this.getCategories = function(onSuccess, onError) {
+        $http({
+            url: 'http://localhost:8081/categories',
+            method: 'GET',
+            params: {
+                // id: id,
+                // name: name
             }
         }).then(onSuccess, onError);
     }
@@ -54,7 +65,7 @@ coolApp.service('AuthService',  function($http) {
     this.checkLoggedIn = function (onSuccess, onError){
         $http({
             url: 'http://localhost:8081/logged_in',
-            method: 'GET',
+            method: 'GET'
         }).then(onSuccess, onError);
     };
 
@@ -94,7 +105,7 @@ coolApp.service('AuthService',  function($http) {
     });
 
 coolApp.service('cartService', function($http) {
-    this.addToCart = function(fruitId, fruitCount, fruitPrice, fruitName, onSuccess, onError ) {
+    this.addToCart = function(fruitId, fruitCount, fruitPrice, fruitName, onSuccess, onError) {
         $http({
             url: 'http://localhost:8081/cart/add',
             method: 'POST',
@@ -107,7 +118,7 @@ coolApp.service('cartService', function($http) {
         }).then(onSuccess, onError);
     }
 
-    this.deleteFromCart = function(itemId, onSuccess, onError ) {
+    this.deleteFromCart = function(itemId, onSuccess, onError) {
         $http({
             url: 'http://localhost:8081/cart/delete',
             method: 'POST',
@@ -117,7 +128,7 @@ coolApp.service('cartService', function($http) {
         }).then(onSuccess, onError);
     }
 
-    this.getCart = function(onSuccess, onError ) {
+    this.getCart = function(onSuccess, onError) {
         $http({
             url: 'http://localhost:8081/cart/get',
             method: 'GET',
@@ -125,28 +136,11 @@ coolApp.service('cartService', function($http) {
         }).then(onSuccess, onError);
     }
 
-    // this.getCartItems = function(onSuccess, onError ) {
-    //     $http({
-    //         url: 'http://localhost:8081/cart/get',
-    //         method: 'GET',
-    //         params: {}
-    //     }).then(onSuccess, onError);
-    // }
-
-    // this.addCartItem = function(onSuccess, onError ) {
-    //     $http({
-    //         url: 'http://localhost:8081/cart/add',
-    //         method: 'POST',
-    //         params: {
-    //             id: id,
-    //             product: product,
-    //             quantity: quantity,
-    //             price: price,
-    //             cart: cart
-    //         }
-    //     }).then(onSuccess, onError);
-    // }
 });
+
+// coolApp.service('categoryService', function($http) {
+
+// });
 
 coolApp.factory('myModal', function (btfModal) {
     return btfModal({

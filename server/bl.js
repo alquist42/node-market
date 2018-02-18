@@ -190,13 +190,28 @@ function getCartItems(cartId, callback){
         });
         callback(null, cartItemsArray);
     });
-  //   callback(null, [{product:5, quantity:1, price: 10}, {product:7, quantity:2, price: 25}]);
 
 }
+
+function getCategories(params, callback) {
+    dal.executeQuery('SELECT * FROM `categories` WHERE id = ?', [params.id], function(err, rows) {
+        if (err) {
+            callback(err);
+        }
+
+        const categoriesObjectsArray = [];
+        rows.forEach(function (row) {
+            categoriesObjectsArray.push(new models.Category(row));
+        });
+        callback(null, categoriesObjectsArray);
+    });
+}
+
 module.exports.fruits = {
     getFruits: getFruits,
     editFruit: editFruit,
-    addFruit: addFruit
+    addFruit: addFruit,
+    getCategories: getCategories
 };
 
 
@@ -209,7 +224,5 @@ module.exports.auth = {
 module.exports.cart = {
     addToCart: addToCart,
     deleteFromCart: deleteCartItem,
-    getCart: getCartData,
- //   getCartItems: getCartItems,
- //   addCartItem: addCartItem
+    getCart: getCartData
 };

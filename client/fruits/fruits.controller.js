@@ -21,6 +21,7 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
         $scope.categoryId = categoryId;
         $scope.categoryName = $routeParams.name;
         $scope.loaded = true;
+        // $scope.categories = (res.data);
       //  console.log('xx', $routeParams.id)
     }, function(res) {});
 
@@ -126,4 +127,39 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
     }
     var showModal = myModal.activate;
 
+    fruitService.getCategories($scope, function(res) {
+        const arr = res.data;
+        // $scope.fruits = (res.data);
+        // $scope.categoryId = categoryId;
+        // $scope.categoryName = $routeParams.name;
+        // $scope.loaded = true;
+        $scope.categories = (res.data);
+    }, function(res) {});
+
+    // var getCategories = function (id) {
+    //     $scope.categories = $scope.fruits.filter(function(category){
+    //         return category.id == id;
+    //     })[0];
+    //     $scope.showFruit = true;
+    // };
+
+    // $scope.getCategories = function(){
+    //     fruitService.getCategories($scope.fruitEdited, function(res) {
+    //         if(res.data.error ){
+    //             if(res.data.error == 'LOGOUT'){
+    //                 $window.location.href = '/';
+    //             } else {
+    //                 alert('SAVING ERROR');
+    //             }
+    //         } else {
+    //             for(let i=0; i<$scope.fruits.length; i++){
+    //                 if($scope.fruits[i]['id'] == $scope.fruitEdited.id){
+    //                     $scope.fruits[i] = $scope.fruit = $scope.fruitEdited;
+    //                     break;
+    //                 }
+    //             }
+    //             $scope.closeForm();
+    //         }
+    //     }, function(err) {alert('saving error')});
+    // }
 });

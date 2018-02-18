@@ -180,6 +180,16 @@ app.get('/cart/get', function (req, res) {
 
 });
 
+app.get('/categories', function (req, res) {
+    fruitCtrl.GetCategories(req.query, req.session, function(err, categories) {
+        if (err) {
+            res.end('error!');
+        }
+        res.end(JSON.stringify(categories));
+    })
+
+});
+
 // Start the server
 var server = app.listen(8081, function () {
     console.log('listening to 8081')
