@@ -60,12 +60,18 @@ function getFruits(params, callback) {
 }
 
 function editFruit(params, callback){
-    console.log('edit item: ', params);
-    dal.executeQuery('UPDATE `products` SET name = ? , category = ?, price = ? WHERE id = ?', [params.name, params.category, params.price, params.id], function(err, res, rows) {
+   // console.log('edit item: ',params);
+    let arrValues = [params.name, params.category, params.price, params.id];
+    let imgStr = '';
+    if(params.image){
+        imgStr = ', image = ?';
+        arrValues.splice(-1, 0, params.image);
+    }
+    dal.executeQuery('UPDATE `products` SET name = ? , category = ?, price = ? ' + imgStr + ' WHERE id = ?', arrValues, function(err, res, rows) {
         if (err) {
             callback(err);
         } else {
-            callback(null, res.affectedRows);
+            callback(null);
         }
         // console.log(res.affectedRows + " record(s) updated");
     });
@@ -190,6 +196,7 @@ function getCartItems(cartId, callback){
         });
         callback(null, cartItemsArray);
     });
+  //   callback(null, [{product:5, quantity:1, price: 10}, {product:7, quantity:2, price: 25}]);
 
 }
 

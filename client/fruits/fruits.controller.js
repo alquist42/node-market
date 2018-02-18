@@ -16,13 +16,13 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
 
     fruitService.getFruits(categoryId, function(res) {
         const arr = res.data;
-     //   $scope.keys = Object.keys(arr[0]);
+        //   $scope.keys = Object.keys(arr[0]);
         $scope.fruits = (res.data);
         $scope.categoryId = categoryId;
         $scope.categoryName = $routeParams.name;
         $scope.loaded = true;
         // $scope.categories = (res.data);
-      //  console.log('xx', $routeParams.id)
+        //  console.log('xx', $routeParams.id)
     }, function(res) {});
 
 
@@ -77,25 +77,50 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
             $compile(template)($scope);
         });
     };
-// TODO
+
     $scope.saveFruit = function(){
-        fruitService.saveFruit($scope.fruitEdited, function(res) {
-            if(res.data.error ){
-                if(res.data.error == 'LOGOUT'){
-                    $window.location.href = '/';
-                } else {
-                    alert('SAVING ERROR');
-                }
-            } else {
-                for(let i=0; i<$scope.fruits.length; i++){
-                    if($scope.fruits[i]['id'] == $scope.fruitEdited.id){
-                        $scope.fruits[i] = $scope.fruit = $scope.fruitEdited;
-                        break;
+        var callService = function(){
+            return fruitService.saveFruit($scope.fruitEdited, function(res) {
+                if(res.data.error ){
+                    if(res.data.error == 'LOGOUT'){
+                        $window.location.href = '/';
+                    } else {
+                        alert('SAVING ERROR');
                     }
+                } else {
+                    if(res.data.file){
+                        $scope.fruitEdited.image = res.data.file;
+                    }
+                    for(let i=0; i<$scope.fruits.length; i++){
+                        if($scope.fruits[i]['id'] == $scope.fruitEdited.id){
+                            $scope.fruits[i] = $scope.fruit = $scope.fruitEdited;
+                            break;
+                        }
+                    }
+                    $scope.closeForm();
                 }
-                $scope.closeForm();
+            }, function(err) {
+                alert('saving error')
+            });
+        }
+
+        var f = document.getElementById('file').files[0];
+        if(f){
+            var r = new FileReader();
+            if(f.size > 46000){
+                alert('file is too big!');
+                return;
             }
-        }, function(err) {alert('saving error')});
+            r.onloadend = function(e) {
+                var data = e.target.result;
+                $scope.fruitEdited.file = data;
+                callService();
+
+            };
+            r.readAsDataURL(f);
+        } else {
+            callService();
+        }
     }
 
     $scope.saveAddFruit = function(){
