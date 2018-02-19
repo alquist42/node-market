@@ -1,10 +1,10 @@
-<div id="cart">cart:
-    <button class="btn btn-primary btn-md" ng-click="goToShopPage()" type="button">back to shop</button>
-
+<div id="cart">
+    <button class="btn btn-primary btn-md pull-right" ng-click="goToShopPage()" type="button">back to shop</button>
+    <h3>Cart:</h3>
 
     <div class="info fruit-item" ng-repeat="fruit in cartFruits">
-        <td>
-            Q: {{fruit.quantity}} Price: {{fruit.price | currency}}
-        </td>
+        <span class="list-group-item list-group-item-warning">
+                Name: {{fruit.name}} Quantity: {{fruit.quantity}} Price: {{fruit.price | currency}}
+        </span>
     </div>
 </div>
