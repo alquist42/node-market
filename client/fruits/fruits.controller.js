@@ -21,7 +21,6 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
         $scope.categoryId = categoryId;
         $scope.categoryName = $routeParams.name;
         $scope.loaded = true;
-        // $scope.categories = (res.data);
         //  console.log('xx', $routeParams.id)
     }, function(res) {});
 
