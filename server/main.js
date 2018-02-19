@@ -11,13 +11,13 @@ var cartCtrl = require('./CartController');
 
 var app = express();
 const session = require('express-session');
-const fileUpload = require('express-fileupload');
+// const fileUpload = require('express-fileupload');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static('./client'));
 app.use(express.static('./node_modules'));
-app.use(fileUpload());
+// app.use(fileUpload());
 
 app.use(session({
     secret: 'ssshhhhh',
@@ -209,11 +209,12 @@ app.get('/cart/get', function (req, res) {
 });
 
 app.get('/categories', function (req, res) {
-    fruitCtrl.GetCategories(req.query, req.session, function(err, categories) {
+    fruitCtrl.GetCategories(req.query, req.session, function(err, data) {
         if (err) {
             res.end('error!');
         }
-        res.end(JSON.stringify(categories));
+        res.end(JSON.stringify(data));
+        // console.log(data);
     })
 
 });

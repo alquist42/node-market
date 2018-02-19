@@ -35,13 +35,13 @@ coolApp.service('fruitService', function($http) {
         }).then(onSuccess, onError);
     }
 
-    this.getCategories = function(onSuccess, onError) {
+    this.getCategories = function(category, onSuccess, onError) {
         $http({
             url: 'http://localhost:8081/categories',
             method: 'GET',
             params: {
-                // id: id,
-                // name: name
+                id: category.id,
+                name: category.name
             }
         }).then(onSuccess, onError);
     }

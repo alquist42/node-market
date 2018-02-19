@@ -201,7 +201,7 @@ function getCartItems(cartId, callback){
 }
 
 function getCategories(params, callback) {
-    dal.executeQuery('SELECT * FROM `categories` WHERE id = ?', [params.id], function(err, rows) {
+    dal.executeQuery('SELECT * FROM `categories`', [], function(err, rows) {
         if (err) {
             callback(err);
         }
@@ -211,6 +211,7 @@ function getCategories(params, callback) {
             categoriesObjectsArray.push(new models.Category(row));
         });
         callback(null, categoriesObjectsArray);
+        console.log(categoriesObjectsArray);
     });
 }
 
