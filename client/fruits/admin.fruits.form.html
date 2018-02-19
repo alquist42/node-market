@@ -9,13 +9,8 @@
         <div class="form-group">
             <label class="control-label col-sm-2" for="fruitCategory">Category:</label>
             <div class="col-sm-10">
-                <!--<select name="fruitCategory" id="fruitCategory" ng-model="fruitEdited.category" class="form-control" ng-options="item for item in categories"></select>-->
-                <select ng-model="fruitEdited.category" class="form-control" id="fruitCategory" name="fruitCategory" required>
-                    <option ng-repeat="category in categories">{{category}}</option>
-                    <!--<option value="1">Milk & Eggs</option>-->
-                    <!--<option value="2">Vegetables & Fruits</option>-->
-                    <!--<option value="3">Meat & Fish</option>-->
-                    <!--<option value="4">Wine & Drinks</option>-->
+                <select class="form-control" name="fruitCategory" id="fruitCategory">
+                    <option ng-selected="fruitEdited.category == category.id ? 'selected' : ''" value="{{category.id}}" ng-repeat="category in categories">{{category.name}}</option>
                 </select>
             </div>
         </div>
