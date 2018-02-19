@@ -222,6 +222,19 @@ app.get('/categories', function (req, res) {
 
 });
 
+app.post('/order', function (req, res) {
+
+    cartCtrl.Order(req.query, req.session, function(err, result) {
+        if (err) {
+            console.log('error', err);
+            res.end(JSON.stringify({error:'server order error'}));
+        } else {
+            res.end(JSON.stringify(result));
+        }
+    });
+
+});
+
 // Start the server
 var server = app.listen(8081, function () {
     console.log('listening to 8081')

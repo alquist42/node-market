@@ -141,11 +141,24 @@ coolApp.service('cartService', function($http) {
         }).then(onSuccess, onError);
     }
 
+    this.order = function(order, onSuccess, onError) {
+        $http({
+            url: 'http://localhost:8081/order',
+            method: 'POST',
+            params: {
+                id: order.id,
+                customer: order.customer,
+                cart: order.cart,
+                price: order.price,
+                delivery_city: order.delivery_city,
+                delivery_street: order.delivery_street,
+                delivery_date: order.delivery_date,
+                order_date: order.order_date,
+                credit_card: order.credit_card
+            }
+        }).then(onSuccess, onError);
+    }
 });
-
-// coolApp.service('categoryService', function($http) {
-
-// });
 
 coolApp.factory('myModal', function (btfModal) {
     return btfModal({

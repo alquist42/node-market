@@ -28,4 +28,26 @@ coolApp.controller('cartCtrl', function($scope, $location, $window, $routeParams
     $scope.goToOrderStep = function () {
         $location.path('order', true);
     };
+
+    $scope.order = function(user) {
+        cartService.order(user,
+            function(res) {
+                if(res.data.error){
+                    $scope.serverError = res.data.error;
+                    alert(res.data.error);
+                } else{
+                    $scope.user = res.data;
+                    $window.location.href = '/';
+                }
+            }, function(res) {
+                alert('unknown order error');
+            }
+        )
+    };
+
+    // $scope.order = function (id, count, price, name) {
+    //     cartService.order(id, count, price, name, function(res) {
+    //         mySharedService.addFruit(res.data);
+    //     }, function(res) {});
+    // };
 });

@@ -39,8 +39,21 @@ function Category(category) {
     this.name= category['name'];
 }
 
+function Order(order) {
+    this.id = order['id'];
+    this.customer= order['customer'];
+    this.cart = order['cart'];
+    this.price = order['price'];
+    this.delivery_city = order['delivery_city'];
+    this.delivery_street= order['delivery_street'];
+    this.delivery_date = order['delivery_date'];
+    this.order_date= order['order_date'];
+    this.credit_card = order['credit_card'];
+}
+
 module.exports.Fruit = Fruit;
 module.exports.User = User;
 module.exports.Cart = Cart;
 module.exports.CartItem = CartItem;
 module.exports.Category = Category;
+module.exports.Order = Order;

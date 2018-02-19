@@ -135,7 +135,7 @@ function addToCart(params, callback) {
 
 function addCartItem(cartId, params, callback){
     dal.executeQuery('INSERT INTO `cart_items` (id, product, quantity, price, cart) VALUES (NULL,?,?,?,?)',
-        [params.product,params.quantity,params.price,cartId],
+        [params.product, params.quantity, params.price, cartId],
         function(err, res) {
             if (err) {
                 console.log('error sql', err);
@@ -215,6 +215,22 @@ function getCategories(params, callback) {
     });
 }
 
+function order(tz, cartId, params, callback){
+    dal.executeQuery('INSERT INTO `cart_items` (id, customer, cart, price, delivery_city, delivery_street, delivery_date, order_date, credit_card) VALUES (NULL,?,?,?,?,?,?, NOW(), ?)',
+        [params.tz, cartId, params.price, params.delivery_city, params.delivery_street, params.delivery_date, params.credit_card],
+        function(err, res) {
+            if (err) {
+                console.log('error sql', err);
+                return callback('Order error');
+            }
+            params.id = res.insertId;
+            params.cart = cartId;
+            let orderItemModel = new models.Order(params);
+            callback(null, orderItemModel);
+        });
+    console.log(params);
+}
+
 module.exports.fruits = {
     getFruits: getFruits,
     editFruit: editFruit,
@@ -232,5 +248,6 @@ module.exports.auth = {
 module.exports.cart = {
     addToCart: addToCart,
     deleteFromCart: deleteCartItem,
-    getCart: getCartData
+    getCart: getCartData,
+    order: order
 };
