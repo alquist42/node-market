@@ -87,9 +87,18 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
                     alert('SAVING ERROR');
                 }
             } else {
+                let action = 'edit';
+                if($scope.categoryId != +$scope.fruitEdited.category){ // CATEGORY CHANGED
+                    action = 'move';
+                }
                 for(let i=0; i<$scope.fruits.length; i++){
                     if($scope.fruits[i]['id'] == $scope.fruitEdited.id){
-                        $scope.fruits[i] = $scope.fruit = $scope.fruitEdited;
+                        $scope.fruit = $scope.fruitEdited
+                        if(action=='edit'){
+                            $scope.fruits[i] = $scope.fruitEdited;
+                        } else {
+                            $scope.fruits.splice(i, 1);
+                        }
                         break;
                     }
                 }
@@ -152,7 +161,7 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
     fruitService.getCategories($scope, function(res) {
         const arr = res.data;
         $scope.categories = (res.data);
-        console.log($scope.categories);
+      //  console.log($scope.categories);
     }, function(res) {});
 
 });
