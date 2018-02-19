@@ -211,7 +211,7 @@ function getCategories(params, callback) {
             categoriesObjectsArray.push(new models.Category(row));
         });
         callback(null, categoriesObjectsArray);
-        console.log(categoriesObjectsArray);
+      //  console.log(categoriesObjectsArray);
     });
 }
 

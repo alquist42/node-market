@@ -12,16 +12,20 @@ coolApp.service('fruitService', function($http) {
         $http({
             url: 'http://localhost:8081/fruit/edit',
             method: 'POST',
-            params: {
-                id: fruit.id,
-                name: fruit.name,
-                category: fruit.category,
-                price: fruit.price,
-                file: fruit.file
-            }
+            data: fruit
         }).then(onSuccess, onError);
     }
 
+    this.uploadImage = function(fd, onSuccess, onError){
+        $http({
+            url: 'http://localhost:8081/fruit/image',
+            method: 'POST',
+            data: fd,
+            headers: {'Content-Type': undefined},
+            transformRequest: angular.identity
+
+        }).then(onSuccess, onError);
+    };
     this.addFruit = function(fruit, onSuccess, onError) {
         $http({
             url: 'http://localhost:8081/fruit/add',

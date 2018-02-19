@@ -77,9 +77,9 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
         });
     };
 
-    $scope.saveFruit = function(){
+    $scope.saveFruitData = function(){
         $scope.fruitEdited.category = document.querySelector('#fruitCategory').value;
-        fruitService.saveFruit($scope.fruitEdited, function(res) {
+        return fruitService.saveFruit($scope.fruitEdited, function(res) {
             if(res.data.error ){
                 if(res.data.error == 'LOGOUT'){
                     $window.location.href = '/';
@@ -87,9 +87,6 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
                     alert('SAVING ERROR');
                 }
             } else {
-                if(res.data.file){
-                    $scope.fruitEdited.image = res.data.file;
-                }
                 for(let i=0; i<$scope.fruits.length; i++){
                     if($scope.fruits[i]['id'] == $scope.fruitEdited.id){
                         $scope.fruits[i] = $scope.fruit = $scope.fruitEdited;
@@ -102,6 +99,26 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
             alert('saving error')
         });
     }
+
+    $scope.saveFruit = function(){
+        var f = document.getElementById('file').files[0];
+        if(f){
+            $scope.uploadFile(f);
+        } else{
+            $scope.saveFruitData();
+        }
+    };
+
+    $scope.uploadFile = function(f){
+        var fd = new FormData();
+        fd.append('image', f);
+        fruitService.uploadImage(fd, function(res) {
+            if(res.data.image){
+                $scope.fruitEdited.image = res.data.image;
+            }
+            $scope.saveFruitData();
+        }, function(err) {});
+    };
 
     $scope.saveAddFruit = function(){
         fruitService.addFruit($scope.fruitAdded, function(res) {

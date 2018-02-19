@@ -11,7 +11,7 @@ var cartCtrl = require('./CartController');
 
 var app = express();
 const session = require('express-session');
-// const fileUpload = require('express-fileupload');
+const multer  = require('multer'); // FILES UPLOADING
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -111,46 +111,49 @@ app.post('/logout', function (req, res) {
     });
 
 });
-// TODO
+
+
+app.post('/fruit/image', function (req, res) {
+    if(!req.session.auth){
+        res.end(JSON.stringify({error:'LOGOUT'}));
+        return;
+    }
+
+    var fileName= '';
+    var storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, __dirname + '/../client/uploads/')
+        },
+        filename: function (req, file, cb) {
+            fileName = Date.now() + '-' + file.originalname;
+            cb(null,  fileName)
+        }
+    });
+
+    var upload = multer({ storage: storage }).single('image');
+    upload(req, res, function(err){
+      //  console.log('FILE', req.file);
+        if(err){
+            console.log(err);
+            res.end(JSON.stringify({error:'file upload error'}));
+        } else {
+            res.end(JSON.stringify({image:fileName}));
+        }
+    });
+});
+
 app.post('/fruit/edit', function (req, res) {
-    var editFunction = function() {
-        return fruitCtrl.EditFruit(req.query, req.session, function(err, result) {
-            if (err) {
-                if(err == 'SESSION missed'){
-                    res.end(JSON.stringify({error:'LOGOUT'}));
-                }
-                console.log(err);
-                res.end(JSON.stringify({error:'server editing product error'}));
-            } else {
-                res.end(JSON.stringify(returnData));
+    fruitCtrl.EditFruit(req.body, req.session, function(err, result) {
+        if (err) {
+            if(err == 'SESSION missed'){
+                res.end(JSON.stringify({error:'LOGOUT'}));
             }
-        });
-
-    }
-
-    var returnData = {};
-    var data_url = req.query.file;
-    if(data_url){
-        var matches = data_url.match(/^data:(.+)\/(.+);base64,(.*)$/);
-        var ext = matches[2];
-        var file_name= matches[1] + '_' + Date.now() + '.' + ext;
-        returnData.file = file_name;
-        var base64_data = matches[3];
-        var buffer = new Buffer(base64_data, 'base64');
-        console.log(file_name);
-        fs.writeFile(__dirname + '/../client/uploads/' + file_name, buffer, function (err) {
-            if(err){
-                req.query.image = 'no-image.png'
-            } else {
-                req.query.image = file_name;
-            }
-            delete req.query.file;
-            editFunction();
-        });
-    } else {
-        editFunction();
-    }
-
+            console.log(err);
+            res.end(JSON.stringify({error:'server editing product error'}));
+        } else {
+            res.end(JSON.stringify(result));
+        }
+    });
 });
 
 app.post('/fruit/add', function (req, res) {
@@ -166,7 +169,7 @@ app.post('/fruit/add', function (req, res) {
         }
     });
 });
-// TODO
+
 app.post('/cart/add', function (req, res) {
 
     cartCtrl.AddToCart(req.query, req.session, function(err, result) {
