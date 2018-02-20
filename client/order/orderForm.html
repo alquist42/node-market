@@ -1,4 +1,4 @@
-<form>
+<form id="orderForm" name="orderForm">
     <h3 class="text-center">Order</h3>
     <fieldset>
         <legend><h4>Shipping details:</h4></legend>
@@ -6,6 +6,9 @@
             <label for="deliveryCity" class="col-md-offset-1 col-sm-2 control-label required-field">City</label>
             <div class="col-sm-8">
                 <select ng-model="order.delivery_city" class="form-control input-sm chat-input margin_bottom" id="deliveryCity" name="deliveryCity" placeholder="City" required>
+                    <option ng-dblclick="getCity()" ng-init="city = city" value="{{city}}" selected="selected">
+                        {{city}}
+                    </option>
                     <option>Jerusalem</option>
                     <option>Tel Aviv</option>
                     <option>Haifa</option>
@@ -46,10 +49,10 @@
             </div>
         </div>
     </fieldset>
-    <!--<input type="hidden" name="ctrl" value="login" >-->
     <div class="wrapper">
         <span class="group-btn">
-            <button class="btn btn-primary btn-md center-block" ng-click="makeOrder(order)" type="button">Order</button>
+            <button class="btn btn-primary btn-md center-block" ng-click="makeOrder(order)" type="button"
+                    ng-disabled="orderForm.deliveryCity.$invalid || orderForm.deliveryStreet.$invalid || orderForm.shippingDate.$invalid || orderForm.creditCard.$invalid">Order</button>
         </span>
     </div>
 </form>

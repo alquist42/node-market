@@ -196,7 +196,6 @@ function getCartItems(cartId, callback){
         });
         callback(null, {fruits:cartItemsArray, cart:cartId});
     });
-  //   callback(null, [{product:5, quantity:1, price: 10}, {product:7, quantity:2, price: 25}]);
 
 }
 
@@ -232,13 +231,25 @@ function order(params, callback){
             }
             params.id = res.insertId;
             params.cart = params.cart;
-            // params.price = orderPrice;
-            // params.delivery_city = deliveryCity;
-            // params.delivery_street = deliveryStreet;
             let orderItemModel = new models.Order(params);
             callback(null, orderItemModel);
            // console.log(orderItemModel);
         });
+}
+
+function getCity(params, callback) {
+    dal.executeQuery('SELECT city FROM `users`', [], function(err, rows) {
+        if (err) {
+            callback(err);
+        }
+
+        const citiesObjectsArray = [];
+        rows.forEach(function (row) {
+            citiesObjectsArray.push(new models.User(row));
+        });
+        callback(null, citiesObjectsArray);
+         console.log(citiesObjectsArray);
+    });
 }
 
 module.exports.fruits = {
@@ -251,7 +262,8 @@ module.exports.fruits = {
 
 module.exports.auth = {
     login: login,
-    register: register
+    register: register,
+    getCity: getCity
 };
 
 

@@ -33,14 +33,8 @@ coolApp.controller('orderCtrl', function($scope, $location, $window, $routeParam
         data.cart = $scope.cartId;
         orderService.makeOrder(data,
             function(res) {
-                // if(res.data.error){
-                //     $scope.serverError = res.data.error;
-                //     alert(res.data.error);
-                // } else{
                 const arr = res.data;
                 $scope.orders = (res.data);
-                    // $window.location.href = '/';
-                // }
             }, function(res) {
                 alert('unknown order error');
             }
@@ -52,4 +46,19 @@ coolApp.controller('orderCtrl', function($scope, $location, $window, $routeParam
     //         mySharedService.addFruit(res.data);
     //     }, function(res) {});
     // };
+
+    $scope.user = function(data) {
+        console.log(data);
+        // data.cart = $scope.cartId;
+        AuthService.getCity(data,
+            function(res) {
+                const arr = res.data;
+                // $scope.cities = (city.res.data);
+                $scope.city = (res.data);
+            }, function(res) {
+                alert('unknown order error');
+            }
+        )
+    };
+
 });

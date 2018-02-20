@@ -233,8 +233,26 @@ app.post('/order', function (req, res) {
             console.log(data);
         }
     });
-
 });
+
+app.get('/city', function (req, res) {
+    authCtrl.GetCity(req.query, function(err, user) {
+        if (err) {
+            //  console.log('returned error');
+            res.end(JSON.stringify({error:err}));
+        }
+        if(user && Object.keys(user).length){
+            req.session.auth = {
+                user:user
+            }
+            res.end(JSON.stringify(user));
+        } else {
+            res.end(JSON.stringify({error:'Order error!'}));
+        }
+
+    });
+});
+
 
 // Start the server
 var server = app.listen(8081, function () {

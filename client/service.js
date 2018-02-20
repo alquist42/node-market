@@ -67,7 +67,7 @@ coolApp.factory('mySharedService', function($rootScope) {
 
 
 
-coolApp.service('AuthService',  function($http) {
+coolApp.service('AuthService', function($http) {
     this.checkLoggedIn = function (onSuccess, onError){
         $http({
             url: 'http://localhost:8081/logged_in',
@@ -90,7 +90,7 @@ coolApp.service('AuthService',  function($http) {
         }).then(onSuccess, onError);
     };
 
-    this.register = function (user,onSuccess, onError) {
+    this.register = function (user, onSuccess, onError) {
         $http({
             url: 'http://localhost:8081/register',
             method: 'POST',
@@ -107,6 +107,22 @@ coolApp.service('AuthService',  function($http) {
         }).then(onSuccess, onError);
     };
 
+    this.getCity = function (user, onSuccess, onError) {
+        $http({
+            url: 'http://localhost:8081/city',
+            method: 'POST',
+            params: {
+                // teudat_zehut: user.teudat_zehut,
+                // name: user.name,
+                // last_name: user.last_name,
+                // email: user.email,
+                // password: user.password,
+                city: user.city
+                // street: user.street,
+                // role: user.role
+            }
+        }).then(onSuccess, onError);
+    };
 
     });
 

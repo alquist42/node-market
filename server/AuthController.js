@@ -23,6 +23,17 @@ function register(params, callback) {
     })
 }
 
-module.exports.Login = login;
+function getCity(params, callback) {
 
+    bl.auth.getCity(params, function(err, getCityResult) {
+        if (err) {
+            callback(err);
+        }
+
+        callback(null, getCityResult);
+    })
+}
+
+module.exports.Login = login;
 module.exports.Register = register;
+module.exports.GetCity = getCity;
