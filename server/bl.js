@@ -217,7 +217,7 @@ function getCategories(params, callback) {
 
 function order(tz, cartId, params, callback){
     dal.executeQuery('INSERT INTO `orders` (id, customer, cart, price, delivery_city, delivery_street, delivery_date, order_date, credit_card) VALUES (NULL,?,?,?,?,?,?, NOW(), ?)',
-        [params.tz, cartId, params.price, params.delivery_city, params.delivery_street, params.delivery_date, params.credit_card],
+        [tz, cartId, params.price, params.delivery_city, params.delivery_street, params.delivery_date, params.credit_card],
         function(err, res) {
             if (err) {
                 console.log('error sql', err);
@@ -225,10 +225,13 @@ function order(tz, cartId, params, callback){
             }
             params.id = res.insertId;
             params.cart = cartId;
+            // params.price = orderPrice;
+            // params.delivery_city = deliveryCity;
+            // params.delivery_street = deliveryStreet;
             let orderItemModel = new models.Order(params);
             callback(null, orderItemModel);
+            console.log(orderItemModel);
         });
-    console.log(params);
 }
 
 module.exports.fruits = {
@@ -248,6 +251,9 @@ module.exports.auth = {
 module.exports.cart = {
     addToCart: addToCart,
     deleteFromCart: deleteCartItem,
-    getCart: getCartData,
-    order: order
+    getCart: getCartData
 };
+
+module.exports.orders = {
+    order: order
+}

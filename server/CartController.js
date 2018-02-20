@@ -43,22 +43,6 @@ function getCart(session, callback) {
     })
 }
 
-function order(params, session, callback) {
-    let authData = session.auth;
-    if(!authData){
-        return callback('SESSION missed');
-    }
-    params.tz = authData['user']['teudat_zehut'];
-    bl.cart.order(params, function(err, orderResult) {
-        if (err) {
-            return callback(err);
-        }
-        callback(null, orderResult);
-    })
-}
-
-
 module.exports.AddToCart = addToCart;
 module.exports.DeleteFromCart = deleteFromCart;
 module.exports.GetCart = getCart;
-module.exports.Order = order;

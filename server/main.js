@@ -8,6 +8,7 @@ var fs = require('fs');
 var fruitCtrl = require('./FruitsController');
 var authCtrl = require('./AuthController');
 var cartCtrl = require('./CartController');
+var orderCtrl = require('./OrderController');
 
 var app = express();
 const session = require('express-session');
@@ -224,12 +225,13 @@ app.get('/categories', function (req, res) {
 
 app.post('/order', function (req, res) {
 
-    cartCtrl.Order(req.query, req.session, function(err, result) {
+    orderCtrl.Order(req.query, req.session, function(err, data) {
         if (err) {
             console.log('error', err);
             res.end(JSON.stringify({error:'server order error'}));
         } else {
-            res.end(JSON.stringify(result));
+            res.end(JSON.stringify(data));
+            console.log(data);
         }
     });
 

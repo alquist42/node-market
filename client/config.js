@@ -24,7 +24,7 @@ coolApp.config(function($routeProvider) {
         })
 
         .when("/order", {
-            templateUrl : "cart/order.view.html",
+            templateUrl : "order/order.view.html",
             controller: 'orderCtrl'
         })
 

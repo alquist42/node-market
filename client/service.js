@@ -141,7 +141,10 @@ coolApp.service('cartService', function($http) {
         }).then(onSuccess, onError);
     }
 
-    this.order = function(order, onSuccess, onError) {
+});
+
+coolApp.service('orderService', function($http) {
+    this.makeOrder = function(order, onSuccess, onError) {
         $http({
             url: 'http://localhost:8081/order',
             method: 'POST',

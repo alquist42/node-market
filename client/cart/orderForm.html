@@ -1,53 +1,53 @@
-<form>
-    <h3 class="text-center">Order</h3>
-    <fieldset>
-        <legend><h4>Shipping details:</h4></legend>
-        <div class="form-group row">
-            <label for="deliveryCity" class="col-md-offset-1 col-sm-2 control-label">City</label>
-            <div class="col-sm-8">
-                <select ng-model="order.delivery_city" class="form-control input-sm chat-input margin_bottom" id="deliveryCity" name="deliveryCity" placeholder="City" required>
-                    <option>Jerusalem</option>
-                    <option>Tel Aviv</option>
-                    <option>Haifa</option>
-                    <option>Ashdod</option>
-                    <option>Rishon LeZiyyon</option>
-                    <option>Petah Tikva</option>
-                    <option>Beersheba</option>
-                    <option>Netanya</option>
-                    <option>Holon</option>
-                    <option>Bnei Brak</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="deliveryStreet" class="col-md-offset-1 col-sm-2 control-label">Street</label>
-            <div class="col-sm-8">
-                <input ng-model="order.delivery_street" type="text" id="deliveryStreet" name="deliveryStreet" class="form-control input-sm chat-input margin_bottom"
-                       placeholder="Street" required>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="shippingDate" class="col-md-offset-1 col-sm-2 control-label">Shipping Date</label>
-            <div class="col-sm-8">
-                <input ng-model="order.delivery_date" type="text" id="shippingDate" name="shippingDate" class="form-control input-sm chat-input margin_bottom"
-                       placeholder="Shipping Date" required>
-            </div>
-        </div>
-    </fieldset>
-    <fieldset>
-        <legend><h4>Payments:</h4></legend>
-        <div class="form-group row">
-            <label for="creditCard" class="col-md-offset-1 col-sm-2 control-label">Credit Card</label>
-            <div class="col-sm-8">
-                <input ng-model="order.credit_card" type="text" id="creditCard" name="creditCard" class="form-control input-sm chat-input margin_bottom"
-                       placeholder="Credit Card" required>
-            </div>
-        </div>
-    </fieldset>
-    <input type="hidden" name="ctrl" value="login" >
-    <div class="wrapper">
-        <span class="group-btn">
-            <button class="btn btn-primary btn-md center-block" ng-click="makeOrder(order)" type="button">Order</button>
-        </span>
-    </div>
-</form>
+<!--<form>-->
+    <!--<h3 class="text-center">Order</h3>-->
+    <!--<fieldset>-->
+        <!--<legend><h4>Shipping details:</h4></legend>-->
+        <!--<div class="form-group row">-->
+            <!--<label for="deliveryCity" class="col-md-offset-1 col-sm-2 control-label">City</label>-->
+            <!--<div class="col-sm-8">-->
+                <!--<select ng-model="order.delivery_city" class="form-control input-sm chat-input margin_bottom" id="deliveryCity" name="deliveryCity" placeholder="City" required>-->
+                    <!--<option>Jerusalem</option>-->
+                    <!--<option>Tel Aviv</option>-->
+                    <!--<option>Haifa</option>-->
+                    <!--<option>Ashdod</option>-->
+                    <!--<option>Rishon LeZiyyon</option>-->
+                    <!--<option>Petah Tikva</option>-->
+                    <!--<option>Beersheba</option>-->
+                    <!--<option>Netanya</option>-->
+                    <!--<option>Holon</option>-->
+                    <!--<option>Bnei Brak</option>-->
+                <!--</select>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="form-group row">-->
+            <!--<label for="deliveryStreet" class="col-md-offset-1 col-sm-2 control-label">Street</label>-->
+            <!--<div class="col-sm-8">-->
+                <!--<input ng-model="order.delivery_street" type="text" id="deliveryStreet" name="deliveryStreet" class="form-control input-sm chat-input margin_bottom"-->
+                       <!--placeholder="Street" required>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="form-group row">-->
+            <!--<label for="shippingDate" class="col-md-offset-1 col-sm-2 control-label">Shipping Date</label>-->
+            <!--<div class="col-sm-8">-->
+                <!--<input ng-model="order.delivery_date" type="text" id="shippingDate" name="shippingDate" class="form-control input-sm chat-input margin_bottom"-->
+                       <!--placeholder="Shipping Date" required>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</fieldset>-->
+    <!--<fieldset>-->
+        <!--<legend><h4>Payments:</h4></legend>-->
+        <!--<div class="form-group row">-->
+            <!--<label for="creditCard" class="col-md-offset-1 col-sm-2 control-label">Credit Card</label>-->
+            <!--<div class="col-sm-8">-->
+                <!--<input ng-model="order.credit_card" type="text" id="creditCard" name="creditCard" class="form-control input-sm chat-input margin_bottom"-->
+                       <!--placeholder="Credit Card" required>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</fieldset>-->
+    <!--<input type="hidden" name="ctrl" value="login" >-->
+    <!--<div class="wrapper">-->
+        <!--<span class="group-btn">-->
+            <!--<button class="btn btn-primary btn-md center-block" ng-click="makeOrder(order)" type="button">Order</button>-->
+        <!--</span>-->
+    <!--</div>-->
+<!--</form>-->
