@@ -47,7 +47,7 @@ coolApp.controller('orderCtrl', function($scope, $location, $window, $routeParam
     //     }, function(res) {});
     // };
 
-    $scope.user = function(data) {
+    $scope.getCity = function(data) {
         console.log(data);
         // data.cart = $scope.cartId;
         AuthService.getCity(data,
