@@ -28,7 +28,8 @@ coolApp.controller('orderCtrl', function($scope, $location, $window, $routeParam
     //      console.log($scope.order);
     // }, function(res) {});
 
-    $scope.order = function(data) {
+    $scope.makeOrder = function(data) {
+        console.log(234);
         orderService.makeOrder($scope,
             function(res) {
                 // if(res.data.error){
