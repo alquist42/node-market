@@ -262,8 +262,7 @@ module.exports.fruits = {
 
 module.exports.auth = {
     login: login,
-    register: register,
-    getCity: getCity
+    register: register
 };
 
 
@@ -274,5 +273,6 @@ module.exports.cart = {
 };
 
 module.exports.orders = {
-    order: order
+    order: order,
+    getCity: getCity
 }

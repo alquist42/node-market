@@ -236,7 +236,7 @@ app.post('/order', function (req, res) {
 });
 
 app.get('/city', function (req, res) {
-    authCtrl.GetCity(req.query, function(err, user) {
+    orderCtrl.GetCity(req.query, function(err, user) {
         if (err) {
             //  console.log('returned error');
             res.end(JSON.stringify({error:err}));
