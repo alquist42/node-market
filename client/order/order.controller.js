@@ -9,7 +9,8 @@ coolApp.controller('orderCtrl', function($scope, $location, $window, $routeParam
 
 
     cartService.getCart(function(res) {
-        $scope.cartFruits = (res.data);
+        $scope.cartFruits = res.data.fruits;
+        $scope.cartId = res.data.cart;
     }, function(res) {
     });
 
@@ -29,8 +30,8 @@ coolApp.controller('orderCtrl', function($scope, $location, $window, $routeParam
     // }, function(res) {});
 
     $scope.makeOrder = function(data) {
-        console.log(234);
-        orderService.makeOrder($scope,
+        data.cart = $scope.cartId;
+        orderService.makeOrder(data,
             function(res) {
                 // if(res.data.error){
                 //     $scope.serverError = res.data.error;

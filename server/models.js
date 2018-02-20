@@ -47,7 +47,7 @@ function Order(order) {
     this.delivery_city = order['delivery_city'];
     this.delivery_street= order['delivery_street'];
     this.delivery_date = order['delivery_date'];
-    this.order_date= order['order_date'];
+  //  this.order_date= order['order_date'];
     this.credit_card = order['credit_card'];
 }
 

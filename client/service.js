@@ -56,6 +56,7 @@ coolApp.factory('mySharedService', function($rootScope) {
     sharedService.fruit = {};
     sharedService.addFruit = function(fruit) {
         this.fruit = fruit;
+        this.cartId = fruit.cart;
         this.addingFruitItem();
     };
     sharedService.addingFruitItem = function() {
@@ -148,17 +149,7 @@ coolApp.service('orderService', function($http) {
         $http({
             url: 'http://localhost:8081/order',
             method: 'POST',
-            params: {
-                id: order.id,
-                customer: order.customer,
-                cart: order.cart,
-                price: order.price,
-                delivery_city: order.delivery_city,
-                delivery_street: order.delivery_street,
-                delivery_date: order.delivery_date,
-                order_date: order.order_date,
-                credit_card: order.credit_card
-            }
+            data: order
         }).then(onSuccess, onError);
     }
 });

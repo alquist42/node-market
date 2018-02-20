@@ -224,8 +224,7 @@ app.get('/categories', function (req, res) {
 });
 
 app.post('/order', function (req, res) {
-
-    orderCtrl.Order(req.query, req.session, function(err, data) {
+    orderCtrl.Order(req.body, req.session, function(err, data) {
         if (err) {
             console.log('error', err);
             res.end(JSON.stringify({error:'server order error'}));

@@ -194,7 +194,7 @@ function getCartItems(cartId, callback){
         rows.forEach(function (row) {
             cartItemsArray.push(new models.CartItem(row));
         });
-        callback(null, cartItemsArray);
+        callback(null, {fruits:cartItemsArray, cart:cartId});
     });
   //   callback(null, [{product:5, quantity:1, price: 10}, {product:7, quantity:2, price: 25}]);
 
@@ -215,22 +215,29 @@ function getCategories(params, callback) {
     });
 }
 
-function order(tz, cartId, params, callback){
-    dal.executeQuery('INSERT INTO `orders` (id, customer, cart, price, delivery_city, delivery_street, delivery_date, order_date, credit_card) VALUES (NULL,?,?,?,?,?,?, NOW(), ?)',
-        [tz, cartId, params.price, params.delivery_city, params.delivery_street, params.delivery_date, params.credit_card],
+function order(params, callback){
+    dal.executeQuery(`
+    INSERT INTO orders (id, customer, cart, price, delivery_city, delivery_street, delivery_date, order_date, credit_card)
+    VALUES (
+        NULL,?,?,(
+                    SELECT SUM(ci.price * ci.quantity) AS price
+                    FROM cart_items ci
+                    WHERE cart = ?
+        ),?,?,?, NOW(), ?)`,
+        [params.tz, params.cart, params.cart, params.delivery_city, params.delivery_street, params.delivery_date, params.credit_card],
         function(err, res) {
             if (err) {
                 console.log('error sql', err);
                 return callback('Order error');
             }
             params.id = res.insertId;
-            params.cart = cartId;
+            params.cart = params.cart;
             // params.price = orderPrice;
             // params.delivery_city = deliveryCity;
             // params.delivery_street = deliveryStreet;
             let orderItemModel = new models.Order(params);
             callback(null, orderItemModel);
-            console.log(orderItemModel);
+           // console.log(orderItemModel);
         });
 }
 
