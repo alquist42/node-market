@@ -18,17 +18,6 @@ coolApp.controller('orderCtrl', function($scope, $location, $window, $routeParam
         $location.path('category/fruits', true);
     };
 
-
-    // $scope.makeOrder = function (data) {
-    //     console.log(data)
-    // };
-
-    // orderService.makeOrder($scope, function(res) {
-    //     const arr = res.data;
-    //     $scope.order = (res.data);
-    //      console.log($scope.order);
-    // }, function(res) {});
-
     $scope.makeOrder = function(data) {
         data.cart = $scope.cartId;
         orderService.makeOrder(data,
@@ -41,18 +30,20 @@ coolApp.controller('orderCtrl', function($scope, $location, $window, $routeParam
         )
     };
 
-    // $scope.order = function (id, count, price, name) {
-    //     cartService.order(id, count, price, name, function(res) {
-    //         mySharedService.addFruit(res.data);
-    //     }, function(res) {});
-    // };
-
     $scope.getCity = function(data) {
         $scope.order.delivery_city = $scope.user.city;
     };
 
     $scope.getStreet = function() {
        $scope.order.delivery_street = $scope.user.street;
+    };
+
+    $scope.goToMessage = function () {
+        $location.path('message', true);
+    };
+
+    $scope.goToMain = function () {
+        $location.path('/', true);
     };
 
 });

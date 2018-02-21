@@ -267,3 +267,12 @@ body
 {
   background-color: lavenderblush;
 }
+
+#message
+{
+  border-radius: 25px;
+  background: lightgreen;
+  padding: 20px;
+  width: 450px;
+  height: 250px;
+}

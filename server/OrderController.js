@@ -16,16 +16,4 @@ function order(params, session, callback) {
     })
 }
 
-function getCity(params, callback) {
-
-    bl.orders.getCity(params, function(err, getCityResult) {
-        if (err) {
-            callback(err);
-        }
-
-        callback(null, getCityResult);
-    })
-}
-
 module.exports.Order = order;
-module.exports.GetCity = getCity;

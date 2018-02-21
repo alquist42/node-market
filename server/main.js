@@ -39,7 +39,6 @@ app.get('/', function (req, res) {
 
         res.end(data)
     });
-
 });
 
 app.get('/category', function (req, res) {
@@ -49,7 +48,6 @@ app.get('/category', function (req, res) {
         }
         res.end(JSON.stringify(fruits));
     })
-
 });
 
 
@@ -110,7 +108,6 @@ app.post('/logout', function (req, res) {
         }
         res.end(JSON.stringify('logged out'));
     });
-
 });
 
 
@@ -181,7 +178,6 @@ app.post('/cart/add', function (req, res) {
             res.end(JSON.stringify(result));
         }
     });
-
 });
 
 app.post('/cart/delete', function (req, res) {
@@ -209,7 +205,6 @@ app.get('/cart/get', function (req, res) {
             res.end(JSON.stringify(result));
         }
     });
-
 });
 
 app.get('/categories', function (req, res) {
@@ -220,7 +215,6 @@ app.get('/categories', function (req, res) {
         res.end(JSON.stringify(data));
         // console.log(data);
     })
-
 });
 
 app.post('/order', function (req, res) {
@@ -234,25 +228,6 @@ app.post('/order', function (req, res) {
         }
     });
 });
-
-app.get('/city', function (req, res) {
-    orderCtrl.GetCity(req.query, function(err, user) {
-        if (err) {
-            //  console.log('returned error');
-            res.end(JSON.stringify({error:err}));
-        }
-        if(user && Object.keys(user).length){
-            req.session.auth = {
-                user:user
-            }
-            res.end(JSON.stringify(user));
-        } else {
-            res.end(JSON.stringify({error:'Order error!'}));
-        }
-
-    });
-});
-
 
 // Start the server
 var server = app.listen(8081, function () {

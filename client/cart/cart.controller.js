@@ -9,10 +9,12 @@ coolApp.controller('cartCtrl', function($scope, $location, $window, $routeParams
         $scope.cartId = res.data.cart;
     }, function(res) {
     });
+
     $scope.$on('handleFruitAdding', function() {
         $scope.cartFruits.push(mySharedService.fruit);
         $scope.cartId = mySharedService.cartId;
     });
+
     $scope.deleteFruit = function(id) {
         cartService.deleteFromCart(id,function(res) {
             if(res.data.error ){
@@ -31,6 +33,7 @@ coolApp.controller('cartCtrl', function($scope, $location, $window, $routeParams
             }
         }, function(err) {alert('DELETING ERROR')});
     }
+
     $scope.goToOrderStep = function () {
         $location.path('order', true);
     };

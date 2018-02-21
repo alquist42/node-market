@@ -33,6 +33,11 @@ coolApp.config(function($routeProvider) {
             controller: 'authCtrl'
         })
 
+        .when("/message", {
+            templateUrl : "order/order.message.view.html",
+            controller: 'orderCtrl'
+        })
+
 });
 
 coolApp.run(['$route', '$rootScope', '$location', function ($route, $rootScope, $location) {

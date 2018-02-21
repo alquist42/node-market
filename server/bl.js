@@ -237,21 +237,6 @@ function order(params, callback){
         });
 }
 
-function getCity(params, callback) {
-    dal.executeQuery('SELECT city FROM `users` WHERE teudat_zehut = ?', [params.teudat_zehut], function(err, rows) {
-        if (err) {
-            callback(err);
-        }
-
-        const citiesObjectsArray = [];
-        rows.forEach(function (row) {
-            citiesObjectsArray.push(new models.User(row));
-        });
-        callback(null, citiesObjectsArray);
-         console.log(citiesObjectsArray);
-    });
-}
-
 module.exports.fruits = {
     getFruits: getFruits,
     editFruit: editFruit,
@@ -273,6 +258,5 @@ module.exports.cart = {
 };
 
 module.exports.orders = {
-    order: order,
-    getCity: getCity
+    order: order
 }

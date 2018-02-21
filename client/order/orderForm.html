@@ -2,6 +2,7 @@
     <h3 class="text-center">Order</h3>
     <fieldset>
         <legend><h4>Shipping details:</h4></legend>
+        <h5 class="text-center"><i>You can double-click on city and street to get it</i></h5><br>
         <div class="form-group row">
             <label for="deliveryCity" class="col-md-offset-1 col-sm-2 control-label required-field">City</label>
             <div class="col-sm-8">
@@ -17,6 +18,7 @@
                     <option ng-selected="order.delivery_city == 'Holon' ? 'selected' : ''">Holon</option>
                     <option ng-selected="order.delivery_city == 'Bnei Brak' ? 'selected' : ''">Bnei Brak</option>
                 </select>
+                <span class="pull-right text-danger" ng-show="orderForm.deliveryCity.$touched && orderForm.deliveryCity.$invalid">City is required</span>
             </div>
         </div>
         <div class="form-group row">
@@ -24,6 +26,7 @@
             <div class="col-sm-8">
                 <input ng-dblclick="getStreet()" ng-model="order.delivery_street" type="text" id="deliveryStreet" name="deliveryStreet" class="form-control input-sm chat-input margin_bottom"
                        placeholder="Street" required>
+                <span class="pull-right text-danger" ng-show="orderForm.deliveryStreet.$touched && orderForm.deliveryStreet.$invalid">Street is required</span>
             </div>
         </div>
         <div class="form-group row">
@@ -32,6 +35,7 @@
                 <div class="input-group input-append date" id="shippingDate">
                     <input ng-model="order.delivery_date" type="date" class="form-control input-sm chat-input margin_bottom" name="shippingDate">
                     <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                    <span class="pull-right text-danger" ng-show="orderForm.shippingDate.$touched && orderForm.shippingDate.$invalid">Shipping date is required</span>
                 </div>
             </div>
         </div>
@@ -43,12 +47,13 @@
             <div class="col-sm-8">
                 <input ng-model="order.credit_card" type="number" id="creditCard" name="creditCard" class="form-control input-sm chat-input margin_bottom"
                        placeholder="Credit Card" required>
+                <span class="pull-right text-danger" ng-show="orderForm.creditCard.$touched && orderForm.creditCard.$invalid">Credit card is required</span>
             </div>
         </div>
     </fieldset>
     <div class="wrapper">
         <span class="group-btn">
-            <button class="btn btn-primary btn-md center-block" ng-click="makeOrder(order)" type="button"
+            <button class="btn btn-primary btn-md center-block" ng-click="makeOrder(order); goToMessage()" type="button"
                     ng-disabled="orderForm.deliveryCity.$invalid || orderForm.deliveryStreet.$invalid || orderForm.shippingDate.$invalid || orderForm.creditCard.$invalid">Order</button>
         </span>
     </div>
