@@ -229,6 +229,13 @@ app.post('/order', function (req, res) {
     });
 });
 
+app.get('/download', function (req, res) {
+    var text="hello world\nnext string";
+    res.setHeader('Content-type', "application/octet-stream");
+    res.setHeader('Content-disposition', 'attachment; filename=order.txt');
+    res.send(text);
+});
+
 // Start the server
 var server = app.listen(8081, function () {
     console.log('listening to 8081')
