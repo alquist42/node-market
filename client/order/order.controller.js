@@ -7,7 +7,7 @@ coolApp.controller('orderCtrl', function($scope, $location, $window, $routeParam
         }
     }, function(err) {});
 
-
+    $scope.order = {};
     cartService.getCart(function(res) {
         $scope.cartFruits = res.data.fruits;
         $scope.cartId = res.data.cart;
@@ -48,6 +48,7 @@ coolApp.controller('orderCtrl', function($scope, $location, $window, $routeParam
     // };
 
     $scope.getCity = function(data) {
+        alert(345)
         console.log(data);
         // data.cart = $scope.cartId;
         orderService.getCity(data,
@@ -59,6 +60,10 @@ coolApp.controller('orderCtrl', function($scope, $location, $window, $routeParam
                 alert('unknown order error');
             }
         )
+    };
+
+    $scope.getStreet = function() {
+       $scope.order.delivery_street = $scope.user.street;
     };
 
 });
