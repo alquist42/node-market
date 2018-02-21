@@ -238,7 +238,7 @@ function order(params, callback){
 }
 
 function getCity(params, callback) {
-    dal.executeQuery('SELECT city FROM `users`', [], function(err, rows) {
+    dal.executeQuery('SELECT city FROM `users` WHERE teudat_zehut = ?', [params.teudat_zehut], function(err, rows) {
         if (err) {
             callback(err);
         }

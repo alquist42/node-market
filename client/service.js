@@ -157,7 +157,7 @@ coolApp.service('orderService', function($http) {
             url: 'http://localhost:8081/city',
             method: 'POST',
             params: {
-                // teudat_zehut: user.teudat_zehut,
+                teudat_zehut: user.teudat_zehut,
                 // name: user.name,
                 // last_name: user.last_name,
                 // email: user.email,
