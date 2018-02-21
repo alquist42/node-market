@@ -48,18 +48,7 @@ coolApp.controller('orderCtrl', function($scope, $location, $window, $routeParam
     // };
 
     $scope.getCity = function(data) {
-        alert(345)
-        console.log(data);
-        // data.cart = $scope.cartId;
-        orderService.getCity(data,
-            function(res) {
-                const arr = res.data;
-                // $scope.cities = (city.res.data);
-                $scope.city = (res.data);
-            }, function(res) {
-                alert('unknown order error');
-            }
-        )
+        $scope.order.delivery_city = $scope.user.city;
     };
 
     $scope.getStreet = function() {

@@ -5,20 +5,17 @@
         <div class="form-group row">
             <label for="deliveryCity" class="col-md-offset-1 col-sm-2 control-label required-field">City</label>
             <div class="col-sm-8">
-                <select ng-model="order.delivery_city" class="form-control input-sm chat-input margin_bottom" id="deliveryCity" name="deliveryCity" placeholder="City" required>
-                    <option ng-dblclick="getCity()" ng-init="city = city" value="{{city}}" selected="selected">
-                        {{city}}
-                    </option>
-                    <option>Jerusalem</option>
-                    <option>Tel Aviv</option>
-                    <option>Haifa</option>
-                    <option>Ashdod</option>
-                    <option>Rishon LeZiyyon</option>
-                    <option>Petah Tikva</option>
-                    <option>Beersheba</option>
-                    <option>Netanya</option>
-                    <option>Holon</option>
-                    <option>Bnei Brak</option>
+                <select ng-dblclick="getCity()" ng-model="order.delivery_city" class="form-control input-sm chat-input margin_bottom" id="deliveryCity" name="deliveryCity" placeholder="City" required>
+                    <option ng-selected="order.delivery_city == 'Jerusalem' ? 'selected' : ''">Jerusalem</option>
+                    <option ng-selected="order.delivery_city == 'Tel Aviv' ? 'selected' : ''">Tel Aviv</option>
+                    <option ng-selected="order.delivery_city == 'Haifa' ? 'selected' : ''">Haifa</option>
+                    <option ng-selected="order.delivery_city == 'Ashdod' ? 'selected' : ''">Ashdod</option>
+                    <option ng-selected="order.delivery_city == 'Rishon LeZiyyon' ? 'selected' : ''">Rishon LeZiyyon</option>
+                    <option ng-selected="order.delivery_city == 'Petah Tikva' ? 'selected' : ''">Petah Tikva</option>
+                    <option ng-selected="order.delivery_city == 'Beersheba' ? 'selected' : ''">Beersheba</option>
+                    <option ng-selected="order.delivery_city == 'Netanya' ? 'selected' : ''">Netanya</option>
+                    <option ng-selected="order.delivery_city == 'Holon' ? 'selected' : ''">Holon</option>
+                    <option ng-selected="order.delivery_city == 'Bnei Brak' ? 'selected' : ''">Bnei Brak</option>
                 </select>
             </div>
         </div>
