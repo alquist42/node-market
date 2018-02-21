@@ -140,7 +140,7 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
             } else {
                 for(let i=0; i<$scope.fruits.length; i++){
                     if($scope.fruits[i]['id'] == $scope.fruitAdded.id){
-                        $scope.fruits[i] = $scope.fruit = $scope.fruitEdited;
+                        $scope.fruits[i] = $scope.fruit = $scope.fruitAdded;
                         break;
                     }
                 }
@@ -165,7 +165,7 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
             if(res.data.image){
                 $scope.fruitAdded.image = res.data.image;
             }
-            $scope.saveFruitData();
+            $scope.saveAddingFruit();
         }, function(err) {});
     };
 

@@ -34,7 +34,8 @@ coolApp.service('fruitService', function($http) {
                 id: fruit.id,
                 name: fruit.name,
                 category: fruit.category,
-                price: fruit.price
+                price: fruit.price,
+                image: fruit.image
             }
         }).then(onSuccess, onError);
     }
