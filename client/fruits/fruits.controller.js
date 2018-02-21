@@ -129,7 +129,7 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
         }, function(err) {});
     };
 
-    $scope.saveAddFruit = function(){
+    $scope.saveAddingFruit = function(){
         fruitService.addFruit($scope.fruitAdded, function(res) {
             if(res.data.error ){
                 if(res.data.error == 'LOGOUT'){
@@ -148,6 +148,26 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
             }
         }, function(err) {alert('saving error')});
     }
+
+    $scope.saveAddFruit = function(){
+        var f = document.getElementById('AddFile').files[0];
+        if(f){
+            $scope.uploadAddFile(f);
+        } else{
+            $scope.saveAddingFruit();
+        }
+    };
+
+    $scope.uploadAddFile = function(f){
+        var fd = new FormData();
+        fd.append('image', f);
+        fruitService.uploadImage(fd, function(res) {
+            if(res.data.image){
+                $scope.fruitAdded.image = res.data.image;
+            }
+            $scope.saveFruitData();
+        }, function(err) {});
+    };
 
     $scope.closeForm = function(){
         $templateRequest("fruits/admin.fruits.preview.html").then(function(html){

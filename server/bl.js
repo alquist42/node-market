@@ -79,8 +79,8 @@ function editFruit(params, callback){
 
 function addFruit(params, callback){
     console.log('add item: ', params);
-    dal.executeQuery('INSERT INTO `products` (id, name, category, price) VALUES (NULL,?,?,?)',
-        [params.name, params.category, params.price],
+    dal.executeQuery('INSERT INTO `products` (id, name, category, price, image) VALUES (NULL,?,?,?,?)',
+        [params.name, params.category, params.price, params.image],
         function(err, rows) {
             if (err) {
                 console.log('error sql', err);
