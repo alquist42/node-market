@@ -50,7 +50,7 @@ coolApp.controller('orderCtrl', function($scope, $location, $window, $routeParam
     $scope.getCity = function(data) {
         console.log(data);
         // data.cart = $scope.cartId;
-        AuthService.getCity(data,
+        orderService.getCity(data,
             function(res) {
                 const arr = res.data;
                 // $scope.cities = (city.res.data);

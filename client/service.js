@@ -107,23 +107,6 @@ coolApp.service('AuthService', function($http) {
         }).then(onSuccess, onError);
     };
 
-    this.getCity = function (user, onSuccess, onError) {
-        $http({
-            url: 'http://localhost:8081/city',
-            method: 'POST',
-            params: {
-                // teudat_zehut: user.teudat_zehut,
-                // name: user.name,
-                // last_name: user.last_name,
-                // email: user.email,
-                // password: user.password,
-                city: user.city
-                // street: user.street,
-                // role: user.role
-            }
-        }).then(onSuccess, onError);
-    };
-
     });
 
 coolApp.service('cartService', function($http) {
@@ -168,6 +151,24 @@ coolApp.service('orderService', function($http) {
             data: order
         }).then(onSuccess, onError);
     }
+
+    this.getCity = function (user, onSuccess, onError) {
+        $http({
+            url: 'http://localhost:8081/city',
+            method: 'POST',
+            params: {
+                // teudat_zehut: user.teudat_zehut,
+                // name: user.name,
+                // last_name: user.last_name,
+                // email: user.email,
+                // password: user.password,
+                city: user.city
+                // street: user.street,
+                // role: user.role
+            }
+        }).then(onSuccess, onError);
+    };
+
 });
 
 coolApp.factory('myModal', function (btfModal) {
