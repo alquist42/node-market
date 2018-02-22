@@ -237,9 +237,13 @@ app.get('/download', function (req, res) {
             res.end(JSON.stringify({error:'server adding to cart error'}));
         } else {
             res.end(JSON.stringify(result));
+            const cartItemsArray = [];
+            rows.forEach(function (row) {
+                cartItemsArray.push(new models.CartItem(row));
+            });
         }
     });
-    var text="(JSON.stringify(result))";
+    var text="cartItemsArray";
     res.setHeader('Content-type', "application/octet-stream");
     res.setHeader('Content-disposition', 'attachment; filename=order.txt');
     res.send(text);
