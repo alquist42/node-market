@@ -230,7 +230,16 @@ app.post('/order', function (req, res) {
 });
 
 app.get('/download', function (req, res) {
-    var text="hello world\nnext string";
+    // var text="hello world\nnext string";
+    cartCtrl.GetCart(req.session, function(err, result) {
+        if (err) {
+            console.log('error', err);
+            res.end(JSON.stringify({error:'server adding to cart error'}));
+        } else {
+            res.end(JSON.stringify(result));
+        }
+    });
+    var text="(JSON.stringify(result))";
     res.setHeader('Content-type', "application/octet-stream");
     res.setHeader('Content-disposition', 'attachment; filename=order.txt');
     res.send(text);
