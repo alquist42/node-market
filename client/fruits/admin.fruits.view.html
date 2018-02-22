@@ -3,7 +3,7 @@
         <label for="searchProduct" class="col-sm-2 control-label">Search product</label>
         <div class="col-sm-4">
             <div class="input-group">
-                <input type="search" id="searchProduct" name="searchProduct" class="form-control"
+                <input type="search" id="searchProduct" name="searchProduct" class="form-control" ng-model="search"
                        placeholder="Product name">
                 <span class="input-group-addon add-on">
                     <span class="glyphicon glyphicon-search"></span>
@@ -29,12 +29,12 @@
 
     <div class="row">
         <div class="col-xs-18 col-sm-6 col-md-3">
-            <div class="thumbnail fruit-item media-body" ng-repeat="fruit in fruits" ng-click="goToFruit(categoryName, fruit.id)">
-                <div ng-if="fruit.image">
-                    <img src="../uploads/{{fruit.image}}" height="100">
+            <div class="thumbnail fruit-item media-body" ng-repeat="fruit in fruits | filter:search" ng-click="goToFruit(categoryName, fruit.id)">
+                <div class="text-center" ng-if="fruit.image">
+                    <img src="../uploads/{{fruit.image}}" height="110">
                 </div>
-                <div ng-else>
-                    <img src="../uploads/no-image.png" height="100">
+                <div class="text-center" ng-else>
+                    <img src="../uploads/no-image.png" height="110">
                 </div>
                 <div class="caption">
                     <h4 class="text-center">{{fruit.name}}</h4>
