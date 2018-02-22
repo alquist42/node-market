@@ -223,6 +223,7 @@ app.post('/order', function (req, res) {
             console.log('error', err);
             res.end(JSON.stringify({error:'server order error'}));
         } else {
+            req.session.cart = data.cart;
             res.end(JSON.stringify(data));
          //   console.log(data);
         }
@@ -230,16 +231,16 @@ app.post('/order', function (req, res) {
 });
 
 app.get('/download', function (req, res) {
-    cartCtrl.GetCartItems(19, req.session, function(err, result) {
+    cartCtrl.GetCartItems(req.session, function(err, result) {
         if (err) {
             console.log('error', err);
             res.end(JSON.stringify({error:'server adding to cart error'}));
         } else {
-            let text = "Your order:\n";
+            let text = "Your order:\r\n";
             let totPrice = 0;
             let fruits = result.fruits;
             fruits.forEach(function(product){
-                text += product.name + "\n";
+                text += product.name + "\r\n";
                 totPrice += product.price * product.quantity;
             });
             text += "Total price: " + totPrice + "$";

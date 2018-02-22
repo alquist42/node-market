@@ -43,9 +43,10 @@ function getCart(session, callback) {
     })
 }
 
-function getCartItems(cartId, session, callback) {
+function getCartItems(session, callback) {
     let authData = session.auth;
-    if(!authData){
+    let cartId = session.cart;
+    if(!authData || !cartId){
         return callback('SESSION missed');
     }
   //  let tz = authData['user']['teudat_zehut'];
