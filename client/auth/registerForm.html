@@ -94,13 +94,13 @@
                 </div>
                 <input  type="hidden"  name="ctrl" value="login" >
                 <div class="wrapper">
-            <span class="group-btn">
-                <button class="btn btn-primary btn-md" ng-click="showRegisterFormStep1(true)" type="button">back<i class="fa fa-sign-in"></i></button>
-            </span>
                     <span class="group-btn">
-                <button class="btn btn-primary btn-md pull-right" ng-click="register(user)" type="button"
-                        ng-disabled="frmLogin.userCity.$invalid || frmLogin.userStreet.$invalid || frmLogin.userName.$invalid || frmLogin.userLastName.$invalid">save<i class="fa fa-sign-in"></i></button>
-            </span>
+                        <button class="btn btn-primary btn-md" ng-click="showRegisterFormStep1(true)" type="button">back<i class="fa fa-sign-in"></i></button>
+                    </span>
+                    <span class="group-btn">
+                        <button class="btn btn-primary btn-md pull-right" ng-click="register(user)" type="button"
+                                ng-disabled="frmLogin.userCity.$invalid || frmLogin.userStreet.$invalid || frmLogin.userName.$invalid || frmLogin.userLastName.$invalid">save<i class="fa fa-sign-in"></i></button>
+                    </span>
                     <span class="text-danger">{{serverError}}</span>
                 </div>
             </div>
