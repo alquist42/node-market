@@ -2,7 +2,8 @@
     <button class="btn btn-primary btn-md pull-right" ng-click="goToShopPage()" type="button">back to shop</button>
     <h3>Cart:</h3>
 
-    <div class="info fruit-item" ng-repeat="fruit in cartFruits">
+    <div class="info fruit-item" ng-repeat="fruit in cartFruits | filter:search.text"
+         ng-bind-html="fruit.text | highlight:search.text">
         <span class="list-group-item list-group-item-warning">
                 Name: {{fruit.name}} Quantity: {{fruit.quantity}} Price: {{fruit.price | currency}}
         </span>
