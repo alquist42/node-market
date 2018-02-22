@@ -43,6 +43,21 @@ function getCart(session, callback) {
     })
 }
 
+function getCartItems(cartId, session, callback) {
+    let authData = session.auth;
+    if(!authData){
+        return callback('SESSION missed');
+    }
+  //  let tz = authData['user']['teudat_zehut'];
+    bl.cart.getCartItems(cartId, function(err, result) {
+        if (err) {
+            return callback(err);
+        }
+        callback(null, result);
+    })
+}
+
 module.exports.AddToCart = addToCart;
 module.exports.DeleteFromCart = deleteFromCart;
 module.exports.GetCart = getCart;
+module.exports.GetCartItems = getCartItems;

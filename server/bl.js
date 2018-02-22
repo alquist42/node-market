@@ -254,7 +254,8 @@ module.exports.auth = {
 module.exports.cart = {
     addToCart: addToCart,
     deleteFromCart: deleteCartItem,
-    getCart: getCartData
+    getCart: getCartData,
+    getCartItems: getCartItems
 };
 
 module.exports.orders = {

@@ -224,25 +224,30 @@ app.post('/order', function (req, res) {
             res.end(JSON.stringify({error:'server order error'}));
         } else {
             res.end(JSON.stringify(data));
-            console.log(data);
+         //   console.log(data);
         }
     });
 });
 
 app.get('/download', function (req, res) {
-    // var text="hello world\nnext string";
-    cartCtrl.GetCart(req.session, function(err, result) {
+    cartCtrl.GetCartItems(19, req.session, function(err, result) {
         if (err) {
             console.log('error', err);
             res.end(JSON.stringify({error:'server adding to cart error'}));
         } else {
-            res.end(JSON.stringify(result));
+            let text = "Your order:\n";
+            let totPrice = 0;
+            let fruits = result.fruits;
+            fruits.forEach(function(product){
+                text += product.name + "\n";
+                totPrice += product.price * product.quantity;
+            });
+            text += "Total price: " + totPrice + "$";
+            res.setHeader('Content-type', "application/octet-stream");
+            res.setHeader('Content-disposition', 'attachment; filename=order.txt');
+            res.send(text);
         }
     });
-    var text="(JSON.stringify(result))";
-    res.setHeader('Content-type', "application/octet-stream");
-    res.setHeader('Content-disposition', 'attachment; filename=order.txt');
-    res.send(text);
 });
 
 // Start the server
