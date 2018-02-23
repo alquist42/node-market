@@ -34,6 +34,26 @@ coolApp.controller('cartCtrl', function($scope, $location, $window, $routeParams
         }, function(err) {alert('DELETING ERROR')});
     }
 
+    $scope.deleteAllFruits = function() {
+        cartService.deleteAllFromCart(function(res) {
+            if(res.data.error ){
+                if(res.data.error == 'LOGOUT'){
+                    $window.location.href = '/';
+                } else {
+                    alert('DELETING ERROR');
+                }
+            } else {
+                // for(let i=0; i<$scope.cartFruits.length; i++){
+                    $scope.cartFruits.length = 0;
+                //     if($scope.cartFruits[i]['id'] == id){
+                //         $scope.cartFruits.splice($scope.cartFruits.indexOf(cartFruit), 1);
+                    //     break;
+                    // }
+                // }
+            }
+        }, function(err) {alert('DELETING ERROR')});
+    }
+
     $scope.goToOrderStep = function () {
         $location.path('order', true);
     };

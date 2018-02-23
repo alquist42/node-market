@@ -150,20 +150,32 @@ function addCartItem(cartId, params, callback){
 }
 
 function deleteCartItem(params, callback){
- //   console.log('delete item: ',params);
+ //   console.log('delete item: ', params);
     dal.executeQuery('DELETE FROM `cart_items` WHERE id = ?', [params.id], function(err, res) {
         if (err) {
             callback(err);
         } else {
-            callback(null,params.id);
+            callback(null, params.id);
         }
     //    console.log('Deleted Row(s):', res.affectedRows);
     });
 }
 
+function deleteCartItems(params, callback){
+      // console.log('delete items: ', params);
+    dal.executeQuery('DELETE FROM `cart_items`', [], function(err, res) {
+        if (err) {
+            callback(err);
+        } else {
+            callback(null, params);
+        }
+           console.log('Deleted Row(s):', res.affectedRows);
+    });
+}
+
 function getCartData(tz, callback){
     var p1 = new Promise(function(resolve, reject){
-        getUserCart(tz, function(err,data){
+        getUserCart(tz, function(err, data){
             if (err) {
                 reject(err);
             } else {
@@ -254,6 +266,7 @@ module.exports.auth = {
 module.exports.cart = {
     addToCart: addToCart,
     deleteFromCart: deleteCartItem,
+    deleteCartItems: deleteCartItems,
     getCart: getCartData,
     getCartItems: getCartItems
 };

@@ -195,6 +195,21 @@ app.post('/cart/delete', function (req, res) {
     });
 });
 
+app.post('/cart/deleteAll', function (req, res) {
+
+    cartCtrl.DeleteCartItems(req.query, req.session, function(err, result) {
+        if (err) {
+            console.log('error', err);
+            if(err == 'SESSION missed'){
+                res.end(JSON.stringify({error:'LOGOUT'}));
+            }
+            res.end(JSON.stringify({error:'server deleting to cart error'}));
+        } else {
+            res.end(JSON.stringify(result));
+        }
+    });
+});
+
 app.get('/cart/get', function (req, res) {
 
     cartCtrl.GetCart(req.session, function(err, result) {
@@ -240,7 +255,9 @@ app.get('/download', function (req, res) {
             let totPrice = 0;
             let fruits = result.fruits;
             fruits.forEach(function(product){
-                text += product.name + "\r\n";
+                text += "Name: " + product.name + " ";
+                text += "Quantity: " + product.quantity + " ";
+                text += "Price: " + product.price + "\r\n";
                 totPrice += product.price * product.quantity;
             });
             text += "Total price: " + totPrice + "$";

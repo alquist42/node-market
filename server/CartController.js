@@ -29,6 +29,20 @@ function deleteFromCart(params, session, callback) {
     })
 }
 
+function deleteCartItems(params, session, callback) {
+    let authData = session.auth;
+    if(!authData){
+        return callback('SESSION missed');
+    }
+
+    bl.cart.deleteCartItems(params, function(err, deleteAllFromCartResult) {
+        if (err) {
+            return callback(err);
+        }
+        callback(null, deleteAllFromCartResult);
+    })
+}
+
 function getCart(session, callback) {
     let authData = session.auth;
     if(!authData){
@@ -60,5 +74,6 @@ function getCartItems(session, callback) {
 
 module.exports.AddToCart = addToCart;
 module.exports.DeleteFromCart = deleteFromCart;
+module.exports.DeleteCartItems = deleteCartItems;
 module.exports.GetCart = getCart;
 module.exports.GetCartItems = getCartItems;

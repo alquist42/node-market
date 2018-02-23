@@ -134,6 +134,16 @@ coolApp.service('cartService', function($http) {
         }).then(onSuccess, onError);
     }
 
+    this.deleteAllFromCart = function(onSuccess, onError) {
+        $http({
+            url: 'http://localhost:8081/cart/deleteAll',
+            method: 'POST',
+            params: {
+                // id: itemId
+            }
+        }).then(onSuccess, onError);
+    }
+
     this.getCart = function(onSuccess, onError) {
         $http({
             url: 'http://localhost:8081/cart/get',

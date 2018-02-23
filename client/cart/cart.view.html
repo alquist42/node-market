@@ -2,10 +2,11 @@
 
     <div class="info fruit-item" ng-repeat="cartFruit in cartFruits">
         <span class="list-group-item list-group-item-info">
-            Quantity: {{cartFruit.quantity}} Price: {{cartFruit.price | currency}} Name: {{cartFruit.name}} ID: {{cartFruit.product}}
+            Name: {{cartFruit.name}} Quantity: {{cartFruit.quantity}} Price: {{cartFruit.price | currency}}
             <span class="glyphicon glyphicon-remove-circle" ng-click="deleteFruit(cartFruit.id)"></span>
         </span>
     </div>
     <br>
-    <button class="btn btn-primary btn-md" ng-click="goToOrderStep()" type="button">Order</button>
+    <button class="btn btn-primary btn-md" ng-click="deleteAllFruits()" type="button">Delete All</button>
+    <button class="btn btn-primary btn-md pull-right" ng-click="goToOrderStep()" type="button">Order</button>
 </div>
