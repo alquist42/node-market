@@ -188,12 +188,12 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
     var resizer = document.createElement('div');
     resizer.className = 'resizer';
     resizer.style.width = '10px';
-    resizer.style.height = '10px';
+    resizer.style.height = '300px';
     resizer.style.background = 'red';
     resizer.style.position = 'absolute';
     resizer.style.right = 0;
     resizer.style.bottom = 0;
-    resizer.style.cursor = 'se-resize';
+    resizer.style.cursor = 'ew-resize';
     element.appendChild(resizer);
     resizer.addEventListener('mousedown', initResize, false);
 
@@ -203,7 +203,7 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
     }
     function Resize(e) {
         element.style.width = (e.clientX - element.offsetLeft) + 'px';
-        element.style.height = (e.clientY - element.offsetTop) + 'px';
+        // element.style.height = (e.clientY - element.offsetTop) + 'px';
     }
     function stopResize(e) {
         window.removeEventListener('mousemove', Resize, false);
