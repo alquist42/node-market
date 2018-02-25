@@ -134,15 +134,8 @@ function addToCart(params, callback) {
 }
 
 function addCartItem(cartId, params, callback){
-    dal.executeQuery(`
-    INSERT INTO ci (id, product, quantity, price, cart) VALUES (NULL,?,?,(
-                    SELECT SUM(p.price * ci.quantity) AS price
-                    FROM (SELECT price FROM products p
-                    UNION
-                    SELECT quantity FROM cart_items ci)
-                    WHERE cart = ?
-        ),?)`,
-        [params.product, params.quantity, cartId],
+    dal.executeQuery('INSERT INTO `cart_items` (id, product, quantity, price, cart) VALUES (NULL,?,?,?,?)',
+        [params.product, params.quantity, params.price * params.quantity, cartId],
         function(err, res) {
             if (err) {
                 console.log('error sql', err);
@@ -241,7 +234,7 @@ function order(params, callback){
         //             WHERE cart = ?
         // ),
         // ?,?,?, NOW(), ?)',
-        [params.tz, params.cart, params.cart, params.price, params.delivery_city, params.delivery_street, params.delivery_date, params.credit_card],
+        [params.tz, params.cart, params.price, params.delivery_city, params.delivery_street, params.delivery_date, params.credit_card],
         function(err, res) {
             if (err) {
                 console.log('error sql', err);
