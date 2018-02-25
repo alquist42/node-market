@@ -258,7 +258,7 @@ app.get('/download', function (req, res) {
                 text += "Name: " + product.name + " ";
                 text += "Quantity: " + product.quantity + " ";
                 text += "Price: " + product.price + "\r\n";
-                totPrice += product.price * product.quantity;
+                totPrice += product.price;
             });
             text += "Total price: " + totPrice + "$";
             res.setHeader('Content-type', "application/octet-stream");
