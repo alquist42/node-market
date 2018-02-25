@@ -281,3 +281,8 @@ body
 {
   background-color: yellow;
 }
+
+#element {
+  position: relative;
+  overflow: hidden;
+}
