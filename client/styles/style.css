@@ -285,4 +285,7 @@ body
 #element {
   position: relative;
   overflow: hidden;
+  max-width: 30%;
+  min-width: 13%;
+  /*background-color: #04A3ED;*/
 }
