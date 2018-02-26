@@ -1,8 +1,8 @@
-
+/******************** PRODUCT SERVICE ******************************/
 coolApp.service('fruitService', function($http) {
     this.getFruits = function(categoryId, onSuccess, onError) {
         $http({
-            url: 'http://localhost:8081/category',
+            url: apiUrl + 'product/findByCategory',
             method: 'GET',
             params: {category: categoryId}
         }).then(onSuccess, onError);
@@ -10,16 +10,16 @@ coolApp.service('fruitService', function($http) {
 
     this.saveFruit = function(fruit, onSuccess, onError) {
         $http({
-            url: 'http://localhost:8081/fruit/edit',
-            method: 'POST',
+            url: apiUrl + 'product',
+            method: 'PUT',
             data: fruit
         }).then(onSuccess, onError);
     }
 
     this.uploadImage = function(fd, onSuccess, onError){
         $http({
-            url: 'http://localhost:8081/fruit/image',
-            method: 'POST',
+            url: apiUrl + 'product/image',
+            method: 'PUT',
             data: fd,
             headers: {'Content-Type': undefined},
             transformRequest: angular.identity
@@ -28,9 +28,9 @@ coolApp.service('fruitService', function($http) {
     };
     this.addFruit = function(fruit, onSuccess, onError) {
         $http({
-            url: 'http://localhost:8081/fruit/add',
+            url: apiUrl + 'product',
             method: 'POST',
-            params: {
+            data: {
                 id: fruit.id,
                 name: fruit.name,
                 category: fruit.category,
@@ -42,60 +42,41 @@ coolApp.service('fruitService', function($http) {
 
     this.getCategories = function(category, onSuccess, onError) {
         $http({
-            url: 'http://localhost:8081/categories',
-            method: 'GET',
-            params: {
-                id: category.id,
-                name: category.name
-            }
+            url: apiUrl + 'category',
+            method: 'GET'
         }).then(onSuccess, onError);
     }
 });
-/* SHARE DATA BETWEEN CONTROLLERS */
-coolApp.factory('mySharedService', function($rootScope) {
-    var sharedService = {};
-    sharedService.fruit = {};
-    sharedService.addFruit = function(fruit) {
-        this.fruit = fruit;
-        this.cartId = fruit.cart;
-        this.addingFruitItem();
-    };
-    sharedService.addingFruitItem = function() {
-        $rootScope.$broadcast('handleFruitAdding');
-    };
-    return sharedService;
-});
 
-
+/******************** AUTH SERVICE ******************************/
 
 coolApp.service('AuthService', function($http) {
     this.checkLoggedIn = function (onSuccess, onError){
         $http({
-            url: 'http://localhost:8081/logged_in',
+            url: apiUrl + 'logged_in',
             method: 'GET'
         }).then(onSuccess, onError);
     };
 
         this.login = function (email, password, onSuccess, onError) {
             $http({
-                url: 'http://localhost:8081/login',
+                url: apiUrl + 'login',
                 method: 'POST',
-                params: {email: email, password:password}
+                data: {email: email, password:password}
             }).then(onSuccess, onError);
         };
     this.logout = function (onSuccess, onError) {
         $http({
-            url: 'http://localhost:8081/logout',
-            method: 'POST',
-            params: {}
+            url: apiUrl + 'logout',
+            method: 'GET',
         }).then(onSuccess, onError);
     };
 
     this.register = function (user, onSuccess, onError) {
         $http({
-            url: 'http://localhost:8081/register',
+            url: apiUrl + 'register',
             method: 'POST',
-            params: {
+            data: {
                     teudat_zehut: user.teudat_zehut,
                     name: user.name,
                     last_name: user.last_name,
@@ -110,12 +91,13 @@ coolApp.service('AuthService', function($http) {
 
     });
 
+/******************** CART SERVICE ******************************/
 coolApp.service('cartService', function($http) {
     this.addToCart = function(fruitId, fruitCount, fruitPrice, fruitName, onSuccess, onError) {
         $http({
-            url: 'http://localhost:8081/cart/add',
+            url: apiUrl + 'cart',
             method: 'POST',
-            params: {
+            data: {
                 product: fruitId,
                 quantity: fruitCount,
                 price: fruitPrice,
@@ -125,10 +107,11 @@ coolApp.service('cartService', function($http) {
     }
 
     this.deleteFromCart = function(itemId, onSuccess, onError) {
+        $http.defaults.headers.delete = { "Content-Type": "application/json;charset=utf-8" };
         $http({
-            url: 'http://localhost:8081/cart/delete',
-            method: 'POST',
-            params: {
+            url: apiUrl + 'cart',
+            method: 'DELETE',
+            data: {
                 id: itemId
             }
         }).then(onSuccess, onError);
@@ -136,34 +119,34 @@ coolApp.service('cartService', function($http) {
 
     this.deleteAllFromCart = function(onSuccess, onError) {
         $http({
-            url: 'http://localhost:8081/cart/deleteAll',
-            method: 'POST',
-            params: {
-                // id: itemId
-            }
+            url: apiUrl + 'cart',
+            method: 'DELETE',
         }).then(onSuccess, onError);
     }
 
     this.getCart = function(onSuccess, onError) {
         $http({
-            url: 'http://localhost:8081/cart/get',
+            url: apiUrl + 'cart',
             method: 'GET',
-            params: {}
         }).then(onSuccess, onError);
     }
 
 });
 
+/******************** ORDER SERVICE ******************************/
+
 coolApp.service('orderService', function($http) {
     this.makeOrder = function(order, onSuccess, onError) {
         $http({
-            url: 'http://localhost:8081/order',
+            url: apiUrl + 'order',
             method: 'POST',
             data: order
         }).then(onSuccess, onError);
     }
 
 });
+
+/******************** OTHER SERVICES ******************************/
 
 coolApp.factory('myModal', function (btfModal) {
     return btfModal({
@@ -180,4 +163,19 @@ coolApp.controller('MyModalCtrl', function (myModal) {
     this.fruitPrice = fruit.dataset.price;
     this.count=1;
     this.closeMe = myModal.deactivate;
+});
+
+/* SHARE DATA BETWEEN CONTROLLERS */
+coolApp.factory('mySharedService', function($rootScope) {
+    var sharedService = {};
+    sharedService.fruit = {};
+    sharedService.addFruit = function(fruit) {
+        this.fruit = fruit;
+        this.cartId = fruit.cart;
+        this.addingFruitItem();
+    };
+    sharedService.addingFruitItem = function() {
+        $rootScope.$broadcast('handleFruitAdding');
+    };
+    return sharedService;
 });

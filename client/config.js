@@ -60,3 +60,5 @@ var categoriesConfig = {
     'fishes':3,
     'drinks':4
 }
+
+var apiUrl = "http://localhost:8081/shopping/api/";

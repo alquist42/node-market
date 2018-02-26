@@ -42,11 +42,11 @@ function addFruit(params, session, callback) {
     })
 }
 
-function getCategories(params, session, callback) {
+function getCategories(session, callback) {
     if(!session.auth){
         return callback('SESSION missed');
     }
-    bl.fruits.getCategories(params, function(err, categoryArray) {
+    bl.fruits.getCategories(function(err, categoryArray) {
         if (err) {
             callback(err);
         }

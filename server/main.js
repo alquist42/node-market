@@ -1,9 +1,8 @@
-var express = require('express');
-var bodyParser = require("body-parser");
+var express = require('express'); // to serve the client
+var bodyParser = require("body-parser"); // handle the data of post
 var fs = require('fs');
 
 // ctrls
-
 
 var fruitCtrl = require('./FruitsController');
 var authCtrl = require('./AuthController');
@@ -27,8 +26,7 @@ app.use(session({
     cookie: { secure: false }
 }));
 
-// Express - to serve the client
-// body parser - To handle the data of post
+var apiPrefix = '/shopping/api/';
 
 // Listen to '/' in GET Verb methods - serve the main Angular index.html file
 app.get('/', function (req, res) {
@@ -41,7 +39,8 @@ app.get('/', function (req, res) {
     });
 });
 
-app.get('/category', function (req, res) {
+
+app.get(apiPrefix + 'product/findByCategory', function (req, res) {
     fruitCtrl.Read(req.query, req.session, function(err, fruits) {
         if (err) {
             res.end('error!');
@@ -51,15 +50,8 @@ app.get('/category', function (req, res) {
 });
 
 
-
-// Listen to '/product' in POST Verb methods
- app.post('/product', function (req, res) {
-     console.log(req.body); // get the body data of post
-     res.end();
- });
-
-app.post('/register', function (req, res) {
-    authCtrl.Register(req.query, function(err, user) {
+app.post(apiPrefix + 'register', function (req, res) {
+    authCtrl.Register(req.body, function(err, user) {
         if (err) {
           //  console.log('returned error');
             res.end(JSON.stringify({error:err}));
@@ -76,7 +68,7 @@ app.post('/register', function (req, res) {
     });
 });
 
-app.get('/logged_in', function (req, res) {
+app.get(apiPrefix + 'logged_in', function (req, res) {
     if(req.session && req.session.auth && req.session.auth.user){
         res.end(JSON.stringify(req.session.auth.user));
     } else {
@@ -84,8 +76,8 @@ app.get('/logged_in', function (req, res) {
     }
 });
 
-app.post('/login', function (req, res) {
-    authCtrl.Login(req.query, function(err, user) {
+app.post(apiPrefix + 'login', function (req, res) {
+    authCtrl.Login(req.body, function(err, user) {
         if (err) {
             res.end(JSON.stringify({error:'server login error'}));
         }
@@ -101,7 +93,7 @@ app.post('/login', function (req, res) {
     })
 });
 
-app.post('/logout', function (req, res) {
+app.get(apiPrefix + 'logout', function (req, res) {
     req.session.destroy(function(err){
         if(err){
             console.log(err);
@@ -111,7 +103,7 @@ app.post('/logout', function (req, res) {
 });
 
 
-app.post('/fruit/image', function (req, res) {
+app.put(apiPrefix + 'product/image', function (req, res) {
     if(!req.session.auth){
         res.end(JSON.stringify({error:'LOGOUT'}));
         return;
@@ -140,7 +132,7 @@ app.post('/fruit/image', function (req, res) {
     });
 });
 
-app.post('/fruit/edit', function (req, res) {
+app.put(apiPrefix + 'product', function (req, res) {
     fruitCtrl.EditFruit(req.body, req.session, function(err, result) {
         if (err) {
             if(err == 'SESSION missed'){
@@ -154,8 +146,8 @@ app.post('/fruit/edit', function (req, res) {
     });
 });
 
-app.post('/fruit/add', function (req, res) {
-    fruitCtrl.AddFruit(req.query, req.session, function(err, result) {
+app.post(apiPrefix + 'product', function (req, res) {
+    fruitCtrl.AddFruit(req.body, req.session, function(err, result) {
         if (err) {
             if(err == 'SESSION missed'){
                 res.end(JSON.stringify({error:'LOGOUT'}));
@@ -168,9 +160,9 @@ app.post('/fruit/add', function (req, res) {
     });
 });
 
-app.post('/cart/add', function (req, res) {
+app.post(apiPrefix + 'cart', function (req, res) {
 
-    cartCtrl.AddToCart(req.query, req.session, function(err, result) {
+    cartCtrl.AddToCart(req.body, req.session, function(err, result) {
         if (err) {
             console.log('error', err);
             res.end(JSON.stringify({error:'server adding to cart error'}));
@@ -180,9 +172,8 @@ app.post('/cart/add', function (req, res) {
     });
 });
 
-app.post('/cart/delete', function (req, res) {
-
-    cartCtrl.DeleteFromCart(req.query, req.session, function(err, result) {
+app.delete(apiPrefix + 'cart', function (req, res) {
+    cartCtrl.DeleteFromCart(req.body, req.session, function(err, result) {
         if (err) {
             console.log('error', err);
             if(err == 'SESSION missed'){
@@ -195,23 +186,7 @@ app.post('/cart/delete', function (req, res) {
     });
 });
 
-app.post('/cart/deleteAll', function (req, res) {
-
-    cartCtrl.DeleteCartItems(req.query, req.session, function(err, result) {
-        if (err) {
-            console.log('error', err);
-            if(err == 'SESSION missed'){
-                res.end(JSON.stringify({error:'LOGOUT'}));
-            }
-            res.end(JSON.stringify({error:'server deleting to cart error'}));
-        } else {
-            res.end(JSON.stringify(result));
-        }
-    });
-});
-
-app.get('/cart/get', function (req, res) {
-
+app.get(apiPrefix + 'cart', function (req, res) {
     cartCtrl.GetCart(req.session, function(err, result) {
         if (err) {
             console.log('error', err);
@@ -222,8 +197,8 @@ app.get('/cart/get', function (req, res) {
     });
 });
 
-app.get('/categories', function (req, res) {
-    fruitCtrl.GetCategories(req.query, req.session, function(err, data) {
+app.get(apiPrefix + 'category', function (req, res) {
+    fruitCtrl.GetCategories(req.session, function(err, data) {
         if (err) {
             res.end('error!');
         }
@@ -232,7 +207,7 @@ app.get('/categories', function (req, res) {
     })
 });
 
-app.post('/order', function (req, res) {
+app.post(apiPrefix + 'order', function (req, res) {
     orderCtrl.Order(req.body, req.session, function(err, data) {
         if (err) {
             console.log('error', err);
@@ -245,7 +220,7 @@ app.post('/order', function (req, res) {
     });
 });
 
-app.get('/download', function (req, res) {
+app.get(apiPrefix + 'download', function (req, res) {
     cartCtrl.GetCartItems(req.session, function(err, result) {
         if (err) {
             console.log('error', err);

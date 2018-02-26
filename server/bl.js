@@ -71,14 +71,14 @@ function editFruit(params, callback){
         if (err) {
             callback(err);
         } else {
-            callback(null);
+            callback(null, 'success');
         }
         // console.log(res.affectedRows + " record(s) updated");
     });
 }
 
 function addFruit(params, callback){
-    console.log('add item: ', params);
+   // console.log('add item: ', params);
     dal.executeQuery('INSERT INTO `products` (id, name, category, price, image) VALUES (NULL,?,?,?,?)',
         [params.name, params.category, params.price, params.image],
         function(err, rows) {
@@ -146,32 +146,37 @@ function addCartItem(cartId, params, callback){
             let cartItemModel = new models.CartItem(params);
             callback(null, cartItemModel);
         });
-            console.log(params);
 }
 
-function deleteCartItem(params, callback){
- //   console.log('delete item: ', params);
-    dal.executeQuery('DELETE FROM `cart_items` WHERE id = ?', [params.id], function(err, res) {
+function deleteCartItems(params, callback){
+    let values = [];
+    let str = '';
+    if(params.id){
+        values.push(params.id);
+        str = ' WHERE id = ?';
+    }
+
+    dal.executeQuery('DELETE FROM `cart_items`' + str, values, function(err, res) {
         if (err) {
             callback(err);
         } else {
-            callback(null, params.id);
+            callback(null, 'success');
         }
     //    console.log('Deleted Row(s):', res.affectedRows);
     });
 }
 
-function deleteCartItems(params, callback){
-      // console.log('delete items: ', params);
-    dal.executeQuery('DELETE FROM `cart_items`', [], function(err, res) {
-        if (err) {
-            callback(err);
-        } else {
-            callback(null, params);
-        }
-           console.log('Deleted Row(s):', res.affectedRows);
-    });
-}
+// function deleteCartItems(callback){
+//       // console.log('delete items: ', params);
+//     dal.executeQuery('DELETE FROM `cart_items`', [], function(err, res) {
+//         if (err) {
+//             callback(err);
+//         } else {
+//             callback(null, 'success');
+//         }
+//            console.log('Deleted Row(s):', res.affectedRows);
+//     });
+// }
 
 function getCartData(tz, callback){
     var p1 = new Promise(function(resolve, reject){
@@ -211,7 +216,7 @@ function getCartItems(cartId, callback){
 
 }
 
-function getCategories(params, callback) {
+function getCategories(callback) {
     dal.executeQuery('SELECT * FROM `categories`', [], function(err, rows) {
         if (err) {
             callback(err);
@@ -265,8 +270,8 @@ module.exports.auth = {
 
 module.exports.cart = {
     addToCart: addToCart,
-    deleteFromCart: deleteCartItem,
-    deleteCartItems: deleteCartItems,
+    deleteFromCart: deleteCartItems,
+ //   deleteCartItems: deleteCartItems,
     getCart: getCartData,
     getCartItems: getCartItems
 };
