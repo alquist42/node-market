@@ -18,10 +18,7 @@
         <div id = "categories-menu" class="menu">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a ng-class="categoryName == 'eggs' ? 'active' : ''" id="eggs-link" href="#!/category/eggs">Milk & Eggs</a>
-                    <a ng-class="categoryName == 'fruits' ? 'active' : ''" id="fruits-link" href="#!/category/fruits">Vegetables & Fruits</a>
-                    <a ng-class="categoryName == 'fishes' ? 'active' : ''" id="fishes-link" href="#!/category/fishes">Meat & Fish</a>
-                    <a ng-class="categoryName == 'drinks' ? 'active' : ''" id="drinks-link" href="#!/category/drinks">Wine & Drinks</a>
+                    <a ng-class="categoryId == category.id ? 'active' : ''" id="eggs-link" href="#!/category/{{category.url}}" ng-repeat="category in categories">{{category.name}}</a>
                 </div>
             </div>
         </div>

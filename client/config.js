@@ -54,11 +54,11 @@ coolApp.run(['$route', '$rootScope', '$location', function ($route, $rootScope, 
     };
 }])
 
-var categoriesConfig = {
-    'eggs':1,
-    'fruits':2,
-    'fishes':3,
-    'drinks':4
-}
+// var categoriesConfig = {
+//     'eggs':1,
+//     'fruits':2,
+//     'fishes':3,
+//     'drinks':4
+// }
 
 var apiUrl = "http://localhost:8081/shopping/api/";

@@ -81,11 +81,12 @@ function addFruit(params, callback){
    // console.log('add item: ', params);
     dal.executeQuery('INSERT INTO `products` (id, name, category, price, image) VALUES (NULL,?,?,?,?)',
         [params.name, params.category, params.price, params.image],
-        function(err, rows) {
+        function(err, res) {
             if (err) {
                 console.log('error sql', err);
                 return callback('Register error');
             }
+            params.id = res.insertId
             let addFruitModel = new models.Fruit(params);
             callback(null, addFruitModel);
         });

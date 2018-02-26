@@ -37,6 +37,7 @@ function CartItem(cartItem) {
 function Category(category) {
     this.id = category['id'];
     this.name= category['name'];
+    this.url= category['url'];
 }
 
 function Order(order) {

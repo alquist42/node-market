@@ -12,19 +12,26 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
     $scope.headerText = 'hi fruit';
     $scope.loaded = false;
     $scope.fruits = [];
-    var categoryId = categoriesConfig[$routeParams.name];
+    $scope.categoryId = 0;
+  //  var categoryId = categoriesConfig[$routeParams.name];
 
-    fruitService.getFruits(categoryId, function(res) {
-        const arr = res.data;
-        //   $scope.keys = Object.keys(arr[0]);
-        $scope.fruits = (res.data);
-        $scope.categoryId = categoryId;
-        $scope.categoryName = $routeParams.name;
-        $scope.loaded = true;
-        //  console.log('xx', $routeParams.id)
+    fruitService.getCategories($scope, function(res) {
+        $scope.categories = res.data;
+        for(let i=0; i< $scope.categories.length; i++){
+            if($scope.categories[i]['url'] == $routeParams.name){
+                $scope.categoryId = $scope.categories[i]['id'];
+                break;
+            }
+        };
+
+        fruitService.getFruits($scope.categoryId, function(res) {
+            $scope.fruits = res.data;
+            $scope.categoryName = $routeParams.name;
+            $scope.loaded = true;
+        }, function(res) {});
+
     }, function(res) {});
-
-
+    
     var getFruit = function (id) {
         $scope.fruit = $scope.fruits.filter(function(fruit){
             return fruit.id == id;
@@ -69,7 +76,8 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
     };
 
     $scope.addFruit = function(){
-        // $scope.fruitAdded = angular.copy($scope.fruit);
+         $scope.fruitAdded = {};
+        $scope.fruitAdded.category = $scope.categoryId;
         $templateRequest("fruits/admin.fruits.add.html").then(function(html){
             var template = angular.element(html);
             angular.element(document.querySelector('.container')).empty().append(template);
@@ -93,7 +101,7 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
                 }
                 for(let i=0; i<$scope.fruits.length; i++){
                     if($scope.fruits[i]['id'] == $scope.fruitEdited.id){
-                        $scope.fruit = $scope.fruitEdited
+                        $scope.fruit = $scope.fruitEdited;
                         if(action=='edit'){
                             $scope.fruits[i] = $scope.fruitEdited;
                         } else {
@@ -138,12 +146,11 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
                     alert('SAVING ERROR');
                 }
             } else {
-                for(let i=0; i<$scope.fruits.length; i++){
-                    if($scope.fruits[i]['id'] == $scope.fruitAdded.id){
-                        $scope.fruits[i] = $scope.fruit = $scope.fruitAdded;
-                        break;
-                    }
+                $scope.fruitAdded.id= res.data.id;
+                if($scope.categoryId == +$scope.fruitAdded.category){
+                    $scope.fruits.push($scope.fruitAdded);
                 }
+                $scope.fruit = $scope.fruitAdded;
                 $scope.closeForm();
             }
         }, function(err) {alert('saving error')});
@@ -177,12 +184,6 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
         });
     }
     var showModal = myModal.activate;
-
-    fruitService.getCategories($scope, function(res) {
-        const arr = res.data;
-        $scope.categories = (res.data);
-      //  console.log($scope.categories);
-    }, function(res) {});
 
     var element = document.getElementById('element');
     var resizer = document.createElement('div');
