@@ -39,6 +39,7 @@ app.get('/', function (req, res) {
     });
 });
 
+/******************** PRODUCT ******************************/
 
 app.get(apiPrefix + 'product/findByCategory', function (req, res) {
     fruitCtrl.Read(req.query, req.session, function(err, fruits) {
@@ -49,6 +50,74 @@ app.get(apiPrefix + 'product/findByCategory', function (req, res) {
     })
 });
 
+app.put(apiPrefix + 'product/image', function (req, res) {
+    if(!req.session.auth){
+        res.end(JSON.stringify({error:'LOGOUT'}));
+        return;
+    }
+
+    var fileName= '';
+    var storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, __dirname + '/../client/uploads/')
+        },
+        filename: function (req, file, cb) {
+            fileName = Date.now() + '-' + file.originalname;
+            cb(null,  fileName)
+        }
+    });
+
+    var upload = multer({ storage: storage }).single('image');
+    upload(req, res, function(err){
+        //  console.log('FILE', req.file);
+        if(err){
+            console.log(err);
+            res.end(JSON.stringify({error:'file upload error'}));
+        } else {
+            res.end(JSON.stringify({image:fileName}));
+        }
+    });
+});
+
+app.put(apiPrefix + 'product', function (req, res) {
+    fruitCtrl.EditFruit(req.body, req.session, function(err, result) {
+        if (err) {
+            if(err == 'SESSION missed'){
+                res.end(JSON.stringify({error:'LOGOUT'}));
+            }
+            console.log(err);
+            res.end(JSON.stringify({error:'server editing product error'}));
+        } else {
+            res.end(JSON.stringify(result));
+        }
+    });
+});
+
+app.post(apiPrefix + 'product', function (req, res) {
+    fruitCtrl.AddFruit(req.body, req.session, function(err, result) {
+        if (err) {
+            if(err == 'SESSION missed'){
+                res.end(JSON.stringify({error:'LOGOUT'}));
+            }
+            //   console.log('error', err);
+            res.end(JSON.stringify({error:'server adding product error'}));
+        } else {
+            res.end(JSON.stringify(result));
+        }
+    });
+});
+
+app.get(apiPrefix + 'category', function (req, res) {
+    fruitCtrl.GetCategories(req.session, function(err, data) {
+        if (err) {
+            res.end('error!');
+        }
+        res.end(JSON.stringify(data));
+        // console.log(data);
+    })
+});
+
+/******************** AUTH ******************************/
 
 app.post(apiPrefix + 'register', function (req, res) {
     authCtrl.Register(req.body, function(err, user) {
@@ -102,63 +171,7 @@ app.get(apiPrefix + 'logout', function (req, res) {
     });
 });
 
-
-app.put(apiPrefix + 'product/image', function (req, res) {
-    if(!req.session.auth){
-        res.end(JSON.stringify({error:'LOGOUT'}));
-        return;
-    }
-
-    var fileName= '';
-    var storage = multer.diskStorage({
-        destination: function (req, file, cb) {
-            cb(null, __dirname + '/../client/uploads/')
-        },
-        filename: function (req, file, cb) {
-            fileName = Date.now() + '-' + file.originalname;
-            cb(null,  fileName)
-        }
-    });
-
-    var upload = multer({ storage: storage }).single('image');
-    upload(req, res, function(err){
-      //  console.log('FILE', req.file);
-        if(err){
-            console.log(err);
-            res.end(JSON.stringify({error:'file upload error'}));
-        } else {
-            res.end(JSON.stringify({image:fileName}));
-        }
-    });
-});
-
-app.put(apiPrefix + 'product', function (req, res) {
-    fruitCtrl.EditFruit(req.body, req.session, function(err, result) {
-        if (err) {
-            if(err == 'SESSION missed'){
-                res.end(JSON.stringify({error:'LOGOUT'}));
-            }
-            console.log(err);
-            res.end(JSON.stringify({error:'server editing product error'}));
-        } else {
-            res.end(JSON.stringify(result));
-        }
-    });
-});
-
-app.post(apiPrefix + 'product', function (req, res) {
-    fruitCtrl.AddFruit(req.body, req.session, function(err, result) {
-        if (err) {
-            if(err == 'SESSION missed'){
-                res.end(JSON.stringify({error:'LOGOUT'}));
-            }
-            //   console.log('error', err);
-            res.end(JSON.stringify({error:'server adding product error'}));
-        } else {
-            res.end(JSON.stringify(result));
-        }
-    });
-});
+/******************** CART SERVICE ******************************/
 
 app.post(apiPrefix + 'cart', function (req, res) {
 
@@ -197,15 +210,7 @@ app.get(apiPrefix + 'cart', function (req, res) {
     });
 });
 
-app.get(apiPrefix + 'category', function (req, res) {
-    fruitCtrl.GetCategories(req.session, function(err, data) {
-        if (err) {
-            res.end('error!');
-        }
-        res.end(JSON.stringify(data));
-        // console.log(data);
-    })
-});
+/******************** ORDER SERVICE ******************************/
 
 app.post(apiPrefix + 'order', function (req, res) {
     orderCtrl.Order(req.body, req.session, function(err, data) {
