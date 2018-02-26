@@ -6,11 +6,14 @@ coolApp.controller('orderCtrl', function($scope, $location, $window, $routeParam
             $window.location.href = '/';
         }
     }, function(err) {});
-
+    $scope.totalSum = 0;
     $scope.order = {};
     cartService.getCart(function(res) {
         $scope.cartFruits = res.data.fruits;
         $scope.cartId = res.data.cart;
+        for(let i=0; i<$scope.cartFruits.length; i++){
+            $scope.totalSum += +$scope.cartFruits[i]['price'];
+        }
     }, function(res) {
     });
 

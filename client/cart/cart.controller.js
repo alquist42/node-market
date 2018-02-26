@@ -1,18 +1,20 @@
 
 coolApp.controller('cartCtrl', function($scope, $location, $window, $routeParams,$templateRequest,$compile, fruitService, cartService, AuthService, mySharedService, myModal) {
+    $scope.totalSum = 0;
     cartService.getCart(function(res) {
         $scope.cartFruits = [];
         if(res.data.fruits){
             $scope.cartFruits = res.data.fruits;
         }
-
         $scope.cartId = res.data.cart;
+        $scope.recalcTotal();
     }, function(res) {
     });
 
     $scope.$on('handleFruitAdding', function() {
         $scope.cartFruits.push(mySharedService.fruit);
         $scope.cartId = mySharedService.cartId;
+        $scope.recalcTotal();
     });
 
     $scope.deleteFruit = function(id) {
@@ -30,6 +32,7 @@ coolApp.controller('cartCtrl', function($scope, $location, $window, $routeParams
                         break;
                     }
                 }
+                $scope.recalcTotal();
             }
         }, function(err) {alert('DELETING ERROR')});
     }
@@ -57,5 +60,11 @@ coolApp.controller('cartCtrl', function($scope, $location, $window, $routeParams
     $scope.goToOrderStep = function () {
         $location.path('order', true);
     };
+    $scope.recalcTotal = function(){
+        $scope.totalSum = 0;
+        for(let i=0; i<$scope.cartFruits.length; i++){
+            $scope.totalSum += +$scope.cartFruits[i]['price'];
+        }
+    }
 
 });

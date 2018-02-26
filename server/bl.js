@@ -143,6 +143,7 @@ function addCartItem(cartId, params, callback){
                 return callback('Adding cart item error');
             }
             params.id = res.insertId;
+            params.price = params.price * params.quantity;
             params.cart = cartId;
             let cartItemModel = new models.CartItem(params);
             callback(null, cartItemModel);
