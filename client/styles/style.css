@@ -143,7 +143,7 @@ body
 #mainPanel, #resultEgg, #resultFruit, #resultFish, #resultDrink, .container
 {
   margin-top: 40px;
-  margin-right: 20px;
+  margin-right: 12px;
   display: inline-block;
  /* border: solid 1px blue;*/
 }
@@ -286,6 +286,5 @@ body
   position: relative;
   overflow: hidden;
   max-width: 30%;
-  min-width: 13%;
-  /*background-color: #04A3ED;*/
+  min-width: 8%;
 }

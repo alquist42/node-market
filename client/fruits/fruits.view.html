@@ -31,10 +31,10 @@
         <div class="col-xs-18 col-sm-6 col-md-3">
             <div class="thumbnail fruit-item media-body" data-name="{{fruit.name}}" data-price="{{fruit.price}}" data-fid="{{fruit.id}}" id="fruit-{{fruit.id}}" ng-repeat="fruit in fruits | filter:search" ng-click="showFruitPopup(categoryName, fruit.id)">
                 <div class="text-center" ng-if="fruit.image">
-                    <img src="../uploads/{{fruit.image}}" height="110">
+                    <img src="../uploads/{{fruit.image}}" height="120">
                 </div>
                 <div class="text-center" ng-else>
-                    <img src="../uploads/no-image.png" height="110">
+                    <img src="../uploads/no-image.png" height="120">
                 </div>
                 <div class="caption">
                     <h4 class="text-center">{{fruit.name}}</h4>

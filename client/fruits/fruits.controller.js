@@ -188,7 +188,7 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
     var resizer = document.createElement('div');
     resizer.className = 'resizer';
     resizer.style.width = '7px';
-    resizer.style.height = '300px';
+    resizer.style.height = '100%';
     resizer.style.background = '#04A3ED';
     resizer.style.position = 'absolute';
     resizer.style.right = 0;
