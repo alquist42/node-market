@@ -24,9 +24,9 @@
         </div>
     </nav>
 
-    <div class="row">
-        <div class="col-xs-18 col-sm-6 col-md-3">
-            <div class="thumbnail fruit-item media-body" data-name="{{fruit.name}}" data-price="{{fruit.price}}" data-fid="{{fruit.id}}" id="fruit-{{fruit.id}}" ng-repeat="fruit in fruits | filter:search" ng-click="showFruitPopup(categoryName, fruit.id)">
+    <!--<div class="row">-->
+        <!--<div class="col-xs-12 col-sm-6 col-md-3">-->
+            <div class="thumbnail fruit-item col-md-2" data-name="{{fruit.name}}" data-price="{{fruit.price}}" data-fid="{{fruit.id}}" id="fruit-{{fruit.id}}" ng-repeat="fruit in fruits | filter:search" ng-click="showFruitPopup(categoryName, fruit.id)">
                 <div class="text-center" ng-if="fruit.image">
                     <img src="../uploads/{{fruit.image}}" height="120">
                 </div>
@@ -38,8 +38,8 @@
                     <p class="text-center">{{fruit.price | currency}}</p>
                 </div>
             </div>
-        </div>
-    </div>
+        <!--</div>-->
+    <!--</div>-->
 
 </div>
 

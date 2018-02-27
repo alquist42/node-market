@@ -47,7 +47,10 @@
   color: #04A3ED;
 }
 
-.navbar-header .active {color:yellow !important;}
+.navbar-header .active
+{
+  color: yellow !important;
+}
 
 /* style for login */
 
