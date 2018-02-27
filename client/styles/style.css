@@ -34,7 +34,7 @@
 .navbar-header > a
 {
   font-family: 'Ubuntu Condensed', sans-serif;
-  padding: 0px;
+  /*padding: 0px;*/
   margin: 0px;
   text-decoration: none;
   color: white;
@@ -154,7 +154,8 @@ body
 
 #resultEgg, #resultFruit, #resultFish, #resultDrink
 {
-  width: 68%;
+  max-width: 90%;
+  min-width: 68%;
   /*position: absolute;*/
   left: 0;
   margin-right: 5px;

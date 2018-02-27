@@ -186,6 +186,7 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
     var showModal = myModal.activate;
 
     var element = document.getElementById('element');
+    var resultFruit = document.getElementById('resultFruit');
     var resizer = document.createElement('div');
     resizer.className = 'resizer';
     resizer.style.width = '7px';
@@ -204,7 +205,7 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
     }
     function Resize(e) {
         element.style.width = (e.clientX - element.offsetLeft) + 'px';
-        // element.style.height = (e.clientY - element.offsetTop) + 'px';
+        resultFruit.style.width = 1320 - e.clientX + 'px';
     }
     function stopResize(e) {
         window.removeEventListener('mousemove', Resize, false);
