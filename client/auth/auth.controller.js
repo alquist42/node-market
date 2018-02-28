@@ -88,6 +88,10 @@ coolApp.controller('authCtrl', function($scope, $templateRequest, $location, $ro
                 return role == 'admin';
             };
 
+            $scope.isClient = function (role) {
+                return role == 'client';
+            };
+
     $scope.totalSum = 0;
     cartService.getCart(function(res) {
         $scope.cartFruits = res.data.fruits;

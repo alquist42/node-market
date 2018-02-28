@@ -13,12 +13,15 @@
     <div class="part part-3 notifications bordered-right">
         Available products in our store -
         <br><br>
-        <span id="information">
-            Notification:
-            <br>
-            You have open cart from
-            <br>
-            Total sum: {{ totalSum | currency }}
-        </span>
+        <div id="information" ng-model="user">
+            <div ng-if="isClient(user.role)">
+                Notification:
+                <br>
+                You have open cart from
+                <br>
+                Total sum: {{ totalSum | currency }}
+            </div>
+            <div ng-else></div>
+        </div>
     </div>
 </div>

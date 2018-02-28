@@ -31,11 +31,14 @@
                     <div class="navbar-header">
                         <img src="images/SuperMarket.png" class="img-fluid img-thumbnail"  width="170" height="170" alt="Responsive image">
                     </div>
-                    <div>
-                        <ul class="nav navbar-nav navbar-right">
-                            <h4><span id ="user" class="largenav">Name: {{ user.name }} Role: {{user.role}} Contact Email: {{user.email}}</span></h4>
-                            <li><a href="#" ng-click="logout(user)"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-                        </ul>
+                    <div ng-model="user">
+                        <div ng-if="isClient(user.role) || isAdmin(user.role)">
+                            <ul class="nav navbar-nav navbar-right">
+                                <h4><span id ="user" class="largenav">Name: {{ user.name }} Role: {{user.role}} Contact Email: {{user.email}}</span></h4>
+                                <li><a href="#" ng-click="logout(user)"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                            </ul>
+                        </div>
+                        <div ng-else></div>
                     </div>
                 </div>
             </div>
