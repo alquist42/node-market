@@ -56,7 +56,7 @@
 
 body
 {
-  padding-top: 180px;
+  padding-top: 150px;
   padding-bottom: 40px;
   background-color: #eee;
 }
@@ -145,7 +145,7 @@ body
 
 #mainPanel, #resultEgg, #resultFruit, #resultFish, #resultDrink, .container
 {
-  margin-top: 40px;
+  margin-top: 10px;
   margin-right: 12px;
   display: inline-block;
  /* border: solid 1px blue;*/
@@ -181,7 +181,7 @@ body
   width: 30%;
   float: left;
   min-height: 300px;
-  margin-top:40px;
+  margin-top:10px;
   border: solid 1px blue;
   background-color: #eeeeee;
   padding-top: 10px;
@@ -270,6 +270,8 @@ body
 #frmOrder
 {
   background-color: lavenderblush;
+  width: 68%;
+  margin-top: 10px;
 }
 
 #message
