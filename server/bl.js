@@ -59,6 +59,21 @@ function getFruits(params, callback) {
     });
 }
 
+function getFruitsCount(callback) {
+    dal.executeQuery('SELECT count(id) as count FROM `products` ', [], function(err, rows) {
+        if (err) {
+            callback(err);
+        }
+
+        let count = 0;
+        if(rows && rows.length){
+            let row = rows[0];
+            count = row.count;
+        }
+        callback(null, count);
+    });
+}
+
 function editFruit(params, callback){
    // console.log('edit item: ',params);
     let arrValues = [params.name, params.category, params.price, params.id];
@@ -260,6 +275,7 @@ function order(params, callback){
 
 module.exports.fruits = {
     getFruits: getFruits,
+    getFruitsCount: getFruitsCount,
     editFruit: editFruit,
     addFruit: addFruit,
     getCategories: getCategories

@@ -14,6 +14,16 @@ function read(params, session, callback) {
     })
 }
 
+function productsCount(callback) {
+    bl.fruits.getFruitsCount(function(err, fruitArray) {
+        if (err) {
+            callback(err);
+        }
+
+        callback(null, fruitArray);
+    })
+}
+
 function editFruit(params, session, callback) {
     if(!session.auth){
         return callback('SESSION missed');
@@ -56,6 +66,7 @@ function getCategories(session, callback) {
 }
 
 module.exports.Read = read;
+module.exports.ProductsCount = productsCount;
 module.exports.EditFruit = editFruit;
 module.exports.AddFruit = addFruit;
 module.exports.GetCategories = getCategories;

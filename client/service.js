@@ -8,6 +8,13 @@ coolApp.service('fruitService', function($http) {
         }).then(onSuccess, onError);
     }
 
+    this.getFruitsCount = function(onSuccess, onError) {
+        $http({
+            url: apiUrl + 'product/count',
+            method: 'GET'
+        }).then(onSuccess, onError);
+    }
+
     this.saveFruit = function(fruit, onSuccess, onError) {
         $http({
             url: apiUrl + 'product',

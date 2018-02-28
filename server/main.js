@@ -50,6 +50,15 @@ app.get(apiPrefix + 'product/findByCategory', function (req, res) {
     })
 });
 
+app.get(apiPrefix + 'product/count', function (req, res) {
+    fruitCtrl.ProductsCount(function(err, fruits) {
+        if (err) {
+            res.end('error!');
+        }
+        res.end(JSON.stringify(fruits));
+    })
+});
+
 app.put(apiPrefix + 'product/image', function (req, res) {
     if(!req.session.auth){
         res.end(JSON.stringify({error:'LOGOUT'}));

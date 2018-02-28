@@ -7,6 +7,8 @@ coolApp.controller('authCtrl', function($scope, $templateRequest, $location, $ro
     };
     $scope.user = userExample;
     $scope.isLoggedIn = false;
+    $scope.totalSum = 0;
+    $scope.fruitsCount = 0;
     AuthService.checkLoggedIn (function(res) {
         if(res.data.error){
         } else{
@@ -91,38 +93,12 @@ coolApp.controller('authCtrl', function($scope, $templateRequest, $location, $ro
     $scope.isAdmin = function (role) {
         return role == 'admin';
     };
-
-    // $scope.isClient = function (role) {
-    //     return role == 'client';
-    // };
-
-    $scope.fruits = [];
-    fruitService.getFruits($scope, function(res) {
-        $scope.fruits = res.data;
-        // $scope.categoryName = $routeParams.name;
-        // $scope.loaded = true;
+    
+    fruitService.getFruitsCount(function(res) {
+        $scope.fruitsCount = res.data;
     }, function(res) {});
 
-    // $scope.recalcTotalProducts = function(){
-    //     $scope.sumProducts = 0;
-    //     for(let i=0; i<$scope.fruits.length; i++){
-    //         $scope.sumProducts += +$scope.fruits[i]['id'];
-    //     }
-    // }
-    $scope.order = {};
-    $scope.makeOrder = function(data) {
-        data.cart = $scope.cartId;
-        orderService.makeOrder(data,
-            function(res) {
-                const arr = res.data;
-                $scope.orders = (res.data);
-            }, function(res) {
-                alert('unknown order error');
-            }
-        )
-    };
 
-    $scope.totalSum = 0;
     cartService.getCart(function(res) {
         $scope.cartFruits = res.data.fruits;
         $scope.cartId = res.data.cart;
