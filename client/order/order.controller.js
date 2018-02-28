@@ -11,9 +11,7 @@ coolApp.controller('orderCtrl', function($scope, $location, $window, $routeParam
     cartService.getCart(function(res) {
         $scope.cartFruits = res.data.fruits;
         $scope.cartId = res.data.cart;
-        for(let i=0; i<$scope.cartFruits.length; i++){
-            $scope.totalSum += +$scope.cartFruits[i]['price'];
-        }
+        $scope.totalSum = res.data.totalSum;
     }, function(res) {
     });
 

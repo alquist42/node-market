@@ -210,10 +210,12 @@ function getCartItems(cartId, callback){
         }
 
         const cartItemsArray = [];
+        let totalSum = 0;
         rows.forEach(function (row) {
+            totalSum += row['price'];
             cartItemsArray.push(new models.CartItem(row));
         });
-        callback(null, {fruits:cartItemsArray, cart:cartId});
+        callback(null, {fruits:cartItemsArray, cart:cartId, totalSum: totalSum});
     });
 
 }
