@@ -25,10 +25,13 @@ coolApp.controller('authCtrl', function($scope, $templateRequest, $location, $ro
     });
 
     fruitService.getFruitsCount(function(res) {
-        $scope.fruitsCount = res.data;
+        if(res.data.error){
+            alert(res.data.error)
+        } else {
+            $scope.fruitsCount = res.data;
+        }
+
     }, function(res) {});
-
-
 
 
     $scope.setCartData = function(){
