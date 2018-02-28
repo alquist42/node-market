@@ -60,6 +60,7 @@ coolApp.controller('cartCtrl', function($scope, $location, $window, $routeParams
     $scope.goToOrderStep = function () {
         $location.path('order', true);
     };
+
     $scope.recalcTotal = function(){
         $scope.totalSum = 0;
         for(let i=0; i<$scope.cartFruits.length; i++){

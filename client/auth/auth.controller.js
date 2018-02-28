@@ -1,4 +1,4 @@
-coolApp.controller('authCtrl', function($scope, $templateRequest, $location, $routeParams, $compile, $window, AuthService, cartService) {
+coolApp.controller('authCtrl', function($scope, $templateRequest, $location, $routeParams, $compile, $window, AuthService, fruitService, orderService, cartService) {
     const userExample= {
         email: 'email@example.com',
         password: '123',
@@ -92,14 +92,40 @@ coolApp.controller('authCtrl', function($scope, $templateRequest, $location, $ro
                 return role == 'client';
             };
 
-    $scope.totalSum = 0;
-    cartService.getCart(function(res) {
-        $scope.cartFruits = res.data.fruits;
-        $scope.cartId = res.data.cart;
-        for(let i=0; i<$scope.cartFruits.length; i++){
-            $scope.totalSum += +$scope.cartFruits[i]['price'];
-        }
-    }, function(res) {
-    });
+            $scope.fruits = [];
+            fruitService.getFruits($scope, function(res) {
+                $scope.fruits = res.data;
+                // $scope.categoryName = $routeParams.name;
+                // $scope.loaded = true;
+            }, function(res) {});
+
+            // $scope.recalcTotalProducts = function(){
+            //     $scope.sumProducts = 0;
+            //     for(let i=0; i<$scope.fruits.length; i++){
+            //         $scope.sumProducts += +$scope.fruits[i]['id'];
+            //     }
+            // }
+            $scope.order = {};
+            $scope.makeOrder = function(data) {
+                data.cart = $scope.cartId;
+                orderService.makeOrder(data,
+                    function(res) {
+                        const arr = res.data;
+                        $scope.orders = (res.data);
+                    }, function(res) {
+                        alert('unknown order error');
+                    }
+                )
+            };
+
+            $scope.totalSum = 0;
+            cartService.getCart(function(res) {
+                $scope.cartFruits = res.data.fruits;
+                $scope.cartId = res.data.cart;
+                for(let i=0; i<$scope.cartFruits.length; i++){
+                    $scope.totalSum += +$scope.cartFruits[i]['price'];
+                }
+            }, function(res) {
+            });
 
 });

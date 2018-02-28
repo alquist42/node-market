@@ -11,15 +11,27 @@
         <img src="../images/free-shipping.jpg" class="img-fluid img-circle"  width="300" height="220" alt="free-shipping">
     </div>
     <div class="part part-3 notifications bordered-right">
-        Available products in our store -
-        <br><br>
+        <div id="numbers">
+            Available products in our store - {{fruits.length}}
+            <br><br>
+            Number of orders submitted in our store - {{orders.length}}
+            <br><br>
+        </div>
         <div id="information" ng-model="user">
             <div ng-if="isClient(user.role)">
                 Notification:
                 <br>
-                You have open cart from
-                <br>
-                Total sum: {{ totalSum | currency }}
+                <div>
+                    You have open cart from
+                    <br>
+                    Total sum: {{ totalSum | currency }}
+                </div>
+                <div>
+                    Your last purchase was on
+                </div>
+                <div>
+                    Welcome {{ user.name }}
+                </div>
             </div>
             <div ng-else></div>
         </div>
