@@ -92,9 +92,9 @@ coolApp.controller('authCtrl', function($scope, $templateRequest, $location, $ro
         return role == 'admin';
     };
 
-    $scope.isClient = function (role) {
-        return role == 'client';
-    };
+    // $scope.isClient = function (role) {
+    //     return role == 'client';
+    // };
 
     $scope.fruits = [];
     fruitService.getFruits($scope, function(res) {

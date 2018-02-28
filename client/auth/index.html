@@ -23,7 +23,7 @@
             <br><br>
         </div>
         <div id="information" ng-model="user">
-            <div ng-if="isClient(user.role)">
+            <div ng-if="isLoggedIn">
                 Notification:
                 <br>
                 <div>
@@ -38,7 +38,7 @@
                     Welcome {{ user.name }}
                 </div>
             </div>
-            <div ng-else></div>
+
         </div>
     </div>
 </div>
