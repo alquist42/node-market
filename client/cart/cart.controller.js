@@ -20,7 +20,8 @@ coolApp.controller('cartCtrl', function($scope, $location, $window, $routeParams
     $scope.deleteFruit = function(id) {
         cartService.deleteFromCart(id,function(res) {
             if(res.data.error ){
-                if(res.data.error == 'LOGOUT'){
+                if(res.data.errorCode == 1){
+                    alert(res.data.error);
                     $window.location.href = '/';
                 } else {
                     alert('DELETING ERROR');
@@ -35,24 +36,20 @@ coolApp.controller('cartCtrl', function($scope, $location, $window, $routeParams
                 $scope.recalcTotal();
             }
         }, function(err) {alert('DELETING ERROR')});
-    }
+    };
 
     $scope.deleteAllFruits = function() {
         cartService.deleteAllFromCart(function(res) {
             if(res.data.error ){
-                if(res.data.error == 'LOGOUT'){
+                if(res.data.errorCode == 1){
+                    alert(res.data.error);
                     $window.location.href = '/';
                 } else {
                     alert('DELETING ERROR');
                 }
             } else {
-                // for(let i=0; i<$scope.cartFruits.length; i++){
-                    $scope.cartFruits.length = 0;
-                //     if($scope.cartFruits[i]['id'] == id){
-                //         $scope.cartFruits.splice($scope.cartFruits.indexOf(cartFruit), 1);
-                    //     break;
-                    // }
-                // }
+                    $scope.cartFruits = [];
+                    $scope.recalcTotal();
             }
         }, function(err) {alert('DELETING ERROR')});
     }

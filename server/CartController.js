@@ -3,9 +3,6 @@ var bl = require('./bl');
 // CRUD
 function addToCart(params, session, callback) {
     let authData = session.auth;
-    if(!authData){
-        return callback('SESSION missed');
-    }
     params.tz = authData['user']['teudat_zehut'];
     bl.cart.addToCart(params, function(err, addToCartResult) {
         if (err) {
@@ -17,9 +14,6 @@ function addToCart(params, session, callback) {
 
 function deleteFromCart(params, session, callback) {
     let authData = session.auth;
-    if(!authData){
-        return callback('SESSION missed');
-    }
 
     bl.cart.deleteFromCart(params, function(err, deleteFromCartResult) {
         if (err) {
@@ -45,9 +39,6 @@ function deleteFromCart(params, session, callback) {
 
 function getCart(session, callback) {
     let authData = session.auth;
-    if(!authData){
-        return callback('SESSION missed');
-    }
     let tz = authData['user']['teudat_zehut'];
     bl.cart.getCart(tz, function(err, result) {
         if (err) {
@@ -60,7 +51,7 @@ function getCart(session, callback) {
 function getCartItems(session, callback) {
     let authData = session.auth;
     let cartId = session.cart;
-    if(!authData || !cartId){
+    if(!cartId){
         return callback('SESSION missed');
     }
   //  let tz = authData['user']['teudat_zehut'];

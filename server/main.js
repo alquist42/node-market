@@ -41,7 +41,7 @@ app.get('/', function (req, res) {
 
 /******************** PRODUCT ******************************/
 
-app.get(apiPrefix + 'product/findByCategory', function (req, res) {
+app.get(apiPrefix + 'product/findByCategory', isAuthenticated, function (req, res) {
     fruitCtrl.Read(req.query, req.session, function(err, fruits) {
         if (err) {
             res.end(JSON.stringify({error:"error fruits getting"}));
@@ -59,12 +59,7 @@ app.get(apiPrefix + 'product/count', function (req, res) {
     })
 });
 
-app.put(apiPrefix + 'product/image', function (req, res) {
-    if(!req.session.auth){
-        res.end(JSON.stringify({error:'LOGOUT'}));
-        return;
-    }
-
+app.put(apiPrefix + 'product/image', isAdmin, function (req, res) {
     var fileName= '';
     var storage = multer.diskStorage({
         destination: function (req, file, cb) {
@@ -88,12 +83,9 @@ app.put(apiPrefix + 'product/image', function (req, res) {
     });
 });
 
-app.put(apiPrefix + 'product', function (req, res) {
+app.put(apiPrefix + 'product', isAdmin, function (req, res) {
     fruitCtrl.EditFruit(req.body, req.session, function(err, result) {
         if (err) {
-            if(err == 'SESSION missed'){
-                res.end(JSON.stringify({error:'LOGOUT'}));
-            }
             console.log(err);
             res.end(JSON.stringify({error:'server editing product error'}));
         } else {
@@ -102,13 +94,10 @@ app.put(apiPrefix + 'product', function (req, res) {
     });
 });
 
-app.post(apiPrefix + 'product', function (req, res) {
+app.post(apiPrefix + 'product',isAdmin, function (req, res) {
     fruitCtrl.AddFruit(req.body, req.session, function(err, result) {
         if (err) {
-            if(err == 'SESSION missed'){
-                res.end(JSON.stringify({error:'LOGOUT'}));
-            }
-            //   console.log('error', err);
+            console.log('error', err);
             res.end(JSON.stringify({error:'server adding product error'}));
         } else {
             res.end(JSON.stringify(result));
@@ -116,7 +105,7 @@ app.post(apiPrefix + 'product', function (req, res) {
     });
 });
 
-app.get(apiPrefix + 'category', function (req, res) {
+app.get(apiPrefix + 'category', isAuthenticated, function (req, res) {
     fruitCtrl.GetCategories(req.session, function(err, data) {
         if (err) {
             res.end(JSON.stringify({error:"error categories getting"}));
@@ -146,12 +135,12 @@ app.post(apiPrefix + 'register', function (req, res) {
     });
 });
 
-app.get(apiPrefix + 'logged_in', function (req, res) {
-    if(req.session && req.session.auth && req.session.auth.user){
-        res.end(JSON.stringify(req.session.auth.user));
-    } else {
-        res.end(JSON.stringify({error:'user is not logged in'}));
-    }
+app.get(apiPrefix + 'logged_in', isAuthenticated, function (req, res) {
+    res.end(JSON.stringify(req.session.auth.user));
+});
+
+app.get(apiPrefix + 'is_admin', isAdmin, function (req, res) {
+    res.end(JSON.stringify(req.session.auth.user));
 });
 
 app.post(apiPrefix + 'login', function (req, res) {
@@ -183,13 +172,10 @@ app.get(apiPrefix + 'logout', function (req, res) {
 
 /******************** CART SERVICE ******************************/
 
-app.post(apiPrefix + 'cart', function (req, res) {
+app.post(apiPrefix + 'cart', isAuthenticated, function (req, res) {
 
     cartCtrl.AddToCart(req.body, req.session, function(err, result) {
         if (err) {
-            if(err == 'SESSION missed'){
-                res.end(JSON.stringify({error:'LOGOUT'}));
-            }
             console.log('error', err);
             res.end(JSON.stringify({error:'server adding to cart error'}));
         } else {
@@ -198,13 +184,10 @@ app.post(apiPrefix + 'cart', function (req, res) {
     });
 });
 
-app.delete(apiPrefix + 'cart', function (req, res) {
+app.delete(apiPrefix + 'cart', isAuthenticated, function (req, res) {
     cartCtrl.DeleteFromCart(req.body, req.session, function(err, result) {
         if (err) {
             console.log('error', err);
-            if(err == 'SESSION missed'){
-                res.end(JSON.stringify({error:'LOGOUT'}));
-            }
             res.end(JSON.stringify({error:'server deleting from cart error'}));
         } else {
             res.end(JSON.stringify(result));
@@ -212,12 +195,9 @@ app.delete(apiPrefix + 'cart', function (req, res) {
     });
 });
 
-app.get(apiPrefix + 'cart', function (req, res) {
+app.get(apiPrefix + 'cart', isAuthenticated, function (req, res) {
     cartCtrl.GetCart(req.session, function(err, result) {
         if (err) {
-            if(err == 'SESSION missed'){
-                res.end(JSON.stringify({error:'LOGOUT'}));
-            }
             console.log('error', err);
             res.end(JSON.stringify({error:'server getting cart error'}));
         } else {
@@ -228,7 +208,7 @@ app.get(apiPrefix + 'cart', function (req, res) {
 
 /******************** ORDER SERVICE ******************************/
 
-app.post(apiPrefix + 'order', function (req, res) {
+app.post(apiPrefix + 'order', isAuthenticated, function (req, res) {
     orderCtrl.Order(req.body, req.session, function(err, data) {
         if (err) {
             console.log('error', err);
@@ -241,7 +221,7 @@ app.post(apiPrefix + 'order', function (req, res) {
     });
 });
 
-app.get(apiPrefix + 'download', function (req, res) {
+app.get(apiPrefix + 'download', isAuthenticated, function (req, res) {
     cartCtrl.GetCartItems(req.session, function(err, result) {
         if (err) {
             console.log('error', err);
@@ -263,6 +243,20 @@ app.get(apiPrefix + 'download', function (req, res) {
         }
     });
 });
+
+function isAuthenticated(req, res, next) {
+    if(req.session && req.session.auth && req.session.auth.user){
+        return next();
+    }
+    res.end(JSON.stringify({error:"you are not logged in", errorCode:1}));
+}
+
+function isAdmin(req, res, next) {
+    if(req.session && req.session.auth && req.session.auth.user && req.session.auth.user.role == 'admin'){
+        return next();
+    }
+    res.end(JSON.stringify({error:"you do not have permission to access this page", errorCode:2}));
+}
 
 // Start the server
 var server = app.listen(8081, function () {

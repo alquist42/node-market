@@ -65,13 +65,21 @@ coolApp.service('AuthService', function($http) {
         }).then(onSuccess, onError);
     };
 
-        this.login = function (email, password, onSuccess, onError) {
-            $http({
-                url: apiUrl + 'login',
-                method: 'POST',
-                data: {email: email, password:password}
-            }).then(onSuccess, onError);
-        };
+    this.checkIsAdmin = function (onSuccess, onError){
+        $http({
+            url: apiUrl + 'is_admin',
+            method: 'GET'
+        }).then(onSuccess, onError);
+    };
+
+    this.login = function (email, password, onSuccess, onError) {
+        $http({
+            url: apiUrl + 'login',
+            method: 'POST',
+            data: {email: email, password:password}
+        }).then(onSuccess, onError);
+    };
+
     this.logout = function (onSuccess, onError) {
         $http({
             url: apiUrl + 'logout',

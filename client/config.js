@@ -1,3 +1,37 @@
+coolApp.config(
+    function($middlewareProvider) {
+        $middlewareProvider.map({
+            'auth-middleware': ['AuthService', function asyncAuth(AuthService) {
+                var request = this;
+                AuthService.checkLoggedIn (function(res) {
+                    if(res.data.error){
+                        alert(res.data.error);
+                        request.redirectTo('/');
+                    } else {
+                        return request.next();
+                    }
+                }, function(err) {
+                    alert('Auth error');
+                    request.redirectTo('/');
+                });
+            }],
+            'admin-middleware': ['AuthService', function asyncAuth(AuthService) {
+                var request = this;
+                AuthService.checkIsAdmin (function(res) {
+                    if(res.data.error){
+                        alert(res.data.error);
+                        request.redirectTo('/');
+                    } else {
+                        return request.next();
+                    }
+                }, function(err) {
+                    alert('Auth error');
+                    request.redirectTo('/');
+                });
+            }]
+        });
+    });
+
 
 coolApp.config(function($routeProvider) {
     $routeProvider
@@ -8,36 +42,41 @@ coolApp.config(function($routeProvider) {
 
         .when("/admin/category/:name", {
             templateUrl : "fruits/admin.fruits.view.html",
-            controller: 'fruitCtrl'
+            controller: 'fruitCtrl',
+            middleware: 'admin-middleware'
         })
         .when("/admin/category/:name/:id", {
             templateUrl : "fruits/admin.fruits.view.html",
-            controller: 'fruitCtrl'
+            controller: 'fruitCtrl',
+            middleware: 'admin-middleware'
         })
         .when("/category/:name", {
             templateUrl : "fruits/fruits.view.html",
-            controller: 'fruitCtrl'
+            controller: 'fruitCtrl',
+            middleware: 'auth-middleware'
         })
         .when("/category/:name/:id", {
             templateUrl : "fruits/fruits.view.html",
-            controller: 'fruitCtrl'
+            controller: 'fruitCtrl',
+            middleware: 'auth-middleware'
         })
 
         .when("/order", {
             templateUrl : "order/order.view.html",
-            controller: 'orderCtrl'
+            controller: 'orderCtrl',
+            middleware: 'auth-middleware'
+        })
+
+        .when("/message", {
+            templateUrl : "order/order.message.view.html",
+            controller: 'orderCtrl',
+            middleware: 'auth-middleware'
         })
 
         .when("/register", {
             templateUrl : "auth/registerForm.html",
             controller: 'authCtrl'
         })
-
-        .when("/message", {
-            templateUrl : "order/order.message.view.html",
-            controller: 'orderCtrl'
-        })
-
 });
 
 coolApp.run(['$route', '$rootScope', '$location', function ($route, $rootScope, $location) {
@@ -52,13 +91,6 @@ coolApp.run(['$route', '$rootScope', '$location', function ($route, $rootScope, 
         }
         return original.apply($location, [path]);
     };
-}])
-
-// var categoriesConfig = {
-//     'eggs':1,
-//     'fruits':2,
-//     'fishes':3,
-//     'drinks':4
-// }
+}]);
 
 var apiUrl = "http://localhost:8081/shopping/api/";

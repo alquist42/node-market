@@ -1,13 +1,6 @@
 
 coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParams, $templateRequest, $compile, fruitService, cartService, AuthService, mySharedService, myModal) {
 
-    AuthService.checkLoggedIn (function(res) {
-        if(res.data.error){
-            $window.location.href = '/';
-        }
-    }, function(err) {});
-
-
     $scope.showFruit = false;
     $scope.headerText = 'hi fruit';
     $scope.loaded = false;
@@ -88,8 +81,9 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
     $scope.saveFruitData = function(){
         $scope.fruitEdited.category = document.querySelector('#fruitCategory').value;
         return fruitService.saveFruit($scope.fruitEdited, function(res) {
-            if(res.data.error ){
-                if(res.data.error == 'LOGOUT'){
+            if(res.data.error){
+                if(res.data.errorCode == 2){
+                    alert(res.data.error);
                     $window.location.href = '/';
                 } else {
                     alert('SAVING ERROR');
@@ -113,7 +107,7 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
                 $scope.closeForm();
             }
         }, function(err) {
-            alert('saving error')
+            alert('saving error');
         });
     }
 
@@ -140,10 +134,11 @@ coolApp.controller('fruitCtrl', function($scope, $location, $window, $routeParam
     $scope.saveAddingFruit = function(){
         fruitService.addFruit($scope.fruitAdded, function(res) {
             if(res.data.error ){
-                if(res.data.error == 'LOGOUT'){
+                if(res.data.errorCode == 1){
+                    alert(res.data.error);
                     $window.location.href = '/';
                 } else {
-                    alert('SAVING ERROR');
+                    alert('ADDING ERROR');
                 }
             } else {
                 $scope.fruitAdded.id= res.data.id;

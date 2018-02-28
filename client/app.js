@@ -1,1 +1,1 @@
-var coolApp = angular.module('cool', ['ngRoute','elif','btford.modal']);
+var coolApp = angular.module('cool', ['ngRoute','ngRoute.middleware','elif','btford.modal']);

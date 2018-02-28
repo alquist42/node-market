@@ -2,9 +2,6 @@ var bl = require('./bl');
 
 // CRUD
 function read(params, session, callback) {
-    if(!session.auth){
-        return callback('SESSION missed');
-    }
     bl.fruits.getFruits(params, function(err, fruitArray) {
         if (err) {
             callback(err);
@@ -25,10 +22,6 @@ function productsCount(callback) {
 }
 
 function editFruit(params, session, callback) {
-    if(!session.auth){
-        return callback('SESSION missed');
-    }
-
     bl.fruits.editFruit(params, function(err, fruitEditArray) {
         if (err) {
             callback(err);
@@ -39,10 +32,6 @@ function editFruit(params, session, callback) {
 }
 
 function addFruit(params, session, callback) {
-    if(!session.auth){
-        return callback('SESSION missed');
-    }
-
     bl.fruits.addFruit(params, function(err, fruitAddArray) {
         if (err) {
             callback(err);
@@ -53,9 +42,6 @@ function addFruit(params, session, callback) {
 }
 
 function getCategories(session, callback) {
-    if(!session.auth){
-        return callback('SESSION missed');
-    }
     bl.fruits.getCategories(function(err, categoryArray) {
         if (err) {
             callback(err);
