@@ -14,6 +14,7 @@ coolApp.controller('authCtrl', function($scope, $templateRequest, $location, $ro
         } else{
             $scope.isLoggedIn = true;
             $scope.user = res.data;
+            $scope.setCartData();
             // $templateRequest("auth/dashboard.html").then(function(html){
             //     var template = angular.element(html);
             //     angular.element(document.querySelector('#section1')).empty().append(template);
@@ -22,6 +23,22 @@ coolApp.controller('authCtrl', function($scope, $templateRequest, $location, $ro
         }
     }, function(err) {
     });
+
+    fruitService.getFruitsCount(function(res) {
+        $scope.fruitsCount = res.data;
+    }, function(res) {});
+
+
+
+
+    $scope.setCartData = function(){
+        cartService.getCart(function(res) {
+            $scope.cartFruits = res.data.fruits;
+            $scope.cartId = res.data.cart;
+            $scope.totalSum = res.data.totalSum;
+        }, function(res) {
+        });
+    };
 
     $scope.login = function(user) {
       //  console.log(user)
@@ -32,6 +49,7 @@ coolApp.controller('authCtrl', function($scope, $templateRequest, $location, $ro
                 } else{
                     $scope.isLoggedIn = true;
                     $scope.user = res.data;
+                    $scope.setCartData();
                     // $templateRequest("auth/dashboard.html").then(function(html){
                     //     var template = angular.element(html);
                     //     angular.element(document.querySelector('#section1')).empty().append(template);
@@ -82,6 +100,7 @@ coolApp.controller('authCtrl', function($scope, $templateRequest, $location, $ro
                 } else{
                     $scope.isLoggedIn = true;
                     $scope.user = res.data;
+                    $scope.setCartData();
                     $window.location.href = '/';
                 }
             }, function(res) {
@@ -93,17 +112,6 @@ coolApp.controller('authCtrl', function($scope, $templateRequest, $location, $ro
     $scope.isAdmin = function (role) {
         return role == 'admin';
     };
-    
-    fruitService.getFruitsCount(function(res) {
-        $scope.fruitsCount = res.data;
-    }, function(res) {});
 
-
-    cartService.getCart(function(res) {
-        $scope.cartFruits = res.data.fruits;
-        $scope.cartId = res.data.cart;
-        $scope.totalSum = res.data.totalSum;
-    }, function(res) {
-    });
 
 });

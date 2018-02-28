@@ -186,6 +186,9 @@ app.post(apiPrefix + 'cart', function (req, res) {
 
     cartCtrl.AddToCart(req.body, req.session, function(err, result) {
         if (err) {
+            if(err == 'SESSION missed'){
+                res.end(JSON.stringify({error:'LOGOUT'}));
+            }
             console.log('error', err);
             res.end(JSON.stringify({error:'server adding to cart error'}));
         } else {
@@ -211,8 +214,11 @@ app.delete(apiPrefix + 'cart', function (req, res) {
 app.get(apiPrefix + 'cart', function (req, res) {
     cartCtrl.GetCart(req.session, function(err, result) {
         if (err) {
+            if(err == 'SESSION missed'){
+                res.end(JSON.stringify({error:'LOGOUT'}));
+            }
             console.log('error', err);
-            res.end(JSON.stringify({error:'server adding to cart error'}));
+            res.end(JSON.stringify({error:'server getting cart error'}));
         } else {
             res.end(JSON.stringify(result));
         }
