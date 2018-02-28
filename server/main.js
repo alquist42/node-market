@@ -44,7 +44,7 @@ app.get('/', function (req, res) {
 app.get(apiPrefix + 'product/findByCategory', function (req, res) {
     fruitCtrl.Read(req.query, req.session, function(err, fruits) {
         if (err) {
-            res.end('error!');
+            res.end(JSON.stringify({error:"error fruits getting"}));
         }
         res.end(JSON.stringify(fruits));
     })
@@ -53,7 +53,7 @@ app.get(apiPrefix + 'product/findByCategory', function (req, res) {
 app.get(apiPrefix + 'product/count', function (req, res) {
     fruitCtrl.ProductsCount(function(err, fruits) {
         if (err) {
-            res.end('error!');
+            res.end(JSON.stringify({error:"error fruit count getting"}));
         }
         res.end(JSON.stringify(fruits));
     })
@@ -119,7 +119,7 @@ app.post(apiPrefix + 'product', function (req, res) {
 app.get(apiPrefix + 'category', function (req, res) {
     fruitCtrl.GetCategories(req.session, function(err, data) {
         if (err) {
-            res.end('error!');
+            res.end(JSON.stringify({error:"error categories getting"}));
         }
         res.end(JSON.stringify(data));
         // console.log(data);
@@ -132,7 +132,7 @@ app.post(apiPrefix + 'register', function (req, res) {
     authCtrl.Register(req.body, function(err, user) {
         if (err) {
           //  console.log('returned error');
-            res.end(JSON.stringify({error:err}));
+            res.end(JSON.stringify({error:'Register error!'}));
         }
         if(user && Object.keys(user).length){
             req.session.auth = {
@@ -175,6 +175,7 @@ app.get(apiPrefix + 'logout', function (req, res) {
     req.session.destroy(function(err){
         if(err){
             console.log(err);
+            res.end(JSON.stringify({error:'logout error'}));
         }
         res.end(JSON.stringify('logged out'));
     });
@@ -204,7 +205,7 @@ app.delete(apiPrefix + 'cart', function (req, res) {
             if(err == 'SESSION missed'){
                 res.end(JSON.stringify({error:'LOGOUT'}));
             }
-            res.end(JSON.stringify({error:'server deleting to cart error'}));
+            res.end(JSON.stringify({error:'server deleting from cart error'}));
         } else {
             res.end(JSON.stringify(result));
         }
@@ -244,7 +245,7 @@ app.get(apiPrefix + 'download', function (req, res) {
     cartCtrl.GetCartItems(req.session, function(err, result) {
         if (err) {
             console.log('error', err);
-            res.end(JSON.stringify({error:'server adding to cart error'}));
+            res.end(JSON.stringify({error:'download error'}));
         } else {
             let text = "Your order:\r\n";
             let totPrice = 0;
