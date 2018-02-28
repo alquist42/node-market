@@ -23,7 +23,7 @@
             <br><br>
         </div>
         <div id="information" ng-model="user">
-            <div ng-if="isLoggedIn">
+            <div ng-if="isLoggedIn && !isAdmin(user.role)">
                 Notification:
                 <br>
                 <div>
