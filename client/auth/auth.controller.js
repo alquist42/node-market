@@ -1,4 +1,4 @@
-coolApp.controller('authCtrl', function($scope, $templateRequest, $location, $routeParams, $compile, $window, AuthService) {
+coolApp.controller('authCtrl', function($scope, $templateRequest, $location, $routeParams, $compile, $window, AuthService, cartService) {
     const userExample= {
         email: 'email@example.com',
         password: '123',
@@ -87,4 +87,15 @@ coolApp.controller('authCtrl', function($scope, $templateRequest, $location, $ro
             $scope.isAdmin = function (role) {
                 return role == 'admin';
             };
+
+    $scope.totalSum = 0;
+    cartService.getCart(function(res) {
+        $scope.cartFruits = res.data.fruits;
+        $scope.cartId = res.data.cart;
+        for(let i=0; i<$scope.cartFruits.length; i++){
+            $scope.totalSum += +$scope.cartFruits[i]['price'];
+        }
+    }, function(res) {
+    });
+
 });
