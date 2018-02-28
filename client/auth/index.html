@@ -1,7 +1,12 @@
 <div id="index" class="flex-container">
     <div class="part part-1 login bordered-right text-center">
             <div class="col-md-offset-1 col-md-10" id="section1">
-                <div ng-include="'auth/loginForm.html'"></div>
+                <div ng-if="isLoggedIn">
+                    <div ng-include="'auth/dashboard.html'"></div>
+                </div>
+                <div ng-else>
+                    <div ng-include="'auth/loginForm.html'"></div>
+                </div>
             </div>
     </div>
     <div class="part part-2 commercial bordered-right text-center">
