@@ -221,6 +221,15 @@ app.post(apiPrefix + 'order', isAuthenticated, function (req, res) {
     });
 });
 
+app.get(apiPrefix + 'order/count', function (req, res) {
+    orderCtrl.OrdersCount(function(err, orders) {
+        if (err) {
+            res.end(JSON.stringify({error:"error order count getting"}));
+        }
+        res.end(JSON.stringify(orders));
+    })
+});
+
 app.get(apiPrefix + 'download', isAuthenticated, function (req, res) {
     cartCtrl.GetCartItems(req.session, function(err, result) {
         if (err) {

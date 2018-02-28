@@ -9,6 +9,7 @@ coolApp.controller('authCtrl', function($scope, $templateRequest, $location, $ro
     $scope.isLoggedIn = false;
     $scope.totalSum = 0;
     $scope.fruitsCount = 0;
+    $scope.ordersCount = 0;
     AuthService.checkLoggedIn (function(res) {
         if(res.data.error){
         } else{
@@ -29,6 +30,15 @@ coolApp.controller('authCtrl', function($scope, $templateRequest, $location, $ro
             alert(res.data.error)
         } else {
             $scope.fruitsCount = res.data;
+        }
+
+    }, function(res) {});
+
+    orderService.getOrdersCount(function(res) {
+        if(res.data.error){
+            alert(res.data.error)
+        } else {
+            $scope.ordersCount = res.data;
         }
 
     }, function(res) {});

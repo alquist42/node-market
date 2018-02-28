@@ -13,4 +13,15 @@ function order(params, session, callback) {
     })
 }
 
+function ordersCount(callback) {
+    bl.orders.getOrdersCount(function(err, fruitArray) {
+        if (err) {
+            callback(err);
+        }
+
+        callback(null, fruitArray);
+    })
+}
+
 module.exports.Order = order;
+module.exports.OrdersCount = ordersCount;

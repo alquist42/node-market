@@ -273,6 +273,21 @@ function order(params, callback){
         });
 }
 
+function getOrdersCount(callback) {
+    dal.executeQuery('SELECT count(id) as count FROM `orders` ', [], function(err, rows) {
+        if (err) {
+            callback(err);
+        }
+
+        let count = 0;
+        if(rows && rows.length){
+            let row = rows[0];
+            count = row.count;
+        }
+        callback(null, count);
+    });
+}
+
 module.exports.fruits = {
     getFruits: getFruits,
     getFruitsCount: getFruitsCount,
@@ -297,5 +312,6 @@ module.exports.cart = {
 };
 
 module.exports.orders = {
-    order: order
+    order: order,
+    getOrdersCount: getOrdersCount
 }

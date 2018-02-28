@@ -159,6 +159,13 @@ coolApp.service('orderService', function($http) {
         }).then(onSuccess, onError);
     }
 
+    this.getOrdersCount = function(onSuccess, onError) {
+        $http({
+            url: apiUrl + 'order/count',
+            method: 'GET'
+        }).then(onSuccess, onError);
+    }
+
 });
 
 /******************** OTHER SERVICES ******************************/
