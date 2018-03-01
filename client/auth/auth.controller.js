@@ -48,7 +48,6 @@ coolApp.controller('authCtrl', function($scope, $templateRequest, $location, $ro
         cartService.getCart(function(res) {
             $scope.cartFruits = res.data.fruits;
             $scope.cartId = res.data.cart;
-            $scope.cartDate = res.data.cart;
             $scope.totalSum = res.data.totalSum;
         }, function(res) {
         });
