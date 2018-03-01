@@ -51,6 +51,7 @@ function getCart(session, callback) {
 function getCartItems(session, callback) {
     let authData = session.auth;
     let cartId = session.cart;
+    let cartDate = session.cart;
     if(!cartId){
         return callback('SESSION missed');
     }

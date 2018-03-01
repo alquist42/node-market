@@ -108,17 +108,19 @@ function addFruit(params, callback){
 }
 
 function getUserCart(tz, callback){
-    dal.executeQuery('SELECT carts.id FROM carts LEFT JOIN orders ON carts.id = orders.cart WHERE carts.customer = ? AND orders.id IS NULL',
+    dal.executeQuery('SELECT carts.id, carts.creation_date FROM carts LEFT JOIN orders ON carts.id = orders.cart WHERE carts.customer = ? AND orders.id IS NULL',
         [tz], function(err, rows) {
         if (err) {
             callback(err);
         } else{
             let cartId = 0;
+            let cartDate = 0;
             if(rows && rows.length){
                 let cartRow = rows[0];
                 cartId = cartRow.id;
+                cartDate = cartRow.creation_date;
             }
-            callback(null,cartId);
+            callback(null, cartId, cartDate);
         }
     });
 
