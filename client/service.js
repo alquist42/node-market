@@ -146,6 +146,13 @@ coolApp.service('cartService', function($http) {
         }).then(onSuccess, onError);
     }
 
+    this.getHistory = function(onSuccess, onError) {
+        $http({
+            url: apiUrl + 'history',
+            method: 'GET',
+        }).then(onSuccess, onError);
+    }
+
 });
 
 /******************** ORDER SERVICE ******************************/

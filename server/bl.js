@@ -235,6 +235,43 @@ function getCartItems(cartId, callback){
 
 }
 
+function getUserHistory(userId, callback){
+    dal.executeQuery(`SELECT carts.id AS cart_id, carts.creation_date AS cart_date,
+                         (
+                        SELECT SUM(price)
+                        FROM cart_items
+                        WHERE cart = cart_id
+                        ) AS total_price
+                        FROM carts
+                        LEFT JOIN orders o1 ON carts.id = o1.cart
+                        WHERE carts.customer = ? AND o1.id IS NULL`,
+                        [userId], function(err, rows) {
+        if (err) {
+            callback(err);
+        } else {
+            dal.executeQuery(`SELECT MAX(order_date) AS order_date
+                                    FROM orders
+                                    WHERE customer=? `, [userId], function(err, date) {
+                if (err) {
+                    callback(err);
+                } else {
+                    let data = {};
+                    if(rows && rows.length){
+                        data = rows[0];
+                    }
+
+                    if(date && date.length){
+                        data.order_date = date[0]['order_date'];
+                    }
+
+                    callback(null, data);
+                }
+            })
+        }
+    });
+
+}
+
 function getCategories(callback) {
     dal.executeQuery('SELECT * FROM `categories`', [], function(err, rows) {
         if (err) {
@@ -308,7 +345,8 @@ module.exports.cart = {
     deleteFromCart: deleteCartItems,
  //   deleteCartItems: deleteCartItems,
     getCart: getCartData,
-    getCartItems: getCartItems
+    getCartItems: getCartItems,
+    getUserHistory: getUserHistory
 };
 
 module.exports.orders = {

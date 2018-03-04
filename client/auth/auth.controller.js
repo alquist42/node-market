@@ -45,10 +45,10 @@ coolApp.controller('authCtrl', function($scope, $templateRequest, $location, $ro
 
 
     $scope.setCartData = function(){
-        cartService.getCart(function(res) {
-            $scope.cartFruits = res.data.fruits;
-            $scope.cartId = res.data.cart;
-            $scope.totalSum = res.data.totalSum;
+        cartService.getHistory(function(res) {
+            $scope.cartDate = res.data.cart_date;
+            $scope.orderDate = res.data.order_date;
+            $scope.totalSum = res.data.total_price;
         }, function(res) {
         });
     };

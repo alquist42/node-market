@@ -206,6 +206,16 @@ app.get(apiPrefix + 'cart', isAuthenticated, function (req, res) {
     });
 });
 
+app.get(apiPrefix + 'history', isAuthenticated, function (req, res) {
+    let user = req.session.auth.user;
+    cartCtrl.GetUserHistrory (user.teudat_zehut, function(err, data) {
+        if (err) {
+            res.end(JSON.stringify({error:'user data error'}));
+        }
+        res.end(JSON.stringify(data));
+    });
+});
+
 /******************** ORDER SERVICE ******************************/
 
 app.post(apiPrefix + 'order', isAuthenticated, function (req, res) {

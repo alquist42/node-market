@@ -63,8 +63,18 @@ function getCartItems(session, callback) {
     })
 }
 
+function getUserHistrory(userId, callback) {
+    bl.cart.getUserHistory(userId, function(err, result) {
+        if (err) {
+            return callback(err);
+        }
+        callback(null, result);
+    })
+}
+
 module.exports.AddToCart = addToCart;
 module.exports.DeleteFromCart = deleteFromCart;
 //module.exports.DeleteCartItems = deleteCartItems;
 module.exports.GetCart = getCart;
 module.exports.GetCartItems = getCartItems;
+module.exports.GetUserHistrory = getUserHistrory;

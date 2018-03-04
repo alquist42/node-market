@@ -26,13 +26,13 @@
             <div ng-if="isLoggedIn && !isAdmin(user.role)">
                 Notification:
                 <br>
-                <div>
-                    You have open cart from
+                <div ng-if="cartDate">
+                    You have open cart from {{cartDate | date :  "dd.MM.y"}}
                     <br>
                     Total sum: {{ totalSum | currency }}
                 </div>
-                <div>
-                    Your last purchase was on
+                <div ng-if="orderDate">
+                    Your last purchase was on {{orderDate | date : "dd.MM.y" }}
                 </div>
                 <div>
                     Welcome {{ user.name }}
