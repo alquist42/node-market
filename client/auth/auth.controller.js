@@ -25,24 +25,35 @@ coolApp.controller('authCtrl', function($scope, $templateRequest, $location, $ro
     }, function(err) {
     });
 
-    fruitService.getFruitsCount(function(res) {
-        if(res.data.error){
-            alert(res.data.error)
-        } else {
-            $scope.fruitsCount = res.data;
+    $scope.$on('$routeChangeSuccess', function () {
+        if($location.path() == "/"){
+            $scope.init();
         }
+    });
 
-    }, function(res) {});
+    $scope.init = function(){
+        fruitService.getFruitsCount(function(res) {
+            if(res.data.error){
+                alert(res.data.error)
+            } else {
+                $scope.fruitsCount = res.data;
+            }
 
-    orderService.getOrdersCount(function(res) {
-        if(res.data.error){
-            alert(res.data.error)
-        } else {
-            $scope.ordersCount = res.data;
+        }, function(res) {});
+
+        orderService.getOrdersCount(function(res) {
+            if(res.data.error){
+                alert(res.data.error)
+            } else {
+                $scope.ordersCount = res.data;
+            }
+
+        }, function(res) {});
+
+        if($scope.isLoggedIn){
+            $scope.setCartData();
         }
-
-    }, function(res) {});
-
+    }
 
     $scope.setCartData = function(){
         cartService.getHistory(function(res) {
