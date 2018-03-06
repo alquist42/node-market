@@ -24,10 +24,16 @@
         </div>
         <div id="information" ng-model="user">
             <div ng-if="isLoggedIn && !isAdmin(user.role)">
-                Notification:
+                <h3>Notification:</h3>
                 <br>
                 <div ng-if="cartDate">
                     You have open cart from {{cartDate | date :  "dd.MM.y"}}
+                    <br><br>
+                    <div id="cart" ng-controller="cartCtrl"><h4>Your cart:</h4>
+                        <div class="info fruit-item" ng-repeat="cartFruit in cartFruits">
+                                Name: {{cartFruit.name}} Quantity: {{cartFruit.quantity}} Price: {{cartFruit.price | currency}}
+                        </div>
+                    </div>
                     <br>
                     Total sum: {{ totalSum | currency }}
                 </div>
