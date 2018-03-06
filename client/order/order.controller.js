@@ -42,4 +42,21 @@ coolApp.controller('orderCtrl', function($scope, $location, $window, $routeParam
         $location.path('/', true);
     };
 
+
+   $scope.initDatepicker = function(){
+       $("#datepicker").datepicker({
+           beforeShowDay: function (date) {
+               var disableddates = ["3-5-2018", "12-11-2014", "12-25-2014", "12-20-2014"];
+               var m = date.getMonth();
+               var d = date.getDate();
+               var y = date.getFullYear();
+               var currentdate = (m + 1) + '-' + d + '-' + y;
+               if (jQuery.inArray(currentdate, disableddates) != -1) {
+                   return [false];
+               }
+               return [true];
+           }
+       });
+   }
+
 });

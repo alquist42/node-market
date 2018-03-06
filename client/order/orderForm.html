@@ -33,7 +33,7 @@
             <label for="shippingDate" class="col-md-offset-1 col-sm-2 control-label required-field">Shipping Date</label>
             <div class="col-xs-8 date">
                 <div class="input-group input-append date" id="shippingDate">
-                    <input ng-model="order.delivery_date" type="date" class="form-control input-sm chat-input margin_bottom" name="shippingDate">
+                    <input ng-model="order.delivery_date" ng-init="initDatepicker()" type="text" id="datepicker" class="form-control input-sm chat-input margin_bottom" name="shippingDate" required>
                     <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
                     <span class="pull-right text-danger" ng-show="orderForm.shippingDate.$touched && orderForm.shippingDate.$invalid">Shipping date is required</span>
                 </div>
@@ -58,3 +58,6 @@
         </span>
     </div>
 </form>
+<script>
+
+</script>
