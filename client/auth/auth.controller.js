@@ -1,7 +1,7 @@
 coolApp.controller('authCtrl', function($scope, $templateRequest, $location, $routeParams, $compile, $window, AuthService, fruitService, orderService, cartService) {
     const userExample= {
         email: 'email@example.com',
-        password: '123',
+        // password: '123',
         name: 'guest',
         role: 'client'
     };
