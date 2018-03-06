@@ -31,11 +31,11 @@
                     <br>
                     Total sum: {{ totalSum | currency }}
                 </div>
-                <div ng-if="orderDate">
+                <div ng-if="orderDate && !cartDate">
                     Your last purchase was on {{orderDate | date : "dd.MM.y" }}
                 </div>
-                <div>
-                    Welcome {{ user.name }}
+                <div ng-if="!orderDate && !cartDate">
+                    {{ user.name }}, welcome to make your first purchase!
                 </div>
             </div>
 

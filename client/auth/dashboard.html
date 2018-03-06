@@ -3,10 +3,14 @@
         Hi, admin! <br><a href="#!/admin/category/fruits" class="btn btn-info" role="button">Start managing </a>
     </div>
     <div ng-else>
-        <a href="#!/category/fruits" class="btn btn-info" role="button">Start shopping </a>
+        <div ng-if="cartDate">
+            <a href="#!/category/fruits" class="btn btn-info" role="button">Continue shopping</a>
+        </div>
+        <div ng-else="cartDate">
+            <a href="#!/category/fruits" class="btn btn-info" role="button">Start shopping</a>
+        </div>
         <div id="cart-link">
             Your cart
         </div>
     </div>
-
 </div>
