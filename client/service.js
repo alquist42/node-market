@@ -173,6 +173,13 @@ coolApp.service('orderService', function($http) {
         }).then(onSuccess, onError);
     }
 
+    this.getDates = function(onSuccess, onError) {
+        $http({
+            url: apiUrl + 'order/dates',
+            method: 'GET'
+        }).then(onSuccess, onError);
+    }
+
 });
 
 /******************** OTHER SERVICES ******************************/

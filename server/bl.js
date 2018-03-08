@@ -326,7 +326,7 @@ function getOrdersCount(callback) {
 }
 
 function getDeliveryDates(callback) {
-    dal.executeQuery('SELECT delivery_date, COUNT(*) FROM orders GROUP BY delivery_date HAVING COUNT(*)>3; ', [], function(err, rows) {
+    dal.executeQuery('SELECT delivery_date, COUNT(*) FROM orders GROUP BY delivery_date HAVING COUNT(*)>2; ', [], function(err, rows) {
         if (err) {
             callback(err);
         }
@@ -336,6 +336,7 @@ function getDeliveryDates(callback) {
             deliveryDatesArray.push(new models.Order(row));
         });
         callback(null, deliveryDatesArray);
+        console.log(deliveryDatesArray);
     });
 }
 

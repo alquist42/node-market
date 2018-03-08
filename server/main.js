@@ -241,11 +241,11 @@ app.get(apiPrefix + 'order/count', function (req, res) {
 });
 
 app.get(apiPrefix + 'order/dates', function (req, res) {
-    orderCtrl.GetDeliveryDates(function(err, deliveryDates) {
+    orderCtrl.GetDeliveryDates(function(err, data) {
         if (err) {
             res.end(JSON.stringify({error:"error delivery dates getting"}));
         }
-        res.end(JSON.stringify(deliveryDates));
+        res.end(JSON.stringify(data));
     })
 });
 
