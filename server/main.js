@@ -240,6 +240,15 @@ app.get(apiPrefix + 'order/count', function (req, res) {
     })
 });
 
+app.get(apiPrefix + 'order/dates', function (req, res) {
+    orderCtrl.GetDeliveryDates(function(err, deliveryDates) {
+        if (err) {
+            res.end(JSON.stringify({error:"error delivery dates getting"}));
+        }
+        res.end(JSON.stringify(deliveryDates));
+    })
+});
+
 app.get(apiPrefix + 'download', isAuthenticated, function (req, res) {
     cartCtrl.GetCartItems(req.session, function(err, result) {
         if (err) {

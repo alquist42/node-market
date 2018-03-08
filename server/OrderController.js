@@ -23,5 +23,16 @@ function ordersCount(callback) {
     })
 }
 
+function getDeliveryDates(callback) {
+    bl.orders.getDeliveryDates(function(err, deliveryDatesArray) {
+        if (err) {
+            callback(err);
+        }
+
+        callback(null, deliveryDatesArray);
+    })
+}
+
 module.exports.Order = order;
 module.exports.OrdersCount = ordersCount;
+module.exports.GetDeliveryDates = getDeliveryDates;

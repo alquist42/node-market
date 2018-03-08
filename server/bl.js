@@ -311,7 +311,7 @@ function order(params, callback){
 }
 
 function getOrdersCount(callback) {
-    dal.executeQuery('SELECT count(id) as count FROM `orders` ', [], function(err, rows) {
+    dal.executeQuery('SELECT count(id) as count FROM `orders`', [], function(err, rows) {
         if (err) {
             callback(err);
         }
@@ -322,6 +322,20 @@ function getOrdersCount(callback) {
             count = row.count;
         }
         callback(null, count);
+    });
+}
+
+function getDeliveryDates(callback) {
+    dal.executeQuery('SELECT delivery_date, COUNT(*) FROM orders GROUP BY delivery_date HAVING COUNT(*)>3; ', [], function(err, rows) {
+        if (err) {
+            callback(err);
+        }
+
+        const deliveryDatesArray = [];
+        rows.forEach(function (row) {
+            deliveryDatesArray.push(new models.Order(row));
+        });
+        callback(null, deliveryDatesArray);
     });
 }
 
@@ -351,5 +365,6 @@ module.exports.cart = {
 
 module.exports.orders = {
     order: order,
-    getOrdersCount: getOrdersCount
+    getOrdersCount: getOrdersCount,
+    getDeliveryDates: getDeliveryDates
 }
