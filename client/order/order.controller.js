@@ -42,13 +42,12 @@ coolApp.controller('orderCtrl', function($scope, $location, $window, $routeParam
         $location.path('/', true);
     };
 
-    orderService.getDates($scope, function(res) {
-        $scope.dates = res.data;
-        // $scope.categoryName = $routeParams.name;
-        // $scope.loaded = true;
-    }, function(res) {});
-
    $scope.initDatepicker = function(){
+       orderService.getDates(function(res) {
+           console.log(res)
+       }, function(res) {});
+
+
        $("#datepicker").datepicker({
            beforeShowDay: function (date) {
                // var disableddates = ["3-5-2018", "12-11-2014", "12-25-2014", "12-20-2014"];

@@ -333,7 +333,7 @@ function getDeliveryDates(callback) {
 
         const deliveryDatesArray = [];
         rows.forEach(function (row) {
-            deliveryDatesArray.push(new models.Order(row));
+            deliveryDatesArray.push(row['delivery_date']);
         });
         callback(null, deliveryDatesArray);
         console.log(deliveryDatesArray);
