@@ -295,7 +295,10 @@ function order(params, callback){
                     SELECT SUM(ci.price) AS price
                     FROM cart_items ci
                     WHERE cart = ?
-        ),?,?,?, NOW(), ?)`,
+        ),?,?,?, NOW(), (
+        SELECT SUBSTRING(credit_card, -4)
+        )
+        )`,
         [params.tz, params.cart, params.cart, params.delivery_city, params.delivery_street, params.delivery_date, params.credit_card],
         function(err, res) {
             if (err) {
@@ -374,4 +377,4 @@ module.exports.orders = {
     order: order,
     getOrdersCount: getOrdersCount,
     getDeliveryDates: getDeliveryDates
-}
+};
