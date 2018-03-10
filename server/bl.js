@@ -326,17 +326,23 @@ function getOrdersCount(callback) {
 }
 
 function getDeliveryDates(callback) {
-    dal.executeQuery('SELECT delivery_date, COUNT(*) FROM orders GROUP BY delivery_date HAVING COUNT(*)>2; ', [], function(err, rows) {
+    dal.executeQuery(`SELECT delivery_date, COUNT(*) FROM orders
+                        WHERE delivery_date >= CURDATE()
+                        GROUP BY delivery_date 
+                        HAVING COUNT(*)>2`,
+        [], function(err, rows) {
         if (err) {
             callback(err);
         }
 
         const deliveryDatesArray = [];
         rows.forEach(function (row) {
-            deliveryDatesArray.push(row['delivery_date']);
+            var d = new Date(row['delivery_date']);
+            var newDate = (d.getMonth() + 1) + '-' + d.getDate() + '-' + d.getFullYear();
+            deliveryDatesArray.push(newDate);
         });
         callback(null, deliveryDatesArray);
-        console.log(deliveryDatesArray);
+     //   console.log(deliveryDatesArray);
     });
 }
 

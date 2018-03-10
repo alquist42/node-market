@@ -44,24 +44,22 @@ coolApp.controller('orderCtrl', function($scope, $location, $window, $routeParam
 
    $scope.initDatepicker = function(){
        orderService.getDates(function(res) {
-           console.log(res)
-       }, function(res) {});
-
-
-       $("#datepicker").datepicker({
-           beforeShowDay: function (date) {
-               // var disableddates = ["3-5-2018", "12-11-2014", "12-25-2014", "12-20-2014"];
-               var disableddates = [$scope.dates];
-               var m = date.getMonth();
-               var d = date.getDate();
-               var y = date.getFullYear();
-               var currentdate = (m + 1) + '-' + d + '-' + y;
-               if (jQuery.inArray(currentdate, disableddates) != -1) {
-                   return [false];
+           $("#datepicker").datepicker({
+               minDate: 0,
+               beforeShowDay: function (date) {
+                   // var disableddates = ["3-5-2018", "12-11-2014", "12-25-2014", "12-20-2014"];
+                   var disableddates = res.data;
+                   var m = date.getMonth();
+                   var d = date.getDate();
+                   var y = date.getFullYear();
+                   var currentdate = (m + 1) + '-' + d + '-' + y;
+                   if (jQuery.inArray(currentdate, disableddates) != -1) {
+                       return [false];
+                   }
+                   return [true];
                }
-               return [true];
-           }
-       });
+           });
+       }, function(res) {});
    }
 
 });
