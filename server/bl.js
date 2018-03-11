@@ -295,10 +295,7 @@ function order(params, callback){
                     SELECT SUM(ci.price) AS price
                     FROM cart_items ci
                     WHERE cart = ?
-        ),?,?,?, NOW(), (
-        SELECT SUBSTRING(credit_card, -4)
-        )
-        )`,
+        ),?,?,?, NOW(), ?)`,
         [params.tz, params.cart, params.cart, params.delivery_city, params.delivery_street, params.delivery_date, params.credit_card],
         function(err, res) {
             if (err) {
@@ -307,6 +304,7 @@ function order(params, callback){
             }
             params.id = res.insertId;
             params.cart = params.cart;
+            params.credit_card = params.credit_card.slice(-4);
             let orderItemModel = new models.Order(params);
             callback(null, orderItemModel);
            // console.log(orderItemModel);
