@@ -306,7 +306,7 @@ function order(params, callback){
             params.cart = params.cart;
             // params.credit_card = params.credit_card.slice(-4);
             let creditCard = params.credit_card;
-            params.credit_card = creditCard.slice(-4);
+            params.credit_card = creditCard.substring(creditCard.length - 4);
 
             let orderItemModel = new models.Order(params);
             callback(null, orderItemModel);
