@@ -288,6 +288,11 @@ function getCategories(callback) {
 }
 
 function order(params, callback){
+    let d = new Date(params.delivery_date);
+    params.delivery_date = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+    var card_value = String(params.credit_card);
+    params.credit_card = card_value.substr(card_value.length-4);
+   
     dal.executeQuery(`
     INSERT INTO orders (id, customer, cart, price, delivery_city, delivery_street, delivery_date, order_date, credit_card)
     VALUES (
@@ -303,11 +308,6 @@ function order(params, callback){
                 return callback('Order error');
             }
             params.id = res.insertId;
-            params.cart = params.cart;
-            // params.credit_card = params.credit_card.slice(-4);
-            let creditCard = params.credit_card;
-            params.credit_card = creditCard.substring(creditCard.length - 4);
-
             let orderItemModel = new models.Order(params);
             callback(null, orderItemModel);
            // console.log(orderItemModel);
