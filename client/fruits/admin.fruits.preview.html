@@ -5,12 +5,12 @@
     </div>
     <h2>Product Content:</h2> <br>
     <div class="pull-left" ng-if="fruit.image">
-        <img src="../uploads/{{fruit.image}}" height="125">
+        <img ng-src="../uploads/{{fruit.image}}" height="125">
     </div>
     <div class="pull-left" ng-else>
         <img src="../uploads/no-image.png" height="125">
     </div>
-    <!--<img src="../uploads/{{fruit.image}}" height="125">-->
+    <!--<img ng-src="../uploads/{{fruit.image}}" height="125">-->
     <div class="pull-right">
         <h6>Name: {{fruit.name}}</h6><br>
         <h6>Price: {{fruit.price | currency}}</h6>
