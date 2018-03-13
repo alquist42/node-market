@@ -30,7 +30,7 @@
 
     <div class="thumbnail fruit-item col-xs-4 col-sm-3 col-md-2 col-lg-2" data-name="{{fruit.name}}" data-price="{{fruit.price}}" data-fid="{{fruit.id}}" id="fruit-{{fruit.id}}" ng-repeat="fruit in fruits | filter:search" ng-click="showFruitPopup(categoryName, fruit.id)">
         <div class="text-center" ng-if="fruit.image">
-            <img src="../uploads/{{fruit.image}}" height="100">
+            <img ng-src="../uploads/{{fruit.image}}" height="100">
         </div>
         <div class="text-center" ng-else>
             <img src="../uploads/no-image.png" height="100">
