@@ -294,6 +294,11 @@ function order(params, callback){
     var card_value = String(params.credit_card);
     params.credit_card = card_value.substr(card_value.length-4);
     var is_valid = luhn.validate(card_value);
+    if(is_valid){
+        console.log("Valid credit card");
+    }else{
+        console.log("Please enter a valid credit card");
+    }
    
     dal.executeQuery(`
     INSERT INTO orders (id, customer, cart, price, delivery_city, delivery_street, delivery_date, order_date, credit_card)
