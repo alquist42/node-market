@@ -1,6 +1,7 @@
 var dal = require('./dal');
 var models = require('./models');
 var md5 = require('md5');
+var luhn = require("luhn").luhn; // luhn algorithm validation
 
 function login(params, callback) {
   //  console.log(md5(123), md5(params.password));
@@ -292,6 +293,7 @@ function order(params, callback){
     params.delivery_date = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
     var card_value = String(params.credit_card);
     params.credit_card = card_value.substr(card_value.length-4);
+    var is_valid = luhn.validate(card_value);
    
     dal.executeQuery(`
     INSERT INTO orders (id, customer, cart, price, delivery_city, delivery_street, delivery_date, order_date, credit_card)
