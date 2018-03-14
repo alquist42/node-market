@@ -1,7 +1,7 @@
 var dal = require('./dal');
 var models = require('./models');
 var md5 = require('md5');
-var luhn = require("luhn").luhn; // luhn algorithm validation
+var luhn = require("luhn"); // luhn algorithm validation
 
 function login(params, callback) {
   //  console.log(md5(123), md5(params.password));
