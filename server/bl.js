@@ -297,7 +297,8 @@ function order(params, callback){
     if(is_valid){
         console.log("Valid credit card");
     }else{
-        console.log("Please enter a valid credit card");
+        console.log("Not a valid credit card");
+        return callback('Please enter a valid credit card');
     }
    
     dal.executeQuery(`
