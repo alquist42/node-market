@@ -291,6 +291,12 @@ function getCategories(callback) {
 function order(params, callback){
     let d = new Date(params.delivery_date);
     params.delivery_date = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+    var pattern = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
+    // Match the date format through regular expression
+    var res = d.match( pattern );
+    if(!res){
+        return callback({message:'Please enter a valid date', type: 'validation'});
+    }
     var card_value = String(params.credit_card);
     params.credit_card = card_value.substr(card_value.length-4);
     var is_valid = luhn.validate(card_value);
