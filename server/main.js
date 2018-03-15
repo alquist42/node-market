@@ -222,7 +222,11 @@ app.post(apiPrefix + 'order', isAuthenticated, function (req, res) {
     orderCtrl.Order(req.body, req.session, function(err, data) {
         if (err) {
             console.log('error', err);
-            res.end(JSON.stringify({error:'server order error'}));
+            if(err.type && err.type == 'validation'){
+                res.end(JSON.stringify({error:err.message}));
+            } else {
+                res.end(JSON.stringify({error:'server order error'}));
+            }
         } else {
             req.session.cart = data.cart;
             res.end(JSON.stringify(data));

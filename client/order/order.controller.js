@@ -18,8 +18,12 @@ coolApp.controller('orderCtrl', function($scope, $location, $window, $routeParam
         data.cart = $scope.cartId;
         orderService.makeOrder(data,
             function(res) {
-                $scope.orders = res.data;
-                $scope.goToMessage();
+                if(res.data.error){
+                    alert(res.data.error);
+                } else {
+                    $scope.orders = res.data;
+                    $scope.goToMessage();
+                }
             }, function(res) {
                 alert('unknown order error');
             }

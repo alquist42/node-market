@@ -294,11 +294,8 @@ function order(params, callback){
     var card_value = String(params.credit_card);
     params.credit_card = card_value.substr(card_value.length-4);
     var is_valid = luhn.validate(card_value);
-    if(is_valid){
-        console.log("Valid credit card");
-    }else{
-        console.log("Not a valid credit card");
-        return callback('Please enter a valid credit card');
+    if(!is_valid){
+        return callback({message:'Please enter a valid credit card', type: 'validation'});
     }
    
     dal.executeQuery(`
