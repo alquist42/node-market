@@ -2,7 +2,7 @@ var dal = require('./dal');
 var models = require('./models');
 var md5 = require('md5');
 var luhn = require("luhn"); // luhn algorithm validation
-var Regex = require("regex");
+// var Regex = require("regex");
 
 function login(params, callback) {
   //  console.log(md5(123), md5(params.password));
@@ -290,16 +290,17 @@ function getCategories(callback) {
 }
 
 function order(params, callback){
-    let d = new Date(params.delivery_date);
-    params.delivery_date = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
-    // var pattern = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
-    // Match the date format through regular expression for yyyy-mm-dd
-    var regex = new Regex(/^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/);
-    var res = regex.test(d);
-    // var res = d.match( pattern );
+
+    var pattern = /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/;
+    var str = params.delivery_date;
+    var res = str.match( pattern );
     if(!res){
         return callback({message:'Please enter a valid date', type: 'validation'});
     }
+
+    let d = new Date(params.delivery_date);
+    params.delivery_date = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+
     var card_value = String(params.credit_card);
     params.credit_card = card_value.substr(card_value.length-4);
     var is_valid = luhn.validate(card_value);

@@ -49,6 +49,7 @@ coolApp.controller('orderCtrl', function($scope, $location, $window, $routeParam
    $scope.initDatepicker = function(){
        orderService.getDates(function(res) {
            $("#datepicker").datepicker({
+               dateFormat: 'dd/mm/yy',
                minDate: 0,
                beforeShowDay: function (date) {
                    // var disableddates = ["3-5-2018", "12-11-2014", "12-25-2014", "12-20-2014"];
