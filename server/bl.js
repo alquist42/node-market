@@ -290,7 +290,15 @@ function getCategories(callback) {
 }
 
 function order(params, callback){
+    // check the given object first if it is a string at all and test for an empty string
+    function isEmpty(value) {
+        return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
+    }
+    if (isEmpty(params.delivery_street) == true) {
+        return callback({message:'Please enter a valid street', type: 'validation'});
+    }
 
+    // Match the date format through regular expression for mm-dd-yyyy
     var pattern = /^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d$/;
     var str = params.delivery_date;
     var res = str.match( pattern );
