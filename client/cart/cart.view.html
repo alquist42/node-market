@@ -9,6 +9,9 @@
     <br>
     <span class="text-center center-block">Total sum: {{ totalSum | currency }}</span>
     <br>
-    <button class="btn btn-primary btn-md" ng-click="deleteAllFruits()" type="button">Delete All</button>
-    <button class="btn btn-primary btn-md pull-right" ng-click="goToOrderStep()" type="button">Order</button>
+    <!--show the buttons, if a cart is not empty-->
+    <div ng-if="cartFruits.length !== 0">
+        <button class="btn btn-primary btn-md" ng-click="deleteAllFruits()" type="button">Delete All</button>
+        <button class="btn btn-primary btn-md pull-right" ng-click="goToOrderStep()" type="button">Order</button>
+    </div>
 </div>
