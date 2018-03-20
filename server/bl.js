@@ -289,10 +289,15 @@ function getCategories(callback) {
     });
 }
 
+// check the given object first if it is a string at all and test for an empty string
+function isEmpty(value) {
+    return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
+}
+
 function order(params, callback){
-    // check the given object first if it is a string at all and test for an empty string
-    function isEmpty(value) {
-        return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
+
+    if (isEmpty(params.delivery_city) == true) {
+        return callback({message:'Please enter a valid city', type: 'validation'});
     }
     if (isEmpty(params.delivery_street) == true) {
         return callback({message:'Please enter a valid street', type: 'validation'});
