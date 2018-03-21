@@ -20,6 +20,19 @@ function login(params, callback) {
 
 function register(params, callback) {
 
+    if (isEmpty(params.name) == true) {
+        return callback({message:'Please enter a valid name', type: 'validation'});
+    }
+    if (isEmpty(params.last_name) == true) {
+        return callback({message:'Please enter a valid last name', type: 'validation'});
+    }
+    if (isEmpty(params.city) == true) {
+        return callback({message:'Please enter a valid city', type: 'validation'});
+    }
+    if (isEmpty(params.street) == true) {
+        return callback({message:'Please enter a valid street', type: 'validation'});
+    }
+
     dal.executeQuery('SELECT teudat_zehut FROM `users` WHERE teudat_zehut = ? LIMIT 1', [params.teudat_zehut],
         function(err,rows){
             if(err) {
