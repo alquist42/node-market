@@ -34,6 +34,14 @@ function register(params, callback) {
         return callback({message:'Please enter a valid email', type: 'validation'});
     }
 
+    // Match the password format through regular expression for five or more characters
+    var pattern = /^\S{5,}$/;
+    var str = params.password;
+    var res = str.match( pattern );
+    if(!res){
+        return callback({message:'Please enter a valid password', type: 'validation'});
+    }
+
     if (isEmpty(params.name) == true) {
         return callback({message:'Please enter a valid name', type: 'validation'});
     }
