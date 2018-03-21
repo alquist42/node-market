@@ -19,6 +19,20 @@ function login(params, callback) {
 }
 
 function register(params, callback) {
+    // form fields validation
+    var teudat_zehut = String(params.teudat_zehut);
+    var is_valid = luhn.validate(teudat_zehut);
+    if(!is_valid){
+        return callback({message:'Please enter a valid teudat zehut', type: 'validation'});
+    }
+
+    // Match the email format through regular expression
+    var pattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    var str = params.email;
+    var res = str.match( pattern );
+    if(!res){
+        return callback({message:'Please enter a valid email', type: 'validation'});
+    }
 
     if (isEmpty(params.name) == true) {
         return callback({message:'Please enter a valid name', type: 'validation'});
@@ -308,7 +322,7 @@ function isEmpty(value) {
 }
 
 function order(params, callback){
-
+    // form fields validation
     if (isEmpty(params.delivery_city) == true) {
         return callback({message:'Please enter a valid city', type: 'validation'});
     }
