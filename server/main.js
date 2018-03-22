@@ -120,8 +120,12 @@ app.get(apiPrefix + 'category', isAuthenticated, function (req, res) {
 app.post(apiPrefix + 'register', function (req, res) {
     authCtrl.Register(req.body, function(err, user) {
         if (err) {
-          //  console.log('returned error');
-            res.end(JSON.stringify({error:'Register error!'}));
+          //  console.log(err)
+            if(err.type && err.type == 'validation'){
+                res.end(JSON.stringify({error:err.message}));
+            } else {
+                res.end(JSON.stringify({error:'Register error!'}));
+            }
         }
         if(user && Object.keys(user).length){
             req.session.auth = {

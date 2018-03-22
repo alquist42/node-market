@@ -76,7 +76,7 @@ function register(params, callback) {
             }
             else
             {
-                callback('User already exists');
+                callback({message:'User already exists', type: 'validation'});
              //   console.log("User already exists");
             }
         });
