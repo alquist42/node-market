@@ -19,7 +19,7 @@ function login(params, callback) {
 }
 
 function register(params, callback) {
-    // form fields validation
+    // Registration form fields validation
     var teudat_zehut = String(params.teudat_zehut);
     var is_valid = luhn.validate(teudat_zehut);
     if(!is_valid){
@@ -42,17 +42,17 @@ function register(params, callback) {
         return callback({message:'Please enter a valid password', type: 'validation'});
     }
 
-    if (isEmpty(params.name) == true) {
-        return callback({message:'Please enter a valid name', type: 'validation'});
-    }
-    if (isEmpty(params.last_name) == true) {
-        return callback({message:'Please enter a valid last name', type: 'validation'});
-    }
     if (isEmpty(params.city) == true) {
         return callback({message:'Please enter a valid city', type: 'validation'});
     }
     if (isEmpty(params.street) == true) {
         return callback({message:'Please enter a valid street', type: 'validation'});
+    }
+    if (isEmpty(params.name) == true) {
+        return callback({message:'Please enter a valid name', type: 'validation'});
+    }
+    if (isEmpty(params.last_name) == true) {
+        return callback({message:'Please enter a valid last name', type: 'validation'});
     }
 
     dal.executeQuery('SELECT teudat_zehut FROM `users` WHERE teudat_zehut = ? LIMIT 1', [params.teudat_zehut],
@@ -330,7 +330,7 @@ function isEmpty(value) {
 }
 
 function order(params, callback){
-    // form fields validation
+    // Order form fields validation
     if (isEmpty(params.delivery_city) == true) {
         return callback({message:'Please enter a valid city', type: 'validation'});
     }
