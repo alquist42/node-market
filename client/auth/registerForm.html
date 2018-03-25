@@ -54,16 +54,17 @@
                     <label for="userCity" class="col-sm-2 control-label required-field">City</label>
                     <div class="col-sm-10">
                         <select ng-model="user.city" class="form-control input-sm chat-input margin_bottom" id="userCity" name="userCity" required>
-                            <option>Jerusalem</option>
-                            <option>Tel Aviv</option>
-                            <option>Haifa</option>
-                            <option>Ashdod</option>
-                            <option>Rishon LeZiyyon</option>
-                            <option>Petah Tikva</option>
-                            <option>Beersheba</option>
-                            <option>Netanya</option>
-                            <option>Holon</option>
-                            <option>Bnei Brak</option>
+                            <option>{{config}}</option>
+                            <!--<option>Jerusalem</option>-->
+                            <!--<option>Tel Aviv</option>-->
+                            <!--<option>Haifa</option>-->
+                            <!--<option>Ashdod</option>-->
+                            <!--<option>Rishon LeZiyyon</option>-->
+                            <!--<option>Petah Tikva</option>-->
+                            <!--<option>Beersheba</option>-->
+                            <!--<option>Netanya</option>-->
+                            <!--<option>Holon</option>-->
+                            <!--<option>Bnei Brak</option>-->
                         </select>
                         <span class="pull-right text-danger" ng-show="frmLogin.userCity.$touched && frmLogin.userCity.$invalid">City is required</span>
                     </div>
