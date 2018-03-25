@@ -314,3 +314,4 @@ body
 }
 
 .ui-datepicker-unselectable span {color: red !important;}
+.form-group {width:100%}
