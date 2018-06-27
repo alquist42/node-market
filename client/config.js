@@ -95,4 +95,4 @@ coolApp.run(['$route', '$rootScope', '$location', function ($route, $rootScope, 
 
 var apiUrl = "http://localhost:8081/shopping/api/";
 
-var configCities = ['Jerusalem', 'Tel Aviv', 'Haifa', 'Ashdod', 'Rishon LeZiyyon', 'Petah Tikva', 'Beersheba', 'Netanya', 'Holon', 'Bnei Brak'];
+// var configCities = ['Jerusalem', 'Tel Aviv', 'Haifa', 'Ashdod', 'Rishon LeZiyyon', 'Petah Tikva', 'Beersheba', 'Netanya', 'Holon', 'Bnei Brak'];

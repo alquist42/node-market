@@ -1,7 +1,31 @@
-<div  class="btf-modal demo-modal">
-    <p>
-    <h2>Adding to cart {{modal.fruitName}}</h2> <a class="demo-modal-close" href ng-click="modal.closeMe()">x</a>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 
-    <input type="text" value="1" ng-model="modal.count">
-    <button ng-controller="fruitCtrl" ng-click="addToCart(modal.fruitId, modal.count, modal.fruitPrice, modal.fruitName); modal.closeMe()">Add to cart </button>
-</div>
+    <div  class="btf-modal demo-modal">
+
+    <!-- Identify your business so that you can collect the payments. -->
+    <input type="hidden" name="business" value="herschelgomez@xyzzyu.com">
+
+    <!-- Specify a Buy Now button. -->
+    <input type="hidden" name="cmd" value="_xclick">
+
+    <!-- Specify details about the item that buyers will purchase. -->
+      <!--<input type="hidden" name="item_name" value="Hot Sauce-12oz. Bottle">-->
+      <!--<input type="hidden" name="amount" value="5.95">-->
+      <!--<input type="hidden" name="currency_code" value="USD">-->
+
+    <!-- Display the payment button. -->
+    <input type="image" name="submit" border="0"
+           src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif"
+           alt="Buy Now">
+    <img alt="" border="0" width="1" height="1"
+         src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" >
+
+
+        <p>
+        <h2>Adding to cart {{modal.fruitName}}</h2> <a class="demo-modal-close" href ng-click="modal.closeMe()">x</a>
+
+        <input type="text" value="1" ng-model="modal.count">
+        <button ng-controller="fruitCtrl" ng-click="addToCart(modal.fruitId, modal.count, modal.fruitPrice, modal.fruitName); modal.closeMe()">Add to cart </button>
+    </div>
+
+</form>

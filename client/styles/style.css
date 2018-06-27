@@ -252,7 +252,7 @@ table
 body
 {
   background-size: cover;
-  background-image: url("../images/login.jpg");
+  background-image: url("../images/background.jpg");
 }
 
 #registrForm
@@ -313,5 +313,12 @@ body
   text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
 }
 
-.ui-datepicker-unselectable span {color: red !important;}
-.form-group {width:100%}
+.ui-datepicker-unselectable span
+{
+  color: red !important;
+}
+
+.form-group
+{
+  width:100%;
+}

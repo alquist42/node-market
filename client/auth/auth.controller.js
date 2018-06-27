@@ -10,7 +10,7 @@ coolApp.controller('authCtrl', function($scope, $templateRequest, $location, $ro
     $scope.totalSum = 0;
     $scope.fruitsCount = 0;
     $scope.ordersCount = 0;
-    $scope.config = configCities;
+    // $scope.config = configCities;
     AuthService.checkLoggedIn (function(res) {
         if(res.data.error){
         } else{

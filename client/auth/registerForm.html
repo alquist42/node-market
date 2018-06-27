@@ -1,6 +1,6 @@
 <div id="registrForm" class="col-md-4 col-md-offset-4 row vertical-center-row">
 
-    <form id="frmLogin" name="frmLogin" oninput="">
+    <form id="frmLogin" name="frmLogin" oninput="result.value=!!userPasswordConfirm.value&&(userPassword.value==userPasswordConfirm.value)?'':'Password fields must match'">
         <fieldset>
             <legend><h1 class="text-center">Registration</h1></legend>
             <div id="step1">
@@ -54,17 +54,17 @@
                     <label for="userCity" class="col-sm-2 control-label required-field">City</label>
                     <div class="col-sm-10">
                         <select ng-model="user.city" class="form-control input-sm chat-input margin_bottom" id="userCity" name="userCity" required>
-                            <option>{{config}}</option>
-                            <!--<option>Jerusalem</option>-->
-                            <!--<option>Tel Aviv</option>-->
-                            <!--<option>Haifa</option>-->
-                            <!--<option>Ashdod</option>-->
-                            <!--<option>Rishon LeZiyyon</option>-->
-                            <!--<option>Petah Tikva</option>-->
-                            <!--<option>Beersheba</option>-->
-                            <!--<option>Netanya</option>-->
-                            <!--<option>Holon</option>-->
-                            <!--<option>Bnei Brak</option>-->
+                            <option>Jerusalem</option>
+                            <option>Tel Aviv</option>
+                            <option>Haifa</option>
+                            <option>Ashdod</option>
+                            <option>Rishon LeZiyyon</option>
+                            <option>Petah Tikva</option>
+                            <option>Beersheba</option>
+                            <option>Netanya</option>
+                            <option>Holon</option>
+                            <option>Bnei Brak</option>
+                            <!--<option>{{config}}</option>-->
                         </select>
                         <span class="pull-right text-danger" ng-show="frmLogin.userCity.$touched && frmLogin.userCity.$invalid">City is required</span>
                     </div>
