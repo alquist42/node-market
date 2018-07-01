@@ -2,11 +2,6 @@ language: node_js
 node_js:
   - "node"
 dist: trusty
-env:
-  - ENV="development"
-  - DEBUG="*"
-  - DB_HOST="localhost"
-  - DB_NAME="eshop"
 install:
   - npm ci
 cache:
